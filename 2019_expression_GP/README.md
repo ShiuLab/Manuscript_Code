@@ -4,7 +4,7 @@
 
 **Plots for the relationships between G-T-P**
 
-scripts/plot_correlations.R
+*Code:* scripts/plot_correlations.R
 
 
 ## Modeling 
@@ -19,7 +19,9 @@ Packages needed:
 - data.table 
 - BGLR
 
-```for i in $(seq 1 100); do Rscript scripts/predict_BGLR.R data/transcripto.csv data/pheno.csv FT data/CVFs.csv $i BL results/ ; done```
+```
+for i in $(seq 1 100); do Rscript scripts/predict_BGLR.R data/transcripto.csv data/pheno.csv FT data/CVFs.csv $i BL results/ ; done
+```
 
 **rrBLUP**
 
@@ -28,13 +30,17 @@ Packages needed:
 - data.table
 - rrBLUP
 
-```for i in $(seq 1 100); do Rscript scripts/predict_rrBLUP.R data/transcripto.csv data/pheno.csv FT data/CVFs.csv $i /results/ ; done```
+```
+for i in $(seq 1 100); do Rscript scripts/predict_rrBLUP.R data/transcripto.csv data/pheno.csv FT data/CVFs.csv $i /results/ ; done
+```
 
 **Random Forest**
 
 See [ML_Pipeline Repository](https://github.com/ShiuLab/ML-Pipeline) for more information
 
-```for i in $(seq 1 100); do python ShiuLab/ML-Pipeline/ML_regression.py -df data/transcripto.csv -df2 data/pheno.csv -y_name FT -sep ',' -alg RF -gs T -cv_set data/CVFs.csv -save trans_RF_FT; done```
+```
+for i in $(seq 1 100); do python ShiuLab/ML-Pipeline/ML_regression.py -df data/transcripto.csv -df2 data/pheno.csv -y_name FT -sep ',' -alg RF -gs T -cv_set data/CVFs.csv -save trans_RF_FT; done
+```
 
 **Ensemble**
 
@@ -79,7 +85,9 @@ Rscript scripts/plot_impCOR_eQTL.R ensem_FT_SNP2kb.csv ensem_eqtl_all_pairs_eQTL
 
 **Between algorithms**
 
-```Rscript scripts/plot_impCOR_betweenModels.R FT rrBLUP_FT_SNP2kb.csv BL_FT_SNP2kb.csv RF_FT_SNP2kb.csv```
+```
+Rscript scripts/plot_impCOR_betweenModels.R FT rrBLUP_FT_SNP2kb.csv BL_FT_SNP2kb.csv RF_FT_SNP2kb.csv
+```
 
 
 
@@ -112,11 +120,15 @@ Rscript scripts/importance_statistics.R ensem_geno_FT_imp imp
 
 *Define hold out and run Feature Selection using Random Forest*
 
-```for i in $(seq 1 10); do python ML-Pipeline/holdout.py -df data/pheno.csv -type r -p 0.1 -sep ',' -save holdout_"$i".txt; done```
+```
+for i in $(seq 1 10); do python ML-Pipeline/holdout.py -df data/pheno.csv -type r -p 0.1 -sep ',' -save holdout_"$i".txt; done
+```
 
 *Run feature selection using Random Forest*
 
-```for i in $(seq 1 10); do python ML-Pipeline/Feature_Selection.py -f RF -type r -n 50,100,250,500,750,1000,2500,5000 -df data/transcripto.csv -df2 data/pheno.csv -y_name FT -sep ',' -ho holdout_"$i".txt -save t_ho"$i"; done```
+```
+for i in $(seq 1 10); do python ML-Pipeline/Feature_Selection.py -f RF -type r -n 50,100,250,500,750,1000,2500,5000 -df data/transcripto.csv -df2 data/pheno.csv -y_name FT -sep ',' -ho holdout_"$i".txt -save t_ho"$i"; done
+```
 
 *Then subset dataframe to include only markers/transcripts selected by RF and run rrBLUP, BL, and RF as above*
 
