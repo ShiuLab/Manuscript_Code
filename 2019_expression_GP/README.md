@@ -46,7 +46,8 @@ python scripts/ensemble_imp.py ensem_transcripto_FT_imp rrBLUP_transcripto_FT_co
 ```
 
 **Plots**
-Code to plot results: scripts/plots.R
+
+*Code:* scripts/plots.R
 
 
 
@@ -54,7 +55,7 @@ Code to plot results: scripts/plots.R
 
 Find significant cis and trans eQTL using [MatrixeQTL](http://www.bios.unc.edu/research/genomic_software/Matrix_eQTL/).
 
-Code: scripts/eQTL_analysis.R
+*Code:* scripts/eQTL_analysis.R
 
 
 
@@ -67,7 +68,7 @@ The importance scores are output from rrBLUP, BL, RF, En scripts above.
 ```
 python scripts/find_T_G_pairs.py -g BL_geno_FT_coef.csv -t BL_transcripto_FT_coef.csv -key data/v3_v4_xref.txt -save BL_FT_SNP2kb -LD 1000
 Rscript ../../scripts/plot_importance_topSNPs_ggp.R BL_FT_SNP2kb.csv BL_FT_coef_comp
-``
+```
 
 **Between T:eQTL pairs**
 
@@ -85,6 +86,7 @@ Rscript scripts/plot_impCOR_eQTL.R ensem_FT_SNP2kb.csv ensem_eqtl_all_pairs_eQTL
 ## Flowering Time Benchmark Analysis
 
 **Pull percentile, rank, and z-score for each algorithm type for SNPs and transcripts**
+
 ```
 Rscript scripts/importance_statistics.R rrBLUP_transcripto_FT_coef.csv coef
 Rscript scripts/importance_statistics.R rrBLUP_geno_FT_coef.csv coef
@@ -93,12 +95,13 @@ Rscript scripts/importance_statistics.R ensem_geno_FT_imp imp
 ```
 
 **Run t-tests and linear models on allele type and transcript levels VS. flowering time**
+
 ```Rscript scripts/summary_stats_GvFT_TvFT.R```
 
 
 **Generate figures**
 
-scripts/plot_benchmarkAnalysis.R
+*Code:* scripts/plot_benchmarkAnalysis.R
 
 
 
@@ -108,9 +111,11 @@ scripts/plot_benchmarkAnalysis.R
 ### Feature selection for FT
 
 *Define hold out and run Feature Selection using Random Forest*
+
 ```for i in $(seq 1 10); do python ML-Pipeline/holdout.py -df data/pheno.csv -type r -p 0.1 -sep ',' -save holdout_"$i".txt; done```
 
 *Run feature selection using Random Forest*
+
 ```for i in $(seq 1 10); do python ML-Pipeline/Feature_Selection.py -f RF -type r -n 50,100,250,500,750,1000,2500,5000 -df data/transcripto.csv -df2 data/pheno.csv -y_name FT -sep ',' -ho holdout_"$i".txt -save t_ho"$i"; done```
 
 *Then subset dataframe to include only markers/transcripts selected by RF and run rrBLUP, BL, and RF as above*
