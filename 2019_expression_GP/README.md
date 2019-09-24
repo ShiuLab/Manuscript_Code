@@ -1,10 +1,10 @@
 # Transcriptome-based prediction of complex traits in maize
 
-## Data Exploration
+## Data Processing/Exploration
 
-**Plots for the relationships between G-T-P**
+Code to process genotype, transcriptome, and phenotype data as described in [Azodi et al. TBD](link coming!): scripts data_preprocessing.R
 
-*Code:* scripts/plot_correlations.R
+Code to generate figures demonstrating the relationship between G, T, and P: scripts/plot_correlations.R
 
 
 ## Modeling 
@@ -36,10 +36,10 @@ for i in $(seq 1 100); do Rscript scripts/predict_rrBLUP.R data/transcripto.csv 
 
 **Random Forest**
 
-See [ML_Pipeline Repository](https://github.com/ShiuLab/ML-Pipeline) for more information
+For the most recent version of the ML pipeline (and detailed instructions on how to use the ML pipeline for regression/classification see the [ML_Pipeline Repository](https://github.com/ShiuLab/ML-Pipeline).
 
 ```
-for i in $(seq 1 100); do python ShiuLab/ML-Pipeline/ML_regression.py -df data/transcripto.csv -df2 data/pheno.csv -y_name FT -sep ',' -alg RF -gs T -cv_set data/CVFs.csv -save trans_RF_FT; done
+for i in $(seq 1 100); do python scripts/ML_regression.py -df data/transcripto.csv -df2 data/pheno.csv -y_name FT -sep ',' -alg RF -gs T -cv_set data/CVFs.csv -save trans_RF_FT; done
 ```
 
 **Ensemble**
