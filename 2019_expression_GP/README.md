@@ -2,7 +2,7 @@
 
 ## Data Processing/Exploration
 
-Code to process genotype, transcriptome, and phenotype data as described in (Azodi et al. TBD)[link coming!]: scripts data_preprocessing.R
+Code to process genotype, transcriptome, and phenotype data as described in [Azodi et al. TBD](link coming!): scripts data_preprocessing.R
 
 Code to generate figures demonstrating the relationship between G, T, and P: scripts/plot_correlations.R
 
