@@ -9,12 +9,17 @@ Plants respond to their environment by dynamically modulating gene expression. A
 ## Overview
 
 - Step 1: Define single and combined heat and drought stress response groups
-	- Process microarray data
+	- Downloading and processing microarray data
 	- Differential expression analysis
-	- Defining groups
+	- Defining response groups
 	- GO analysis
 - Step 2: Identify known TFBMs and putative CREs for each response group
+	- pCRE finding
+	- Enriched TFBMs
+	- Test for enrichment
 - Step 3: Machine Learning with Random Forest
+- Step 4: Convolutional Neural Network (multi-omic model)
+- Step 5: Get best matching known TFBMs for pCREs 
 
 ### Example data sets**
 
@@ -91,7 +96,7 @@ python scripts/convert_to_df.py -mapping all_hits.txt
 CISBP_Hits2NonOverlappingPromoters_AT.matrix.txt
 ```
 
-**Test for enrichement** 
+**Test for enrichment** 
 
 Using Feature Selection code from ML Pipeline (https://github.com/ShiuLab/ML-Pipeline/blob/master/Feature_Selection.py)
 
@@ -99,20 +104,21 @@ Using Feature Selection code from ML Pipeline (https://github.com/ShiuLab/ML-Pip
 python ~/GitHub/ML-Pipeline/Feature_Selection.py -df knownDF_NNU_df.txt -alg FET -p 0.01 -list t
 ```
 
-## Step 4: Machine learning (pCREs only)
+## Step 3: Machine learning (pCREs only)
 
-Find most recent version of ML Pipeline [here](https://github.com/ShiuLab/ML-Pipeline/).
+For an extensive tutorial on the ML pipeline and the most recent version of the ML Pipeline, [see here](https://github.com/ShiuLab/ML-Pipeline/).
 
-### Compare classifiers:
+**Example of ML**
 ```
-python ~/GitHub/ML-Pipeline/ML_classification.py -df NNU_pcres_df.txt -gs T -alg RF -plots F -n 100 -p 5 -threshold_test auroc -tag pCREs
+python ~/GitHub/ML-Pipeline/ML_classification.py -df example_data/NNU_pcres_df.txt -gs T -alg RF -plots F -n 100 -p 5 -threshold_test auroc -tag pCREs
 
-# Also run with KnownTFBM and pCRE+KnownTFBM features and then compare the classifications made
+# Also run with KnownTFBM and pCRE+KnownTFBM features
+# Compare the classifications from each model:
 python ~/GitHub/ML-Pipeline/scripts_PostAnalysis/compare_classifiers.py -ids pCREs,KnownTFBM -save NNU_pCRE_vs_Known -scores NNU_pcres_df.txt_RF_scores.txt,NNU_knownTFBM_df.txt_RF_scores.txt,NNU_combined_df.txt_RF_scores.txt
 ```
 
 
-## Step 5: Convolutional Neural Network (multi-omic model)
+## Step 4: Convolutional Neural Network (multi-omic model)
 
 ```
 # Convert dataframe (see example) into format needed for CNN
@@ -123,8 +129,7 @@ python scripts/CNN_TF2_omic.py -x NNU_x.npy -y NNU_y.npy -save NNU -n 100 -run t
 ```
 
 
-
-## Step 6: ## Get best matching known TFBMs from pCREs from different regions
+## Step 5: Get best matching known TFBMs for pCREs 
 
 Find scripts here: https://github.com/ShiuLab/CRE-Pipeline
 
