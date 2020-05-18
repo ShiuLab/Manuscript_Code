@@ -21,6 +21,41 @@ Plants respond to their environment by dynamically modulating gene expression. A
 - Step 4: Convolutional Neural Network (multi-omic model)
 - Step 5: Get best matching known TFBMs for pCREs 
 
+## Software requirements
+
+Machine Learning Pipeline (aka Random Forest):
+
+	- biopython v1.73
+	- matplotlib v1.5.1
+	- numpy v1.16.2
+	- pandas v0.24.2
+	- python v3.4.4
+	- scikit-learn v0.20.3
+	- scipy v1.2.1
+
+Convolutional Neural Networks (CNNs):
+
+	- Tensorflow v2.0 
+	- Keras 2.2.4
+	- Python v3.7.3 
+	- h5py 2.9.0
+	- scipy v1.3.0
+	- pandas v0.24.2
+	- numpy v1.16.4
+	- scikit-learn v0.21.2
+
+Other:
+
+	- R v3.5.3
+	- agilp v3.8.0
+	- limma v3.38.3
+	- [motility](https://github.com/ctb/motility)
+	- TAMO v1.0
+	- agricolae v1.3.1
+
+
+Experiments in this study were conducted on [MSU's High Performance Computing Cluster](https://icer.msu.edu/hpcc/hardware)
+
 ### Example data sets**
 
 **example_data/NNU_pcres_df.txt**: Rows are genes, first column is the class (i.e. NNU=1 or NNN=0), and the remaining columns are the pCRE features (1=present in promoter of gene, 0=not present)
@@ -34,11 +69,11 @@ Plants respond to their environment by dynamically modulating gene expression. A
 
 Heat+Drought microarray expression data (Prasch and Sonnewald, 2013, Plant Phys) was downloaded (GSE46757) as log2-transformed, normalized to the 75th percentile and corrected to the median of all samples (Agilent-021169 Arabidopsis 4 Oligo Microarray (V4)). (see: https://github.com/azodichr/Combined_Stress_Response/blob/master/combine_Agilent_key.py)
 
-Converted Agilent array probe IDs (https://earray.chem.agilent.com/earray/, Design ID 021169) to TAIR10 gene names using IDswop, if multiple probes overlapped the same gene, IDswop takes the mean or tosses the gene out if the values > 20% different.
+Converted Agilent array probe IDs (https://earray.chem.agilent.com/earray/, Design ID 021169) to TAIR10 gene names using IDswop from agilp (v3.8.0), if multiple probes overlapped the same gene, IDswop takes the mean or tosses the gene out if the values > 20% different.
 
 ### Differential Expression analysis
 
-Used edgeR to calculate differential expression using 3 contrasts:
+Used limma v3.38.3 to calculate differential expression using 3 contrasts:
 	- heat vs. control
 	- drought vs. control
 	- heat & drought vs. control
@@ -120,29 +155,45 @@ python ~/GitHub/ML-Pipeline/scripts_PostAnalysis/compare_classifiers.py -ids pCR
 
 ## Step 4: Convolutional Neural Network (multi-omic model)
 
+CNN models were run on MSU's [HPC](https://icer.msu.edu/hpcc/hardware) in a virtual environment installed as follows:
+
 ```
+module load GCC/6.4.0-2.28  OpenMPI/2.1.2
+module load CUDA/10.0.130 cuDNN/7.5.0.56-CUDA-10.0.130
+module load Python/3.6.4
+virtualenv -p python3 tf2env
+source tf2env/bin/activate
+pip install --upgrade --force-reinstall tensorflow-gpu==2.0.0-alpha0 
+```
+
+Example of implemeting CNN code.
+```
+source tf2env/bin/activate
+
 # Convert dataframe (see example) into format needed for CNN
 python scripts/input_converter.py -input example_data/NNU_pcres_MultiOmic.txt -out NNU -method omic_stack -y_name Class
 
+# Train and test CNN
 python scripts/CNN_TF2_omic.py -x NNU_x.npy -y NNU_y.npy -save NNU -n 100 -run t -params NNU_GridSearch.txt -imp_m t -imp_k t
-
 ```
 
+*Note: for our largest response group, the parameter search required 40 GPU hours and training required <2 GPU hours.*
 
 ## Step 5: Get best matching known TFBMs for pCREs 
 
 Find scripts here: https://github.com/ShiuLab/CRE-Pipeline
 
+*Software required: TAMO v1.0, python2*
 ```
 # Generate tamo file
-# Need TAMO, python2
 python ~/GitHub/CRE-Pipeline/generate_PWM.py pcres_all.txt.tm
 
-# Get distance matrices
+## Get distance matrices
 # Convert CIS-BP motifs into tamo file: Athaliana_TFBM_v1.01.tm.index.tm
-# Convert DAP-Seq motifs into tamo file: DAP_motifs.txt.tm
 python ~/GitHub/CRE-Pipeline/pcc_merge_CC.py create_cc_2 -t pcres_all.txt.tm -t2 Athaliana_TFBM_v1.01.tm.index.tm
 bash runcc
+
+# Convert DAP-Seq motifs into tamo file: DAP_motifs.txt.tm
 python ~/GitHub/CRE-Pipeline/pcc_merge_CC.py create_cc_2 -t pcres_all.txt.tm -t2 DAP_motifs.txt.tm
 bash runcc
 
