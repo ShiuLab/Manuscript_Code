@@ -64,7 +64,7 @@ Example datasets are available in the /data/ directory:
 
 **example_data/NNU_pcres_MultiOmic.txt**: Same general format as pCRE only data, except each additional omic data has it's own column named like: pcreA_omic1, pcreA_omic2, etc. Note that missing omic data is not allowed (i.e. must have the same number of columns for each pCRE).
 
-Full datasets are available on [Zenodo](https://zenodo.org/record/3625024#.XsiQdhMzY3E).
+Full datasets are available on [Zenodo](https://zenodo.org/record/3840714#.XsiT7xMzY3E).
 
 ## Step 1: Define single and combined heat and drought stress response groups
 
