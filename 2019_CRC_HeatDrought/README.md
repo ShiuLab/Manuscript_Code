@@ -56,12 +56,15 @@ Other:
 
 Experiments in this study were conducted on [MSU's High Performance Computing Cluster](https://icer.msu.edu/hpcc/hardware)
 
-### Example data sets**
+## Data
+
+Example datasets are available in the /data/ directory:
 
 **example_data/NNU_pcres_df.txt**: Rows are genes, first column is the class (i.e. NNU=1 or NNN=0), and the remaining columns are the pCRE features (1=present in promoter of gene, 0=not present)
 
 **example_data/NNU_pcres_MultiOmic.txt**: Same general format as pCRE only data, except each additional omic data has it's own column named like: pcreA_omic1, pcreA_omic2, etc. Note that missing omic data is not allowed (i.e. must have the same number of columns for each pCRE).
 
+Full datasets are available on [Zenodo](https://zenodo.org/record/3625024#.XsiQdhMzY3E).
 
 ## Step 1: Define single and combined heat and drought stress response groups
 
