@@ -22,7 +22,7 @@
   <tr><td>scan21_111918022.jpg</td> <td>2900</td> <td>2900</td> <td>seed</td> <td>664</td><td>1094</td><td>691</td><td>1116</td></tr>
   <tr><td>..</td> <td>..</td> <td>..</td> <td>..</td> <td>..</td><td>..</td><td>..</td><td>..</td></tr>
   </table>
-<h3>4. seed_labels.csv transform to tensorflow tfrecord file </h3>
+<h3>4 seed_labels.csv transform to tensorflow tfrecord file </h3>
 
   <i>python 02_generate_tfrecord.py --csv_input=annotation/seeds_labels.csv --output_path=train.record</i>
 
