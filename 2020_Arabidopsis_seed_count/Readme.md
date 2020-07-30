@@ -1,4 +1,4 @@
-<h2>Arabidopsis seeds count using Tensorflow Faster-RCNN model</h2>
+# Arabidopsis seeds count using Tensorflow Faster-RCNN model
 <h3>1 Tensorflow object detection API installation</h3>
   tensorflow version lower than 2.0.
   please see: 
