@@ -2,6 +2,8 @@
 
 __DISCLAIMER: This is not yet __
 
+# Training seed detection model
+
 ## 1. Tensorflow object detection API installation
 
 * Tensorflow version 1.x (version 2 will not work)
@@ -9,6 +11,7 @@ __DISCLAIMER: This is not yet __
 
 ## 2. Seed annotation
 
+* This is only for training a new model. For applying the Faster R-CNN model, this is not necessary.
 * We use [LabelImg](https://github.com/tzutalin/labelImg to annotate our seeds. LabelImg generate a xml annotation file
 
 <img src="https://github.com/FanruiMeng/Arabidopsis_seed_count/blob/master/Images/seeds_annotation.png?raw=true"  alt="Seed annotation" height="200"/>
@@ -45,29 +48,30 @@ __DISCLAIMER: This is not yet __
 ### Input configuration
 
 * In the unzip folder `faster_rcnn_inception_v2_coco_2018_01_28`
-* Find the `pipeline.config` file
-* Modify the file
+* Replace the `pipeline.config` file with [the one provided in this repository](https://github.com/ShiuLab/Manuscript_Code/blob/master/2020_Arabidopsis_seed_count/pipeline.config)
+* For more information on how to change the configuration, see [this document](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/configuring_jobs.md).
 
-"""
-  train_input_reader: {<br>
-  &nbsp;&nbsp;tf_record_input_reader {<br>
-   &nbsp;&nbsp;&nbsp;&nbsp;input_path: "train.record"<br>
-    &nbsp;&nbsp;}<br>
-  
-  &nbsp;&nbsp;label_map_path: "mscoco_label_map.pb<br>
-}
-"""
-  <h4>b. The label_map.pbtxt file like below:</h4>
-  item {<br>
-    &nbsp;&nbsp;id: 1<br>
-    &nbsp;&nbsp;name: "seed"<br>
-  }<br>
-  c. Another configurations please see: 
-  https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/configuring_jobs.md
-<h3>7 Model training</h3>
-  <i>python3 03_train.py --logtostderr --pipeline_config_path=pipeline.config --train_dir=train_dir --num_clones=3</i>
-<h3>8 Generate frozen model </h3>
-  <i>python3 05_export_inference_graph.py --input_type image_tensor --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt- --output_directory graph_train</i>
+## 7. Model training
+
+* Train model with the following parameters
+  * `logtostderr`: provide logs during training
+  * `pipeline_config_path`: the path to the configuration file
+  * `train_dir`: output directory for the model
+  * `num_clones`: number of processing units used to train the model
+`python3 03_train.py --logtostderr --pipeline_config_path=pipeline.config \`
+`     --train_dir=train_dir --num_clones=3`
+
+## 8. Generate a frozen (final) model
+
+* Geneate with the following parameters:
+  * `input_type`: the type of input
+  * `pipeline_config_path`: the path to the configuration file
+  * `trained_checkpoint_prefix`: prefix of the names for the model checkpoint files
+  * `output_directory`: name for output directory
+`python3 05_export_inference_graph.py --input_type image_tensor \`
+`     --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt- \`
+`     --output_directory graph_train`
+
 <h3>9 Detect seeds using trained model </h3>
   <i>python 06_detect.py</i>
 <h3>10 Accuracy measurement</h3>
