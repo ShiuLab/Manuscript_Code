@@ -11,7 +11,8 @@ The following is for training new/updated Faster-RCNN model.
 ## 1. Tensorflow object detection API installation
 
 * Tensorflow version 1.x (version 2 will not work)
-  * [installation instruction](https://github.com/tensorflow/models/tree/master/research/object_detection)
+  * [installation instruction](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1.md)
+  
 
 ## 2. Seed annotation
 
