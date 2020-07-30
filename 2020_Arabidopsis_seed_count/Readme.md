@@ -41,7 +41,9 @@ The following is for training new/updated Faster-RCNN model.
   
 ## 4. Convert CSV file to Tensorflow tfrecord file
 
-* Conversion script: `python 02_generate_tfrecord.py --csv_input=annotation/seeds_labels.csv --output_path=train.record`
+* Conversion script: 
+
+`python 02_generate_tfrecord.py --csv_input=annotation/seeds_labels.csv --output_path=train.record`
 
 ## 5. Download tensorflow object detection API pre-trained Faster R-CNN model
 
