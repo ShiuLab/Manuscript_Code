@@ -41,6 +41,7 @@ __DISCLAIMER: This is not yet __
 * In your terminal, issue the following command:
 
 `wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz`
+
 `unzip faster_rcnn_inception_v2_coco_2018_01_28.tar.gz`
 
 ## 6. Pipeline configuration
@@ -58,6 +59,7 @@ __DISCLAIMER: This is not yet __
   * `pipeline_config_path`: the path to the configuration file
   * `train_dir`: output directory for the model
   * `num_clones`: number of processing units used to train the model
+
 `python3 03_train.py --logtostderr --pipeline_config_path=pipeline.config \`
 `     --train_dir=train_dir --num_clones=3`
 
@@ -68,6 +70,7 @@ __DISCLAIMER: This is not yet __
   * `pipeline_config_path`: the path to the configuration file
   * `trained_checkpoint_prefix`: prefix of the names for the model checkpoint files
   * `output_directory`: name for output directory
+
 `python3 05_export_inference_graph.py --input_type image_tensor \`
 `     --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt- \`
 `     --output_directory graph_train`
