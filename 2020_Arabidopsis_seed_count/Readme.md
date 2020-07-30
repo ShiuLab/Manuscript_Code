@@ -28,7 +28,7 @@ The following is for training new/updated Faster-RCNN model.
 
 * Conversion script: 
 
-`pyhton 02_xml_to_csv.py path_of_annotation_files`
+`pyhton 01_xml_to_csv.py annotation`
   
 * The conversion results in a csv file:
 
