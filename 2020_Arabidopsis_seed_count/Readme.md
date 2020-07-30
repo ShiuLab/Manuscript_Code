@@ -73,7 +73,7 @@ The following is for training new/updated Faster-RCNN model.
 
 ## 8. Generate a frozen (final) model
 
-* Geneate with the following parameters:
+* Generate with the following parameters:
   * `input_type`: the type of input
   * `pipeline_config_path`: the path to the configuration file
   * `trained_checkpoint_prefix`: prefix of the names for the model checkpoint files
@@ -83,9 +83,10 @@ The following is for training new/updated Faster-RCNN model.
 
 ## 9. Detect seeds using trained model
 
-* Parameter: <need info>
-
-`python 06_detect.py <need info>`
+* Parameter: 
+  * `base_path`: the absolute path include graph_train directory
+  * `--test_images`: the path of images to detect
+`python 06_detect.py --base_path=base_path --test_images=test_images`
 
 ## 10. Accuracy measurement
 
