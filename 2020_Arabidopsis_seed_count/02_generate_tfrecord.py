@@ -16,8 +16,6 @@ import io
 import pandas as pd
 import tensorflow as tf
 import sys
-sys.path.append("models/research/")
-sys.path.append("models/research/object_detection/utils")
 from PIL import Image
 Image.MAX_IMAGE_PIXELS = 1000000000  
 
