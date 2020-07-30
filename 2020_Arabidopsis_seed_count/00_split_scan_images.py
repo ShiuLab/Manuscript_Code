@@ -15,7 +15,7 @@ else:
         #if single_plate directory exist, backup and recreate a new one
         os.rename("single_plate","single_plate_"+time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()))
         os.mkdir("single_plate")
-Image.MAX_IMAGE_PIXELS = 10000000
+Image.MAX_IMAGE_PIXELS = 100000000
 for f in all_images:
         im=Image.open(path+"/"+f)
         width=im.size[0]
