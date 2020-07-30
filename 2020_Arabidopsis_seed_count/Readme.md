@@ -51,7 +51,7 @@ The following is for training new/updated Faster-RCNN model.
 
 `wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz`
 
-`unzip faster_rcnn_inception_v2_coco_2018_01_28.tar.gz`
+`tar -xf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz`
 
 ## 6. Pipeline configuration
 
@@ -69,7 +69,7 @@ The following is for training new/updated Faster-RCNN model.
   * `train_dir`: output directory for the model
   * `num_clones`: number of processing units used to train the model
 
-`python3 03_train.py --logtostderr --pipeline_config_path=pipeline.config --train_dir=train_dir --num_clones=3`
+`python 03_train.py --logtostderr --pipeline_config_path=pipeline.config --train_dir=train_dir --num_clones=3`
 
 ## 8. Generate a frozen (final) model
 
@@ -79,7 +79,7 @@ The following is for training new/updated Faster-RCNN model.
   * `trained_checkpoint_prefix`: prefix of the names for the model checkpoint files
   * `output_directory`: name for output directory
 
-`python3 05_export_inference_graph.py --input_type image_tensor --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt- --output_directory graph_train`
+`python 05_export_inference_graph.py --input_type image_tensor --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt- --output_directory graph_train`
 
 ## 9. Detect seeds using trained model
 
