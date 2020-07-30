@@ -1,8 +1,9 @@
 import sys,time
-BASE_PATH = 'D:\\work\\MSU\\tensorflow_object_detection_arabidopsis_seeds\\07_detection_on_jupyter-notebook\\Arabidopsis_seed_detection'
-sys.path.append(BASE_PATH+"\\research\\")
-sys.path.append(BASE_PATH+"\\research\\object_detection\\utils\\")
-sys.path.append(BASE_PATH+"\\research\\slim\\")
+from pathlib import Path 
+BASE_PATH = sys.argv[1] #'D:\\work\\MSU\\tensorflow_object_detection_arabidopsis_seeds\\07_detection_on_jupyter-notebook\\Arabidopsis_seed_detection'
+sys.path.append(BASE_PATH+"/research/")
+sys.path.append(BASE_PATH+"/research/object_detection/utils/")
+sys.path.append(BASE_PATH+"/research/slim/")
 from object_detection.utils import label_map_util
 import numpy as np
 import os
@@ -21,13 +22,13 @@ from tensorflow.python.client import device_lib
 #print(cpu_num)
 config = tf.ConfigProto(log_device_placement=True)
 
-PATH_TO_TEST_IMAGES_DIR = BASE_PATH+"\\test_images"
+PATH_TO_TEST_IMAGES_DIR = BASE_PATH+"/test_images"
 TEST_IMAGE_PATHS=[]
 for root, dirs, files in os.walk(PATH_TO_TEST_IMAGES_DIR):
         for f in files:
             TEST_IMAGE_PATHS.append(os.path.join(PATH_TO_TEST_IMAGES_DIR,f))    
-PATH_TO_CKPT=BASE_PATH+"\\graph_train\\frozen_inference_graph.pb"
-PATH_TO_LABELS = BASE_PATH+"\\mscoco_label_map.pbtxt"
+PATH_TO_CKPT=BASE_PATH+"/graph_train/frozen_inference_graph.pb"
+PATH_TO_LABELS = BASE_PATH+"/mscoco_label_map.pbtxt"
 NUM_CLASSES = 1
 label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
 categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=NUM_CLASSES, use_display_name=False)
@@ -65,4 +66,4 @@ for image_path in TEST_IMAGE_PATHS:
   output_dict = run_inference_for_single_image(image_np, detection_graph)
   scores = np.array(output_dict["detection_scores"])
   count = len(scores[scores>=0.5])
-  print(image.filename.split("\\")[-1],count)
+  print(image.filename.split("/")[-1],count)
