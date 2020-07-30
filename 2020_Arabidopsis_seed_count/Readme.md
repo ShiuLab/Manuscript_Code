@@ -12,7 +12,11 @@ The following is for training new/updated Faster-RCNN model.
 
 * Tensorflow version 1.x (version 2 will not work)
   * [installation instruction](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1.md)
-  * Ensure the Protobuf libraries are compiled and the library directories are added to PYTHONPATH
+  * Ensure the Protobuf libraries are compiled and the library directories are added to PYTHONPATH, or set PYTHONPATH in python scripts.
+  i.e.:
+   `sys.path.append("/mnt/home/user/python-tfgpu-1.13/lib/python3.6/site-packages/models/research")'
+   `sys.path.append("/mnt/home/user/python-tfgpu-1.13/lib/python3.6/site-packages/models/research/object_detection/utils")`
+   `sys.path.append("/mnt/home/user/python-tfgpu-1.13/lib/python3.6/site-packages/models/research/slim")`
 ## 2. Seed annotation
 
 * This is only for training a new model. For applying the Faster R-CNN model, this is not necessary.
@@ -76,10 +80,10 @@ The following is for training new/updated Faster-RCNN model.
 * Generate with the following parameters:
   * `input_type`: the type of input
   * `pipeline_config_path`: the path to the configuration file
-  * `trained_checkpoint_prefix`: prefix of the names for the model checkpoint files
+  * `trained_checkpoint_prefix`: prefix of the names for the model checkpoint files (ie:"/usr/home/username/train_dir/model.ckpt-10000")
   * `output_directory`: name for output directory
 
-`python 05_export_inference_graph.py --input_type image_tensor --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt- --output_directory graph_train`
+`python 05_export_inference_graph.py --input_type image_tensor --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt-10000 --output_directory graph_train`
 
 ## 9. Detect seeds using trained model
 
