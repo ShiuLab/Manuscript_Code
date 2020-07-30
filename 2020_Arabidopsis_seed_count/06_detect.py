@@ -1,9 +1,14 @@
 import sys,time
-from pathlib import Path 
-BASE_PATH = sys.argv[1] #'D:\\work\\MSU\\tensorflow_object_detection_arabidopsis_seeds\\07_detection_on_jupyter-notebook\\Arabidopsis_seed_detection'
-sys.path.append(BASE_PATH+"/research/")
-sys.path.append(BASE_PATH+"/research/object_detection/utils/")
-sys.path.append(BASE_PATH+"/research/slim/")
+from pathlib import Path
+import tensorflow as tf
+flags = tf.app.flags
+flags.DEFINE_string('base_path', '', 'Path to the CSV input')
+flags.DEFINE_string('test_images', '', 'Path to output TFRecord')
+FLAGS = flags.FLAGS
+sys.path.append(FLAGS.base_path+"/research/")
+sys.path.append(FLAGS.base_path+"/research/object_detection/")
+sys.path.append(FLAGS.base_path+"/research/object_detection/utils/")
+sys.path.append(FLAGS.base_path+"/research/slim/")
 from object_detection.utils import label_map_util
 import numpy as np
 import os
@@ -18,17 +23,17 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 os.environ['CUDA_VISIBLE_DEVICES'] = "0"
 from tensorflow.python.client import device_lib
 
-#cpu_num = int(os.environ.get('CPU_NUM',3))
-#print(cpu_num)
 config = tf.ConfigProto(log_device_placement=True)
 
-PATH_TO_TEST_IMAGES_DIR = BASE_PATH+"/test_images"
+#test images dir
+PATH_TO_TEST_IMAGES_DIR = FLAGS.test_images
 TEST_IMAGE_PATHS=[]
 for root, dirs, files in os.walk(PATH_TO_TEST_IMAGES_DIR):
         for f in files:
-            TEST_IMAGE_PATHS.append(os.path.join(PATH_TO_TEST_IMAGES_DIR,f))    
-PATH_TO_CKPT=BASE_PATH+"/graph_train/frozen_inference_graph.pb"
-PATH_TO_LABELS = BASE_PATH+"/mscoco_label_map.pbtxt"
+            if not f.endswith("csv"):
+                TEST_IMAGE_PATHS.append(os.path.join(PATH_TO_TEST_IMAGES_DIR,f))    
+PATH_TO_CKPT=FLAGS.base_path+"/graph_train/frozen_inference_graph.pb"
+PATH_TO_LABELS = FLAGS.base_path+"/mscoco_label_map.pbtxt"
 NUM_CLASSES = 1
 label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
 categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=NUM_CLASSES, use_display_name=False)
@@ -57,8 +62,8 @@ def run_inference_for_single_image(image, graph):
       output_dict = sess.run(tensor_dict,feed_dict={image_tensor: np.expand_dims(image, 0)})
       output_dict['detection_scores'] = output_dict['detection_scores'][0]
   return output_dict
+output = open(PATH_TO_TEST_IMAGES_DIR+"/Seed_count_results_"+time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime())+".csv","a")
 for image_path in TEST_IMAGE_PATHS:
-  print(time.asctime( time.localtime(time.time()) ))
   image = Image.open(image_path)
   image_np = load_image_into_numpy_array(image)
   image_np_expanded = np.expand_dims(image_np, axis=0)
@@ -66,4 +71,6 @@ for image_path in TEST_IMAGE_PATHS:
   output_dict = run_inference_for_single_image(image_np, detection_graph)
   scores = np.array(output_dict["detection_scores"])
   count = len(scores[scores>=0.5])
-  print(image.filename.split("/")[-1],count)
+  output.write("%s,%d\n"%(image.filename.split("/")[-1],count))
+output.close()
+  
