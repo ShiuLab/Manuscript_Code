@@ -2,7 +2,7 @@ import os
 import glob
 import pandas as pd
 import xml.etree.ElementTree as ET
-
+from pathlib import Path 
 
 def xml_to_csv(path):
     xml_list = []
@@ -27,7 +27,7 @@ def xml_to_csv(path):
 
 
 def main():
-    image_path = os.path.join(os.getcwd(), 'annotation')
+    image_path = sys.argv[1]
     xml_df = xml_to_csv(image_path)
     xml_df.to_csv('seeds_labels.csv', index=None)
     print('Successfully converted xml to csv.')
