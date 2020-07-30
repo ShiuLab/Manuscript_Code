@@ -84,7 +84,7 @@ The following is for training new/updated Faster-RCNN model.
 ## 9. Detect seeds using trained model
 
 * Parameter: 
-  * `base_path`: the absolute path include graph_train directory
+  * `base_path`: the absolute path including graph_train directory
   * `--test_images`: the path of images to detect
   
 `python 06_detect.py --base_path=base_path --test_images=test_images`
