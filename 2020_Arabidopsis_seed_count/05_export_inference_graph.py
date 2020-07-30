@@ -89,9 +89,7 @@ python export_inference_graph \
 """
 import tensorflow as tf
 import sys
-sys.path.append("/mnt/home/mengfanr/python3-tf/lib/python3.4/site-packages/tensorflow/models/research/")
-sys.path.append("/mnt/home/mengfanr/python3-tf/lib/python3.4/site-packages/tensorflow/models/research/object_detection/utils")
-sys.path.append("/mnt/home/mengfanr/python3-tf/lib/python3.4/site-packages/tensorflow/models/research/slim")
+
 from google.protobuf import text_format
 from object_detection import exporter
 from object_detection.protos import pipeline_pb2
