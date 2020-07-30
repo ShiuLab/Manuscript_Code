@@ -1,8 +1,12 @@
 # Arabidopsis seeds count using Tensorflow Faster-RCNN model
 
-__DISCLAIMER: This is not yet __
+If you are interested in using Faster-RCNN to detect Arabidopsis seeds. Please see the following Github page:
+
+https://github.com/FanruiMeng/Arabidopsis-Seed-Detection
 
 # Training seed detection model
+
+The following is for training new/updated Faster-RCNN model.
 
 ## 1. Tensorflow object detection API installation
 
@@ -17,11 +21,14 @@ __DISCLAIMER: This is not yet __
 <img src="https://github.com/FanruiMeng/Arabidopsis_seed_count/blob/master/Images/seeds_annotation.png?raw=true"  alt="Seed annotation" height="200"/>
 
 * During the first round model training, we split one whole plate image into 4 quater images and annotate quater images mannually.
-  * Split image script: `python 00_split_scan_images.py`
+  
+`python 00_split_scan_images.py <need parameters>`
   
 ## 3. Xml file transform to csv file
 
-* Conversion script: `pyhton 02_xml_to_csv.py`
+* Conversion script: 
+
+`pyhton 02_xml_to_csv.py <need parameters>`
   
 * The conversion results in a csv file:
 
@@ -60,8 +67,7 @@ __DISCLAIMER: This is not yet __
   * `train_dir`: output directory for the model
   * `num_clones`: number of processing units used to train the model
 
-`python3 03_train.py --logtostderr --pipeline_config_path=pipeline.config \`
-`     --train_dir=train_dir --num_clones=3`
+`python3 03_train.py --logtostderr --pipeline_config_path=pipeline.config --train_dir=train_dir --num_clones=3`
 
 ## 8. Generate a frozen (final) model
 
@@ -71,15 +77,22 @@ __DISCLAIMER: This is not yet __
   * `trained_checkpoint_prefix`: prefix of the names for the model checkpoint files
   * `output_directory`: name for output directory
 
-`python3 05_export_inference_graph.py --input_type image_tensor \`
-`     --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt- \`
-`     --output_directory graph_train`
+`python3 05_export_inference_graph.py --input_type image_tensor --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt- --output_directory graph_train`
 
-<h3>9 Detect seeds using trained model </h3>
-  <i>python 06_detect.py</i>
-<h3>10 Accuracy measurement</h3>
-Measure accuracy, precision, recall and f1 at IOU 0.5 using 07_01_accuracy_measurement.py <br>
-<i>python 07_01_accuracy_measurement.py ground.csv detected.csv</i>
-<h3>11 seed density</h3>
-Average seed number in a circle with a radius of 30 pixels.<br>
-<i>Rscript seed_density.r</i>
+## 9. Detect seeds using trained model
+
+* Parameter: <need info>
+
+`python 06_detect.py <need info>`
+
+## 10. Accuracy measurement
+
+* Measure accuracy, precision, recall and f1 at IOU 0.5 using 07_01_accuracy_measurement.py <br>
+
+`python 07_01_accuracy_measurement.py ground.csv detected.csv`
+
+## 11. Estimating seed density
+
+* Determine the average seed number in a circle with a radius of 30 pixels.
+
+`Rscript seed_density.r`
