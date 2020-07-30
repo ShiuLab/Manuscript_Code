@@ -16,7 +16,7 @@ The following is for training new/updated Faster-RCNN model.
 ## 2. Seed annotation
 
 * This is only for training a new model. For applying the Faster R-CNN model, this is not necessary.
-* We use [LabelImg](https://github.com/tzutalin/labelImg to annotate our seeds. LabelImg generate a xml annotation file
+* We use [LabelImg](https://github.com/tzutalin/labelImg) to annotate our seeds. LabelImg generate a xml annotation file
 
 <img src="https://github.com/FanruiMeng/Arabidopsis_seed_count/blob/master/Images/seeds_annotation.png?raw=true"  alt="Seed annotation" height="200"/>
 
