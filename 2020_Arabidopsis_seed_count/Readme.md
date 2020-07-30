@@ -22,13 +22,13 @@ The following is for training new/updated Faster-RCNN model.
 
 * During the first round model training, we split one whole plate image into 4 quater images and annotate quater images mannually.
   
-`python 00_split_scan_images.py image_directory_path`
+`python 00_split_images.py image_directory_path`
   
 ## 3. Xml file transform to csv file
 
 * Conversion script: 
 
-`pyhton 02_xml_to_csv.py <need parameters>`
+`pyhton 02_xml_to_csv.py path_of_annotation_files`
   
 * The conversion results in a csv file:
 
