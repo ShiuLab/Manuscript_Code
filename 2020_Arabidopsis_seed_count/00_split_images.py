@@ -24,9 +24,7 @@ for f in all_images:
         for i in range(4):
                 ##width
                 for  j in range(3):
-                        start_width=710
-                        start_height=470
-                        region=((start_width+   (370+2900)*(j)),(start_height+(500+2900)*(i)),(start_width+(370*j)+(2900)*(j+1)),(start_height+(500*i)+(2900)*(i+1)))
-                        cropImg = im.crop(region)
+                        region = (j*width/2,i*height/2,(j+1)*width/2,(i+1)*height/2)
+			cropImg = im.crop(region)
                         cropImg.save(path+"/single_plate/"+f+"_"+str(i)+"_"+str(j)+".jpg")
 		
