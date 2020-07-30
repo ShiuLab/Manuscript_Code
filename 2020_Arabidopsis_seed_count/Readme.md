@@ -12,8 +12,7 @@ The following is for training new/updated Faster-RCNN model.
 
 * Tensorflow version 1.x (version 2 will not work)
   * [installation instruction](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1.md)
-  
-
+  * Ensure the Protobuf libraries are compiled and the library directories are added to PYTHONPATH
 ## 2. Seed annotation
 
 * This is only for training a new model. For applying the Faster R-CNN model, this is not necessary.
