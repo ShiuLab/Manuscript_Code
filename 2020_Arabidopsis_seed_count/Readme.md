@@ -12,7 +12,7 @@ The following is for training new/updated Faster-RCNN model.
 
 * Tensorflow version 1.x (version 2 will not work)
   * [installation instruction](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md)
-* downlow [tensorflow models](https://github.com/tensorflow/models), unzip models, find 'research' directory under models directory.
+* Downlowd [tensorflow models](https://github.com/tensorflow/models) to work directory.
 
 ## 2. Seed annotation
 
