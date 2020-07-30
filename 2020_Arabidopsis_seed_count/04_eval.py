@@ -43,9 +43,6 @@ import functools
 import os
 import tensorflow as tf
 import sys
-sys.path.append("/mnt/home/mengfanr/python3-tf/lib/python3.4/site-packages/tensorflow/models/research/")
-sys.path.append("/mnt/home/mengfanr/python3-tf/lib/python3.4/site-packages/tensorflow/models/research/object_detection/utils")
-sys.path.append("/mnt/home/mengfanr/python3-tf/lib/python3.4/site-packages/tensorflow/models/research/slim")
 from object_detection.builders import dataset_builder
 from object_detection.builders import graph_rewriter_builder
 from object_detection.builders import model_builder
