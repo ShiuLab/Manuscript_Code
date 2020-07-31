@@ -90,7 +90,7 @@ The following is for training new/updated Faster-RCNN model.
 
 * Parameter: 
   * `base_path`: the absolute path including graph_train directory
-  * `test_images`: the path of images to detect
+  * `test_images`: test images directory
   
 `python 06_detect.py --base_path=base_path --test_images=test_images`
 * if you want to save image results, please use:
