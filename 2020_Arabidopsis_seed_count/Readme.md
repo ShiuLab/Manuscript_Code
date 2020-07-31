@@ -93,6 +93,9 @@ The following is for training new/updated Faster-RCNN model.
   * `test_images`: the path of images to detect
   
 `python 06_detect.py --base_path=base_path --test_images=test_images`
+* if you want to save image results, please use:
+
+`python 06_detect_save_image_results.py --base_path=base_path --test_images=test_images`
 
 ## 10. Accuracy measurement
 
