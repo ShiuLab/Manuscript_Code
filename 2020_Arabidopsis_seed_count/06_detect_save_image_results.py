@@ -2,8 +2,8 @@ import sys,time
 from pathlib import Path
 import tensorflow as tf
 flags = tf.app.flags
-flags.DEFINE_string('base_path', '', 'Path to the CSV input')
-flags.DEFINE_string('test_images', '', 'Path to output TFRecord')
+flags.DEFINE_string('base_path', '', 'the absolute path including graph_train directory')
+flags.DEFINE_string('test_images', '', 'path of test images')
 FLAGS = flags.FLAGS
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
