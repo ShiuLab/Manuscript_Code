@@ -1,4 +1,4 @@
-# Arabidopsis seeds count using Tensorflow Faster-RCNN model
+# A Arabidopsis seeds count using Tensorflow Faster-RCNN model
 
 If you are interested in using Faster-RCNN to detect Arabidopsis seeds. Please see the following Github page:
 
@@ -108,3 +108,6 @@ The following is for training new/updated Faster-RCNN model.
 * Determine the average seed number in a circle with a radius of 30 pixels.
 
 `Rscript seed_density.r`
+
+# B Arabidopsis seeds count using ImageJ
+
