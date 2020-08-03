@@ -1,6 +1,6 @@
-# We use two methods to count arabidposis seeds, Faster R-CNN and ImageJ
+# We use two methods to count Arabidopsis seeds: Faster R-CNN and ImageJ
 
-# A. Arabidopsis seeds count using Tensorflow Faster-RCNN model
+# A. Count Arabidopsis seeds using Tensorflow Faster-RCNN model
 
 If you are interested in using Faster-RCNN to detect Arabidopsis seeds. Please see the following Github page:
 
@@ -111,7 +111,7 @@ The following is for training new/updated Faster-RCNN model.
 
 `Rscript seed_density.r`
 
-# B. Arabidopsis seeds count using ImageJ
+# B. Count Arabidopsis seeds using ImageJ
   All scripts and test images can find [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2020_Arabidopsis_seed_count/ImageJ).
 ### 1. Create work directory
  `mkdir work_dir`
