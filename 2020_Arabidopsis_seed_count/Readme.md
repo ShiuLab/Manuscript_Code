@@ -112,6 +112,10 @@ The following is for training new/updated Faster-RCNN model.
 `Rscript seed_density.r`
 
 # B. Arabidopsis seeds count using ImageJ
-## Download ImageJ
-[ImageJ](http://wsr.imagej.net/distros/win/ij153-win-java8.zip)
+### 1. Download ImageJ to work directory (work_dir) and unzip it under `work_dir`
+[ImageJ V1.53](http://wsr.imagej.net/distros/win/ij153-win-java8.zip)
+
+### 2. Copy images to `work_dir/images`
+
+### 3. Copy 
 
