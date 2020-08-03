@@ -130,6 +130,6 @@ The following is for training new/updated Faster-RCNN model.
 
 * For your own images, just put them in the `work_dir/images`.
 
-### 5. run Imagej
+### 5. Run ImageJ
 * Double click `seed_image_processing.bat`. That's it!
 
