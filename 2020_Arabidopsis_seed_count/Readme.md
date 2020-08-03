@@ -111,7 +111,7 @@ The following is for training new/updated Faster-RCNN model.
 
 `Rscript seed_density.r`
 
-# B Arabidopsis seeds count using ImageJ
-## 1. Scanned images were first converted into 8-bit grayscale bitmap format
+# B. Arabidopsis seeds count using ImageJ
+## Download ImageJ
+[ImageJ](http://wsr.imagej.net/distros/win/ij153-win-java8.zip)
 
-``
