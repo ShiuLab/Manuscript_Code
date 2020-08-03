@@ -4,11 +4,11 @@ If you are interested in using Faster-RCNN to detect Arabidopsis seeds. Please s
 
 https://github.com/FanruiMeng/Arabidopsis-Seed-Detection
 
-# Training seed detection model
+## Training seed detection model
 
 The following is for training new/updated Faster-RCNN model.
 
-## 1. Tensorflow object detection API installation
+### 1. Tensorflow object detection API installation
 
 * Tensorflow version 1.x (version 2 will not work)
   * [Installation instruction](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1.md)
@@ -18,7 +18,7 @@ The following is for training new/updated Faster-RCNN model.
    `sys.path.append("/mnt/home/user/python-tfgpu-1.13/lib/python3.6/site-packages/models/research")`
    `sys.path.append("/mnt/home/user/python-tfgpu-1.13/lib/python3.6/site-packages/models/research/object_detection/utils")`
    `sys.path.append("/mnt/home/user/python-tfgpu-1.13/lib/python3.6/site-packages/models/research/slim")`
-## 2. Seed annotation
+### 2. Seed annotation
 
 * This is only for training a new model. For applying the Faster R-CNN model, this is not necessary.
 * We use [LabelImg](https://github.com/tzutalin/labelImg) to annotate our seeds. LabelImg generate a xml annotation file
@@ -29,7 +29,7 @@ The following is for training new/updated Faster-RCNN model.
   
 `python 00_split_images.py image_directory_path`
   
-## 3. Xml file transform to csv file
+### 3. Xml file transform to csv file
 
 * Conversion script: 
 
@@ -44,13 +44,13 @@ The following is for training new/updated Faster-RCNN model.
   <tr><td>..</td> <td>..</td> <td>..</td> <td>..</td> <td>..</td><td>..</td><td>..</td><td>..</td></tr>
   </table>
   
-## 4. Convert CSV file to Tensorflow tfrecord file
+### 4. Convert CSV file to Tensorflow tfrecord file
 
 * Conversion script: 
 
 `python 02_generate_tfrecord.py --csv_input=annotation/seeds_labels.csv --output_path=train.record`
 
-## 5. Download tensorflow object detection API pre-trained Faster R-CNN model
+### 5. Download tensorflow object detection API pre-trained Faster R-CNN model
 
 * In your terminal, issue the following command:
 
@@ -58,15 +58,15 @@ The following is for training new/updated Faster-RCNN model.
 
 `tar -xf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz`
 
-## 6. Pipeline configuration
+### 6. Pipeline configuration
 
-### Input configuration
+#### Input configuration
 
 * In the unzip folder `faster_rcnn_inception_v2_coco_2018_01_28`
 * Replace the `pipeline.config` file with [the one provided in this repository](https://github.com/ShiuLab/Manuscript_Code/blob/master/2020_Arabidopsis_seed_count/pipeline.config)
 * For more information on how to change the configuration, see [this document](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/configuring_jobs.md).
 
-## 7. Model training
+### 7. Model training
 
 * Train model with the following parameters
   * `logtostderr`: provide logs during training
@@ -76,7 +76,7 @@ The following is for training new/updated Faster-RCNN model.
 
 `python 03_train.py --logtostderr --pipeline_config_path=pipeline.config --train_dir=train_dir --num_clones=3`
 
-## 8. Generate a frozen (final) model
+### 8. Generate a frozen (final) model
 
 * Generate with the following parameters:
   * `input_type`: the type of input
@@ -86,7 +86,7 @@ The following is for training new/updated Faster-RCNN model.
 
 `python 05_export_inference_graph.py --input_type image_tensor --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt-10000 --output_directory graph_train`
 
-## 9. Detect seeds using trained model
+### 9. Detect seeds using trained model
 
 * Parameter: 
   * `base_path`: the absolute path including graph_train directory
@@ -97,13 +97,13 @@ The following is for training new/updated Faster-RCNN model.
 
 `python 06_detect_save_image_results.py --base_path=base_path --test_images=test_images`
 
-## 10. Accuracy measurement
+### 10. Accuracy measurement
 
 * Measure accuracy, precision, recall and f1 at IOU 0.5 using 07_01_accuracy_measurement.py <br>
 
 `python 07_01_accuracy_measurement.py ground.csv detected.csv`
 
-## 11. Estimating seed density
+### 11. Estimating seed density
 
 * Determine the average seed number in a circle with a radius of 30 pixels.
 
