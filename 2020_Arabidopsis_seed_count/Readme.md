@@ -115,15 +115,19 @@ The following is for training new/updated Faster-RCNN model.
    
 ### 1. Download ImageJ
 Our ImageJ pipeline is developped in windows.
-Current ImageJ version in windows is 1.53, download it from: [ImageJ](http://wsr.imagej.net/distros/win/ij153-win-java8.zip)
+
+Current ImageJ version in windows is 1.53, download it from: [ImageJ](http://wsr.imagej.net/distros/win/ij153-win-java8.zip). 
+
 Make a new folder, `work_dir`, download, save and unzip the ImageJ in `work_dir`.
 
 ### 3. Download scripts
 Download these three scripts [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2020_Arabidopsis_seed_count/ImageJ) to the work_dir: Image_converter.py, small_plate_partial_macro.ijm, seed_image_processing.bat.
 
 ### 4. Download test images
-Make a new folder in `work_dir`: `work_dir/images`
+Make a new folder in `work_dir`: `work_dir/images`.
+
 Some test images can also be found [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2020_Arabidopsis_seed_count/ImageJ), put them in `work_dir/images`.
+
 For your own images, just put them in the `work_dir/images`.
 
 ### 5. run Imagej
