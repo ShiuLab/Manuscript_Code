@@ -1,4 +1,4 @@
-A. # Arabidopsis seeds count using Tensorflow Faster-RCNN model
+# A. Arabidopsis seeds count using Tensorflow Faster-RCNN model
 
 If you are interested in using Faster-RCNN to detect Arabidopsis seeds. Please see the following Github page:
 
