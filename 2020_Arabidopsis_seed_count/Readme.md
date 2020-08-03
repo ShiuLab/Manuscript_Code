@@ -116,11 +116,11 @@ The following is for training new/updated Faster-RCNN model.
 ### 1. Create work directory
  `mkdir work_dir`
 
-### 2. Download ImageJ to work directory (`work_dir`) and unzip it under `work_dir`
+### 2. Download ImageJ to `work_dir` and unzip it under `work_dir`
 Current windows version for ImageJ is 1.53, please download it from: [ImageJ](http://wsr.imagej.net/distros/win/ij153-win-java8.zip)
 
 ### 3. Copy scripts to `work_dir`
-cp Image_converter.py small_plate_partial_macro.ijm seed_image_processing.bat work_dir
+`cp Image_converter.py small_plate_partial_macro.ijm seed_image_processing.bat work_dir`
 
 ### 4. Copy images into `work_dir\images` that will be processed and count seeds number
 
