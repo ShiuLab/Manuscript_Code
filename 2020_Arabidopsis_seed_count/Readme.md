@@ -112,6 +112,7 @@ The following is for training new/updated Faster-RCNN model.
 `Rscript seed_density.r`
 
 # B. Arabidopsis seeds count using ImageJ
+  All scripts and test images can find [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2020_Arabidopsis_seed_count/ImageJ).
 ### 1. Create work directory
  `mkdir work_dir`
 
