@@ -112,17 +112,20 @@ The following is for training new/updated Faster-RCNN model.
 `Rscript seed_density.r`
 
 # B. Count Arabidopsis seeds using ImageJ
-  All scripts and test images can find [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2020_Arabidopsis_seed_count/ImageJ).
-### 1. Create work directory
- `mkdir work_dir`
+   
+### 1. Download ImageJ
+Our ImageJ pipeline is developped in windows.
+Current ImageJ version in windows is 1.53, download it from: [ImageJ](http://wsr.imagej.net/distros/win/ij153-win-java8.zip)
+Make a new folder, `work_dir`, download, save and unzip the ImageJ in `work_dir`.
 
-### 2. Download ImageJ to `work_dir` and unzip it under `work_dir`
-Current windows version for ImageJ is 1.53, please download it from: [ImageJ](http://wsr.imagej.net/distros/win/ij153-win-java8.zip)
+### 3. Download scripts
+Download these three scripts [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2020_Arabidopsis_seed_count/ImageJ) to the work_dir: Image_converter.py, small_plate_partial_macro.ijm, seed_image_processing.bat.
 
-### 3. Copy scripts to `work_dir`
-`cp Image_converter.py small_plate_partial_macro.ijm seed_image_processing.bat work_dir`
+### 4. Download test images
+Make a new folder in `work_dir`: `work_dir/images`
+Some test images can also be found [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2020_Arabidopsis_seed_count/ImageJ), put them in `work_dir/images`.
+For your own images, just put them in the `work_dir/images`.
 
-### 4. Copy images into `work_dir\images` that will be processed and count seeds number
-
-### 5. run `seed_image_processing.bat`
+### 5. run Imagej
+Double click `seed_image_processing.bat`. That's it!
 
