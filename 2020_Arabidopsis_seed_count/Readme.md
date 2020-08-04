@@ -114,7 +114,7 @@ The following is for training new/updated Faster-RCNN model.
 # B. Count Arabidopsis seeds using ImageJ
    
 ### 1. Download ImageJ
-* Our ImageJ pipeline is developped in windows.
+* Our ImageJ seed count pipeline is developped in windows.
 
 * Current ImageJ version in windows is 1.53, download it from: [ImageJ](http://wsr.imagej.net/distros/win/ij153-win-java8.zip). 
 
