@@ -131,5 +131,6 @@ The following is for training new/updated Faster-RCNN model.
 * For your own images, just put them in the `work_dir/images`.
 
 ### 5. Run ImageJ
+* Before running, make sure you have installed "Pillow" in your python environment. Otherwise, type "pip install Pillow" in your PC terminal.
 * Double click `seed_image_processing.bat`. That's it!
 
