@@ -134,3 +134,4 @@ The following is for training new/updated Faster-RCNN model.
 * Before running, make sure you have installed "Pillow" in your python environment. Otherwise, type "pip install Pillow" in your PC terminal.
 * Double click `seed_image_processing.bat`. That's it!
 
+* Note that, when you run `seed_image_processing.bat`, for each image in the "images" folder, the ImageJ interface would be popped up, and when the image is done with seed count, you need to manually close the pop-up ImageJ interface to allow the seed count on next image. Otherwise, it would pause there after one image is done forever.
