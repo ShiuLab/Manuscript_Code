@@ -2,20 +2,14 @@
 
 
 ## Files
-- ML matrix (one for each definition??)-- link to zenodo
-- ML_classification.py
-- the feature selection one.py
-- selected feature files?
-- ML matrix (WG/TD set?)
-- holdout.py
-- holdout set files?
+- Feature matrices for the training datasets primarily discussed in this paper are [available on Zenodo](https://doi.org/10.5281/zenodo.3987384) as Dataset_1.txt and Dataset_2.txt
+- Feature matrices for predicting genetic redundancy of selected additional gene pairs are [also available on Zenodo](https://doi.org/10.5281/zenodo.3987384) as Dataset_3.txt and Dataset_4.txt
+- [ML classification script](scripts/ML_classification.py), go [here](https://github.com/ShiuLab/ML-Pipeline) for the most recent version
+- [feature selection script](scripts/Feature_Selection.py), go [here](https://github.com/ShiuLab/ML-Pipeline) for the most recent version
+- [script for selection of test set instances](scripts/test_set.py), go [here](https://github.com/ShiuLab/ML-Pipeline) for the most recent version  
 
 ## Overview
 
-- Step: Get holdout sets?
-- Step: Model building
-  - Run ML with GB, SVM, and RF
-- Step: Feature selection and more model building
-  - RF
-  - EN
-- Step: 
+- Get test sets
+- Feature selection
+- Model building
