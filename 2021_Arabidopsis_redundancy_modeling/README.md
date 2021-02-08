@@ -21,7 +21,7 @@ python test_set.py -df RD9_full_feature_matrix.txt -type c -p 0.1
 ```
 
 #### Output
-- file containing names of instances selected as test set (e.g. RD9_test_set.txt, available [here](../data/))
+- file containing names of instances selected as test set (e.g. RD9_test_set.txt, available [here](/data/))
 
 
 ### Feature selection
@@ -36,7 +36,7 @@ python Feature_Selection.py -df RD9_full_feature_matrix.txt -test RD9_test_set.t
 ```
 
 #### Output
-- selected feature file (e.g. selected_features_RD9_RF_BT_200.txt, available [here](../data/))
+- selected feature file (e.g. selected_features_RD9_RF_BT_200.txt, available [here](/data/))
 
 
 ### Model building
