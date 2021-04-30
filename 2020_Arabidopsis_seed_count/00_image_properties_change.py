@@ -2,7 +2,7 @@ from PIL import Image, ImageEnhance
 from PIL import ImageFilter
 import os,sys
 if len(sys.argv) != 3:
-	print('''Error: we need 3 parameters, 
+	print(''' we need 3 parameters, 
 	1: type of change; 
 	2. degree of change; 
 	3. image path.''')
