@@ -24,20 +24,21 @@ The following is for training new/updated Faster-RCNN model.
 
 * This step is only needed for training a new model. For applying the Faster R-CNN model to your seed images, this step is not necessary.
 * During the first round model training, we split one whole plate image into 4 quater images and annotate quater images mannually.
+
 `python 00_split_images.py image_directory_path`
 * We use [LabelImg](https://github.com/tzutalin/labelImg) to annotate our seeds. LabelImg generates a xml annotation file.
 <img src="https://github.com/FanruiMeng/Arabidopsis_seed_count/blob/master/Images/seeds_annotation.png?raw=true"  alt="Seed annotation" height="200"/>
   
-### 3. Xml file transform to csv file
+### 3. Convert xml files to csv files
 
-* Conversion script: 
+* Script for the conversion: 
 
 `pyhton 01_xml_to_csv.py annotation`
   
 * The conversion results in a csv file:
 
   <table>
-  <tr><td><b>filename</b></td> <td><b>width</b></td> <td><b>height</b></td> <td><b>class</b></td> <td><b>xmin</b></td><td><b>ymin</b></td><td><b>xmax</b></td><td><b>ymax</b></td></tr>
+  <tr><td><b>filename</b></td> <td><b>width</b></td> <td><b>height</b></td> <td><b>class</b></td> <td><b>x<sub>min<sub></b></td><td><b>y<sub>min<sub></b></td><td><b>x<sub>max<sub></b></td><td><b>y<sub>max<sub></b></td></tr>
   <tr><td>scan21_111918022.jpg</td> <td>2900</td> <td>2900</td> <td>seed</td> <td>1325</td><td>813</td><td>1352</td><td>837</td></tr>
   <tr><td>scan21_111918022.jpg</td> <td>2900</td> <td>2900</td> <td>seed</td> <td>664</td><td>1094</td><td>691</td><td>1116</td></tr>
   <tr><td>..</td> <td>..</td> <td>..</td> <td>..</td> <td>..</td><td>..</td><td>..</td><td>..</td></tr>
