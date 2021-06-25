@@ -63,7 +63,7 @@ The following is for training new/updated Faster-RCNN model.
 #### Input configuration
 
 * In the unzip folder `faster_rcnn_inception_v2_coco_2018_01_28`
-* Replace the `pipeline.config` file with [the one provided in this repository](https://github.com/ShiuLab/Manuscript_Code/blob/master/2020_Arabidopsis_seed_count/pipeline.config)
+* Replace the `pipeline.config` file with [the one provided in this repository](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_silique_count/pipeline.config)
 * For more information on how to change the configuration, see [this document](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/configuring_jobs.md).
 
 ### 7. Model training
