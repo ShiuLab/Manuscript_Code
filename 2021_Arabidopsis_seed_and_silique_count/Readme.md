@@ -31,7 +31,7 @@ The following is for training new/updated Faster-RCNN model.
   
 ### 3. Convert xml files to csv files
 
-* Script for the conversion: 
+* Script for the conversion is listed below, where annotation is the folder with all the annotation xml files: 
 
 `pyhton 01_xml_to_csv.py annotation`
   
@@ -46,7 +46,7 @@ The following is for training new/updated Faster-RCNN model.
   
 ### 4. Convert CSV file to Tensorflow tfrecord file
 
-* Conversion script: 
+* To train the model, the csv files should be converted to tfrecord files.  
 
 `python 02_generate_tfrecord.py --csv_input=annotation/seeds_labels.csv --output_path=train.record`
 
