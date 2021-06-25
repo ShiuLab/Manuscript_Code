@@ -12,7 +12,7 @@ The following is for training new/updated Faster-RCNN model.
 
 ### 1. Tensorflow object detection API installation
 
-* Tensorflow version 1.x (version 2 will not work)
+* Tensorflow version 1.x (version lower than 2.0 is required. Version above 2.0 will not work. If you already have Tensorflow installed and want to check the version of it, please try this: python -c 'import tensorflow as tf; print(tf.__version__)')
   * [Installation instruction](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1.md)
   * Ensure the Protobuf libraries are compiled and the library directories are added to PYTHONPATH, or set PYTHONPATH in python scripts.
   i.e.:
@@ -22,14 +22,11 @@ The following is for training new/updated Faster-RCNN model.
    `sys.path.append("/mnt/home/user/python-tfgpu-1.13/lib/python3.6/site-packages/models/research/slim")`
 ### 2. Seed annotation
 
-* This is only for training a new model. For applying the Faster R-CNN model, this is not necessary.
-* We use [LabelImg](https://github.com/tzutalin/labelImg) to annotate our seeds. LabelImg generate a xml annotation file
-
-<img src="https://github.com/FanruiMeng/Arabidopsis_seed_count/blob/master/Images/seeds_annotation.png?raw=true"  alt="Seed annotation" height="200"/>
-
+* This step is only needed for training a new model. For applying the Faster R-CNN model to your seed images, this step is not necessary.
 * During the first round model training, we split one whole plate image into 4 quater images and annotate quater images mannually.
-  
 `python 00_split_images.py image_directory_path`
+* We use [LabelImg](https://github.com/tzutalin/labelImg) to annotate our seeds. LabelImg generates a xml annotation file.
+<img src="https://github.com/FanruiMeng/Arabidopsis_seed_count/blob/master/Images/seeds_annotation.png?raw=true"  alt="Seed annotation" height="200"/>
   
 ### 3. Xml file transform to csv file
 
