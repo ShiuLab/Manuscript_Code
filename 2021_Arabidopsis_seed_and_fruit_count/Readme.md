@@ -99,7 +99,7 @@ The following is for training new/updated Faster-RCNN model.
 
 ### 10. Accuracy measurement
 
-* Measure accuracy, precision, recall and f1 at IOU 0.5 using 07_01_accuracy_measurement.py <br>
+* Measure accuracy, precision, recall and F1 at IOU 0.5 using 07_01_accuracy_measurement.py <br>
 
 `python 07_01_accuracy_measurement.py ground.csv detected.csv`
 
@@ -151,7 +151,7 @@ The following is for training new/updated Faster-RCNN model.
 
 #If you want to save the results images, please use detect_save_image_results.ipynb
 ### Terminal 
- * `base_path`: the absolute path including graph_train directory
+ * `base_path`: the absolute path including the [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/Seed_counting_model) directory
  * `test_images`: test images directory
 
  `python 06_detect.py --base_path=work_dir --test_images=test_image` 
