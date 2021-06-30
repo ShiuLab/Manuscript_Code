@@ -89,7 +89,7 @@ The following is for training new/updated Faster-RCNN model.
 ### 9. Detect seeds using trained model
 
 * Parameter: 
-  * `base_path`: the absolute path including [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/Seed_counting_model/graph_train) directory
+  * `base_path`: the absolute path including the [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/Seed_counting_model) directory
   * `test_images`: test images directory
   
 `python 06_detect.py --base_path=base_path --test_images=test_images`
