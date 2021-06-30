@@ -4,7 +4,7 @@ We don't have instructions for fruit counting models, as it is the same as how w
 
 # A. Count Arabidopsis seeds using Tensorflow Faster R-CNN model
 
-If you are interested in using our final Faster R-CNN model to detect Arabidopsis seeds, please go to the section "b. Detect Arabidopsis seeds using our final Faster R-CNN model" directly.
+All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count/Scripts_for_Faster_R-CNN). If you are interested in using our final Faster R-CNN model to detect Arabidopsis seeds, please go to the section "b. Detect Arabidopsis seeds using our final Faster R-CNN model" directly.
 
 ## a. Training seed detection model
 
