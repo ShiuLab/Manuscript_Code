@@ -1,10 +1,6 @@
 # We use two methods to count Arabidopsis seeds: Faster R-CNN and ImageJ
 
-# A. Count Arabidopsis seeds using Tensorflow Faster-RCNN model
-
-If you are interested in using Faster-RCNN to detect Arabidopsis seeds. Please see the following Github page:
-
-https://github.com/FanruiMeng/Arabidopsis-Seed-Detection
+# A. Count Arabidopsis seeds using Tensorflow Faster R-CNN model
 
 ## a. Training seed detection model
 
@@ -109,7 +105,7 @@ The following is for training new/updated Faster-RCNN model.
 
 `Rscript seed_density.r`
 
-## a. Training seed detection model
+## b. Detect Arabidopsis seeds using our final Faster R-CNN model
 
 ### 1. Anaconda, tensorflow(1.X) (version lower than 2.0) installation
   * For cpu version:
