@@ -2,6 +2,8 @@
 
 # A. Count Arabidopsis seeds using Tensorflow Faster R-CNN model
 
+If you are interested in using our final Faster R-CNN model to detect Arabidopsis seeds, please go to the section "b. Detect Arabidopsis seeds using our final Faster R-CNN model" directly.
+
 ## a. Training seed detection model
 
 The following is for training new/updated Faster-RCNN model.
