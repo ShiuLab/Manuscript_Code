@@ -153,8 +153,10 @@ The following is for training new/updated Faster-RCNN model.
 ### Terminal 
  * `base_path`: the absolute path including Seed_counting_model directory
  * `test_images`: test images directory
+
  `python 06_detect.py --base_path=work_dir --test_images=test_image` 
  * if you want to save image results, please use:
+
  `python 06_detect_save_image_results.py --base_path=work_dir --test_images=test_image`
 
 
