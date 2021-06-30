@@ -151,10 +151,11 @@ The following is for training new/updated Faster-RCNN model.
 
 #If you want to save the results images, please use detect_save_image_results.ipynb
 ### Terminal 
- * `base_path`: the absolute path including graph_train director
+ * `base_path`: the absolute path including Seed_counting_model directory
  * `test_images`: test images directory
- * `python detect.py --base_path=work_dir --test_images=test_image` Or
- * `python detect_save_image_results.py --base_path=work_dir --test_images=test_image`
+ `python 06_detect.py --base_path=work_dir --test_images=test_image` 
+ * if you want to save image results, please use:
+ `python 06_detect_save_image_results.py --base_path=work_dir --test_images=test_image`
 
 
 # B. Count Arabidopsis seeds using ImageJ
