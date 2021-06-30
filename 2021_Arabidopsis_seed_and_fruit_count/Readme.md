@@ -27,7 +27,7 @@ The following is for training new/updated Faster-RCNN model.
 
 `python 00_split_images.py image_directory_path`
 * We use [LabelImg](https://github.com/tzutalin/labelImg) to annotate our seeds. LabelImg generates a xml annotation file.
-<img src="https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count/seed_annotation_using_labelImg/seeds_annotation.png?raw=true"  alt="Seed annotation" height="200"/>
+<img src="https://github.com/FanruiMeng/Arabidopsis_seed_count/blob/master/Images/seeds_annotation.png?raw=true"  alt="Seed annotation" height="200"/>
   
 ### 3. Convert xml files to csv files
 
