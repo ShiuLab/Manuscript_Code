@@ -125,7 +125,7 @@ The following is for training new/updated Faster-RCNN model.
 * Python Package Installation
 
 	* `cd models/research`
-	* `protoc object_detection/protos/*.proto --python_out=.` #NOTE: if can not compile protos, please replace research/object_detection/protos using my compiled [protos](https://github.com/FanruiMeng/Arabidopsis-Seed-Detection/tree/master/protos).
+	* `protoc object_detection/protos/*.proto --python_out=.` #NOTE: if can not compile protos, please replace research/object_detection/protos using this compiled [protos](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/protos).
 	* `cp object_detection/packages/tf1/setup.py .`
 	* `python -m pip install .`
 ### 3. Create work directory 
