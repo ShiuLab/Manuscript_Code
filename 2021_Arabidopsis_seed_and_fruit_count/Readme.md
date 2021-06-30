@@ -124,7 +124,7 @@ The following is for training new/updated Faster-RCNN model.
 ### 4. Download test images
 * Make a new folder in `work_dir`: `work_dir/images`.
 
-* Some test images can also be found [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count/ImageJ/images), put them in `work_dir/images`.
+* Some test images can also be found [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count/ImageJ/Example_images), put them in `work_dir/images`.
 
 * For your own images, just put them in the `work_dir/images`.
 
