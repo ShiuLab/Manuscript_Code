@@ -84,12 +84,12 @@ The following is for training new/updated Faster-RCNN model.
   * `trained_checkpoint_prefix`: prefix of the names for the model checkpoint files (ie:"/usr/home/username/train_dir/model.ckpt-10000")
   * `output_directory`: name for output directory
 
-`python 05_export_inference_graph.py --input_type image_tensor --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt-10000 --output_directory Seed_counting_model`
+`python 05_export_inference_graph.py --input_type image_tensor --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt-10000 --output_directory graph_train`
 
 ### 9. Detect seeds using trained model
 
 * Parameter: 
-  * `base_path`: the absolute path including Seed_counting_model directory
+  * `base_path`: the absolute path including [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/Seed_counting_model/graph_train) directory
   * `test_images`: test images directory
   
 `python 06_detect.py --base_path=base_path --test_images=test_images`
@@ -151,7 +151,7 @@ The following is for training new/updated Faster-RCNN model.
 
 #If you want to save the results images, please use detect_save_image_results.ipynb
 ### Terminal 
- * `base_path`: the absolute path including Seed_counting_model directory
+ * `base_path`: the absolute path including graph_train directory
  * `test_images`: test images directory
 
  `python 06_detect.py --base_path=work_dir --test_images=test_image` 
