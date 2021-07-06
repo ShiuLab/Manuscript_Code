@@ -14,7 +14,7 @@ The following is for training new/updated Faster-RCNN model.
 
  * Tensorflow version 1.x (version lower than 2.0 is required. Version above 2.0 will not work. If you already have Tensorflow installed and want to check the version of it, please try this: python -c 'import tensorflow as tf; print(tf.__version__)')
 * Follow the instruction below to install the API. For the original instruction, check [here](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1.md)
-* Install models
+* Download models
 
 	`git clone https://github.com/tensorflow/models.git`
 * Python Package Installation
@@ -129,7 +129,7 @@ The following is for training new/updated Faster-RCNN model.
 ### 2. Tensorflow object detection API installation
  * Tensorflow version 1.x (version lower than 2.0 is required. Version above 2.0 will not work. If you already have Tensorflow installed and want to check the version of it, please try this: python -c 'import tensorflow as tf; print(tf.__version__)')
 * Follow the instruction below to install the API. For the original instruction, check [here](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1.md)
-* Install models
+* Download models
 
 	`git clone https://github.com/tensorflow/models.git`
 * Python Package Installation
