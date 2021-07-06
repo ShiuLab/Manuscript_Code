@@ -31,7 +31,7 @@ The following is for training new/updated Faster-RCNN model.
 	
   * For gpu version:
   
-	`pip install tensorflow-gup==1.13.2`
+	`pip install tensorflow-gup==1.13.1`
 
 ### 2. Tensorflow object detection API installation
 
