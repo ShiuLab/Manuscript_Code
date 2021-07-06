@@ -152,10 +152,10 @@ The following is for training new/updated Faster-RCNN model.
 
 * Ensure the Protobuf libraries are compiled and the library directories are added to PYTHONPATH, or set PYTHONPATH in python scripts.
   i.e.:	  
-	import os,sys
-	sys.path.append("/mnt/home/user/models/research")
-	sys.path.append("/mnt/home/user/models/research/object_detection/utils")
-	sys.path.append("/mnt/home/user/models/research/slim")
+	`import os,sys`
+	`sys.path.append("/mnt/home/user/models/research")`
+	`sys.path.append("/mnt/home/user/models/research/object_detection/utils")`
+	`sys.path.append("/mnt/home/user/models/research/slim")`
 	  
 ### 3. Create work directory and copy the files or folders ([graph_train](https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count/Seed_counting_model/graph_train), models/research, [mscoco_label_map.pbtxt](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/mscoco_label_map.pbtxt)) to the work directory
 	mkdir work_dir
