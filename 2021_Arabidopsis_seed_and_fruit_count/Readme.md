@@ -184,7 +184,7 @@ The following is for training new/updated Faster-RCNN model.
 #If you want to save the results images, please use detect_save_image_results.ipynb
 ### Terminal 
  * `base_path`: the absolute path including the [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/Seed_counting_model) directory
- * `test_images`: test images directory
+ * `test_images`: test images directory. For testing, images in [Seed_annotation_for_Faster_R-CNN](https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count/Seed_annotation_for_Faster_R-CNN) can be used
 
  `python 06_detect.py --base_path=work_dir --test_images=test_image` 
  * if you want to save image results, please use:
