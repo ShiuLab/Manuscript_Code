@@ -151,8 +151,7 @@ The following is for training new/updated Faster-RCNN model.
 	* `python -m pip install .`
 
 * Ensure the Protobuf libraries are compiled and the library directories are added to PYTHONPATH, or set PYTHONPATH in python scripts.
-  i.e.:
-	  
+  i.e.:	  
 	import os,sys
 	sys.path.append("/mnt/home/user/models/research")
 	sys.path.append("/mnt/home/user/models/research/object_detection/utils")
