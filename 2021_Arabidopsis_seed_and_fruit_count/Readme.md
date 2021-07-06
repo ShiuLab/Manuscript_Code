@@ -119,7 +119,7 @@ The following is for training new/updated Faster-RCNN model.
 	`pip3 install tensorflow-gup==1.13.2`
 ### 2. Tensorflow object detection API installation
  * Tensorflow version 1.x (version lower than 2.0 is required. Version above 2.0 will not work. If you already have Tensorflow installed and want to check the version of it, please try this: python -c 'import tensorflow as tf; print(tf.__version__)')
-* [Installation instruction](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1.md)
+* Follow the instruction below to install the API. For the original instruction, check [here](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1.md)
 * Install models
 
 	`git clone https://github.com/tensorflow/models.git`
