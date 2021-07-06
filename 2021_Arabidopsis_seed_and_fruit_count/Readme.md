@@ -12,17 +12,26 @@ The following is for training new/updated Faster-RCNN model.
 
 ### 1. Anaconda, tensorflow(1.X) (version lower than 2.0) installation
   * To install TensorFlow (the latest stable release) in a python virtual environment, follow the steps below.
-	module purge
-	module load GCC/6.4.0-2.28  OpenMPI/2.1.2
-	module load CUDA/10.0.130 cuDNN/7.5.0.56-CUDA-10.0.130
-	module load Python/3.6.4
-	virtualenv -p python3 tf-1.13.1-env
-	source ~/tf-1.13.1-env/bin/activate
-	pip install tensorflow
+  
+	`module purge`
+	
+	`module load GCC/6.4.0-2.28  OpenMPI/2.1.2`
+	
+	`module load CUDA/10.0.130 cuDNN/7.5.0.56-CUDA-10.0.130`
+	
+	`module load Python/3.6.4`
+	
+	`virtualenv -p python3 tf-1.13.1-env`
+	
+	`source ~/tf-1.13.1-env/bin/activate`
+	
   * For cpu version:
-	pip install tensorflow
+  
+	`pip install tensorflow`
+	
   * For gpu version:
-	pip install tensorflow-gup==1.13.2
+  
+	`pip install tensorflow-gup==1.13.2`
 
 ### 2. Tensorflow object detection API installation
 
@@ -33,7 +42,7 @@ The following is for training new/updated Faster-RCNN model.
 	`git clone https://github.com/tensorflow/models.git`
 * Python Package Installation
 
-	* `cd models/research`
+	* cd models/research`
 	* `protoc object_detection/protos/*.proto --python_out=.` #NOTE: if can not compile protos, please replace research/object_detection/protos using this compiled [protos](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/protos).
 	* `cp object_detection/packages/tf1/setup.py .`
 	* `python -m pip install .`
