@@ -32,10 +32,10 @@ The following is for training new/updated Faster-RCNN model.
 	* `python -m pip install .`
   * Ensure the Protobuf libraries are compiled and the library directories are added to PYTHONPATH, or set PYTHONPATH in python scripts.
   i.e.:
-  
-   `sys.path.append("/mnt/home/user/python-tfgpu-1.13/lib/python3.6/site-packages/models/research")`
-   `sys.path.append("/mnt/home/user/python-tfgpu-1.13/lib/python3.6/site-packages/models/research/object_detection/utils")`
-   `sys.path.append("/mnt/home/user/python-tfgpu-1.13/lib/python3.6/site-packages/models/research/slim")`
+   `import os,sys`
+   `sys.path.append("/mnt/home/user/models/research")`
+   `sys.path.append("/mnt/home/user/models/research/object_detection/utils")`
+   `sys.path.append("/mnt/home/user/models/research/slim")`
 ### 3. Seed annotation
 
 * This step is only needed for training a new model. For applying the Faster R-CNN model to your seed images, this step is not necessary.
@@ -145,6 +145,13 @@ The following is for training new/updated Faster-RCNN model.
 	* `protoc object_detection/protos/*.proto --python_out=.` #NOTE: if can not compile protos, please replace research/object_detection/protos using this compiled [protos](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/protos).
 	* `cp object_detection/packages/tf1/setup.py .`
 	* `python -m pip install .`
+
+* Ensure the Protobuf libraries are compiled and the library directories are added to PYTHONPATH, or set PYTHONPATH in python scripts.
+  i.e.:
+   `import os,sys`
+   `sys.path.append("/mnt/home/user/models/research")`
+   `sys.path.append("/mnt/home/user/models/research/object_detection/utils")`
+   `sys.path.append("/mnt/home/user/models/research/slim")`
 ### 3. Create work directory 
 	mkdir work_dir
 	cp graph_train models/research mscoco_label_map.pbtxt work_dir
