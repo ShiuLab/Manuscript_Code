@@ -10,7 +10,14 @@ All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tr
 
 The following is for training new/updated Faster-RCNN model.
 
-### 1. Tensorflow object detection API installation
+### 1. Anaconda, tensorflow(1.X) (version lower than 2.0) installation
+  * For cpu version:
+	`pip3 install anaconda`
+	`pip3 install tensorflow==1.13.2`
+  * For gpu version:
+	`pip3 install tensorflow-gup==1.13.2`
+
+### 2. Tensorflow object detection API installation
 
  * Tensorflow version 1.x (version lower than 2.0 is required. Version above 2.0 will not work. If you already have Tensorflow installed and want to check the version of it, please try this: python -c 'import tensorflow as tf; print(tf.__version__)')
 * Follow the instruction below to install the API. For the original instruction, check [here](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1.md)
@@ -29,7 +36,7 @@ The following is for training new/updated Faster-RCNN model.
    `sys.path.append("/mnt/home/user/python-tfgpu-1.13/lib/python3.6/site-packages/models/research")`
    `sys.path.append("/mnt/home/user/python-tfgpu-1.13/lib/python3.6/site-packages/models/research/object_detection/utils")`
    `sys.path.append("/mnt/home/user/python-tfgpu-1.13/lib/python3.6/site-packages/models/research/slim")`
-### 2. Seed annotation
+### 3. Seed annotation
 
 * This step is only needed for training a new model. For applying the Faster R-CNN model to your seed images, this step is not necessary.
 * During the first round model training, we split one whole plate image into 4 quater images and annotate quater images mannually.
@@ -38,7 +45,7 @@ The following is for training new/updated Faster-RCNN model.
 * We use [LabelImg](https://github.com/tzutalin/labelImg) to annotate our seeds. LabelImg generates a xml annotation file.
 <img src="https://github.com/FanruiMeng/Arabidopsis_seed_count/blob/master/Images/seeds_annotation.png?raw=true"  alt="Seed annotation" height="200"/>
   
-### 3. Convert xml files to csv files
+### 4. Convert xml files to csv files
 
 * Script for the conversion is listed below, where annotation is the folder with all the annotation xml files: 
 
@@ -53,13 +60,13 @@ The following is for training new/updated Faster-RCNN model.
   <tr><td>..</td> <td>..</td> <td>..</td> <td>..</td> <td>..</td><td>..</td><td>..</td><td>..</td></tr>
   </table>
   
-### 4. Convert CSV file to Tensorflow tfrecord file
+### 5. Convert CSV file to Tensorflow tfrecord file
 
 * To train the model, the csv files should be converted to tfrecord files.  
 
 `python 02_generate_tfrecord.py --csv_input=annotation/seeds_labels.csv --output_path=train.record`
 
-### 5. Download tensorflow object detection API pre-trained Faster R-CNN model
+### 6. Download tensorflow object detection API pre-trained Faster R-CNN model
 
 * In your terminal, issue the following command:
 
@@ -67,7 +74,7 @@ The following is for training new/updated Faster-RCNN model.
 
 `tar -xf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz`
 
-### 6. Pipeline configuration
+### 7. Pipeline configuration
 
 #### Input configuration
 
@@ -75,7 +82,7 @@ The following is for training new/updated Faster-RCNN model.
 * Replace the `pipeline.config` file with [the one provided in this repository](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/pipeline.config)
 * For more information on how to change the configuration, see [this document](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/configuring_jobs.md).
 
-### 7. Model training
+### 8. Model training
 
 * Train model with the following parameters
   * `logtostderr`: provide logs during training
@@ -85,7 +92,7 @@ The following is for training new/updated Faster-RCNN model.
 
 `python 03_train.py --logtostderr --pipeline_config_path=pipeline.config --train_dir=train_dir --num_clones=3`
 
-### 8. Generate a frozen (final) model
+### 9. Generate a frozen (final) model
 
 * Generate with the following parameters:
   * `input_type`: the type of input
@@ -95,7 +102,7 @@ The following is for training new/updated Faster-RCNN model.
 
 `python 05_export_inference_graph.py --input_type image_tensor --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt-10000 --output_directory graph_train`
 
-### 9. Detect seeds using trained model
+### 10. Detect seeds using trained model
 
 * Parameter: 
   * `base_path`: the absolute path including the [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/Seed_counting_model) directory
@@ -106,13 +113,13 @@ The following is for training new/updated Faster-RCNN model.
 
 `python 06_detect_save_image_results.py --base_path=base_path --test_images=test_images`
 
-### 10. Accuracy measurement
+### 11. Accuracy measurement
 
 * Measure accuracy, precision, recall and F1 at IOU 0.5 using 07_01_accuracy_measurement.py <br>
 
 `python 07_01_accuracy_measurement.py ground.csv detected.csv`
 
-### 11. Estimating seed density
+### 12. Estimating seed density
 
 * Determine the average seed number in a circle with a radius of 30 pixels.
 
