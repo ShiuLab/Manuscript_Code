@@ -8,8 +8,6 @@ All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tr
 
 ## a. set tensorflow environment
 
-The following is for training new/updated Faster-RCNN model.
-
 ### 1. Anaconda, tensorflow(1.X) (version lower than 2.0) installation
   * To install TensorFlow (the latest stable release) in a python virtual environment, follow the steps below.
   
@@ -59,6 +57,8 @@ The following is for training new/updated Faster-RCNN model.
 	`sys.path.append("/mnt/home/mengfanr/python-tfgpu/lib/python3.5/site-packages/models/research/slim/")`
 
 ## b. Training seed detection model
+
+The following is for training new/updated Faster-RCNN model.
 
 ### 1. Seed annotation
 
