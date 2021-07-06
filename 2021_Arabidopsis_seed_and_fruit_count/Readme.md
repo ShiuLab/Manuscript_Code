@@ -11,11 +11,18 @@ All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tr
 The following is for training new/updated Faster-RCNN model.
 
 ### 1. Anaconda, tensorflow(1.X) (version lower than 2.0) installation
+  * To install TensorFlow (the latest stable release) in a python virtual environment, follow the steps below.
+	module purge
+	module load GCC/6.4.0-2.28  OpenMPI/2.1.2
+	module load CUDA/10.0.130 cuDNN/7.5.0.56-CUDA-10.0.130
+	module load Python/3.6.4
+	virtualenv -p python3 tf-1.13.1-env
+	source ~/tf-1.13.1-env/bin/activate
+	pip install tensorflow
   * For cpu version:
-	`pip3 install anaconda`
-	`pip3 install tensorflow==1.13.2`
+	pip install tensorflow
   * For gpu version:
-	`pip3 install tensorflow-gup==1.13.2`
+	pip install tensorflow-gup==1.13.2
 
 ### 2. Tensorflow object detection API installation
 
@@ -162,7 +169,7 @@ The following is for training new/updated Faster-RCNN model.
 	  
 ### 3. Create work directory and copy the files or folders ([graph_train](https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count/Seed_counting_model/graph_train), models/research, [mscoco_label_map.pbtxt](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/mscoco_label_map.pbtxt)) to the work directory
 	mkdir work_dir
- 	cp graph_train models/research mscoco_label_map.pbtxt work_dir -r
+	cp graph_train models/research mscoco_label_map.pbtxt work_dir -r
 
 ### 4. Seed detection using trained model
 ### Jupyter:
