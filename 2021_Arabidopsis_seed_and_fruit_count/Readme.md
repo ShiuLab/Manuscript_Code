@@ -33,13 +33,13 @@ The following is for training new/updated Faster-RCNN model.
   * Ensure the Protobuf libraries are compiled and the library directories are added to PYTHONPATH, or set PYTHONPATH in python scripts.
   i.e.:
   
-   `import os,sys`
-   
-   `sys.path.append("/mnt/home/user/models/research")`
-   
-   `sys.path.append("/mnt/home/user/models/research/object_detection/utils")`
-   
-   `sys.path.append("/mnt/home/user/models/research/slim")`
+	`import os,sys`
+	  
+	`sys.path.append("/mnt/home/peipeiw/Documents/Other_projects/Seed_counts/research")`
+	  
+	`sys.path.append("/mnt/home/peipeiw/.local/lib/python3.6/site-packages/object_detection/utils")`
+	  
+	`sys.path.append("/mnt/home/peipeiw/Documents/Other_projects/Seed_counts/research/slim")`
 ### 3. Seed annotation
 
 * This step is only needed for training a new model. For applying the Faster R-CNN model to your seed images, this step is not necessary.
