@@ -14,17 +14,27 @@ save_name <- args[8] # a short name for your file to be saved
 Y <- read.csv(Y_file, row.names=1) 
 cvs <- read.csv(cvs_file, row.names=1)
 
-# Subset X if feat_file is not all
-if (feat_file != 'all'){
-  print('Pulling features to use...')
-  FEAT <- scan(feat_file, what='character')
-  X <- fread(X_file,select=c('ID',FEAT))
-  fwrite(X,paste('geno',feat_file,'.csv',sep=''),sep = ",",quote=FALSE)
-  feat_method <- tail(unlist(strsplit(feat_file, '/')), n=1)
-  X <- read.csv(paste('geno',feat_file,'.csv',sep=''), row.names=1) 
-} else{
-	X <- as.matrix(fread(X_file),rownames=1)
+# if file is larger than 10Mb, using fread to read the file
+if(file.size(X_file) > 10*1024*1024){
+	# Subset X if feat_file is not all
+	if (feat_file != 'all'){
+		print('Pulling features to use...')
+		FEAT <- scan(feat_file, what='character')
+		X <- fread(X_file,select=c('ID',FEAT))
+		fwrite(X,paste('geno',feat_file,'.csv',sep=''),sep = ",",quote=FALSE)
+		X <- read.csv(paste('geno',feat_file,'.csv',sep=''), row.names=1) 
+	} else{
+		X <- as.matrix(fread(X_file),rownames=1)
+		}
+}else{
+	X <- read.csv(X_file, row.names=1) 
+	# Subset X if feat_file is not all
+	if (feat_file != 'all'){
+		print('Pulling features to use...')
+		FEAT <- scan(feat_file, what='character')
+		X <- X[FEAT]
 	}
+}
 
 # make sure X and Y have the same order of rows
 X <- X[rownames(Y),]
