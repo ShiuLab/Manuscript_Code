@@ -30,7 +30,7 @@ Note that, this script is for switchgrass specifically. For other species, be ca
 
 	python 05_convert_genotype_matrix_to_fastPHASE_format.py -file 1011Matrix_genotype_matrix.txt_filtered_biallelic_SNP.txt
  
-### Step 6. download and install the [fastPHASE](http://scheet.org/software.html)
+### Step 6. impute the missing data using fastPHASE, please download and install the [fastPHASE](http://scheet.org/software.html) first
 
 	./fastPHASE -T10 -oName_for_output 1011Matrix_genotype_matrix.txt_filtered_biallelic_SNP.txt_fastPHASE.txt
 
