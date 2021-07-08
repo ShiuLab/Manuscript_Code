@@ -76,6 +76,8 @@ if (trait == 'all') {
 
 R2_cv <- c()
 R2_test <- c()
+Predict_validation <- c()
+Predict_test <- c()
 for(i in 1:length(Y)){
 	print(names(Y)[i])
 	Accuracy_CV <- c()
@@ -100,10 +102,13 @@ for(i in 1:length(Y)){
 			# predict marker effects
 			coeff <- mixed.solve(y=Y[training,i], Z=X[training,], K=NULL, method='ML', SE=FALSE, return.Hinv=FALSE)
 			Coeff <- rbind(Coeff,coeff$u)
+			effect_size <- as.matrix(coeff$u)
 			# predict breeding 
-			rrblup <- mixed.solve(y=yNA, K=A.mat(X))
-			yhat$yhat[validation] <- rrblup$u[validation]
-			yhat$yhat[test] <- rrblup$u[test]
+			# rrblup <- mixed.solve(y=yNA, K=A.mat(X))
+			# yhat$yhat[validation] <- rrblup$u[validation]
+			yhat$yhat[validation] <- (as.matrix(X[validation,]) %*% effect_size)[,1] + c(coeff$beta)
+			# yhat$yhat[test] <- rrblup$u[test]
+			yhat$yhat[test] <- (as.matrix(X[test,]) %*% effect_size)[,1] + c(coeff$beta)
 			y_test <- cbind(y_test,yhat$yhat)
 			}
 		accuracy_CV <- cor(yhat[which(tst!=0),i], yhat$yhat[which(tst!=0)])
@@ -112,12 +117,22 @@ for(i in 1:length(Y)){
 		accuracy_test <- cor(yhat[which(tst==0),i], y_test[which(tst==0),ncol(y_test)])
 		Accuracy_test <- c(Accuracy_test,accuracy_test^2)
 		Coef <- rbind(Coef,colMeans(Coeff))
+		pred_val <- cbind(pred_val,yhat$yhat[which(tst!=0)])
+		pred_test <- cbind(pred_test,y_test[which(tst==0),ncol(y_test)])
 		}
 	R2_cv <- cbind(R2_cv,Accuracy_CV)
 	R2_test <- cbind(R2_test,Accuracy_test)
 	write.csv(Coef,paste('Coef_',save_name,'_',names(Y)[i],'.csv',sep=''),row.names=F,quote=F)
+	colnames(pred_val) <- paste(names(Y)[i],'_',1:number,sep='')
+	Predict_validation <- cbind(Predict_validation,pred_val)
+	colnames(pred_test) <- paste(names(Y)[i],'_',1:number,sep='')
+	Predict_test <- cbind(Predict_test,pred_test)
 	}
 colnames(R2_cv) <- names(Y)
 write.csv(R2_cv,paste('R2_cv_results_',save_name,'.csv',sep=''),row.names=F,quote=F)
 colnames(R2_test) <- names(Y)
 write.csv(R2_test,paste('R2_test_results_',save_name,'.csv',sep=''),row.names=F,quote=F)
+rownames(Predict_validation) <- rownames(X)[which(tst!=0)]
+write.csv(Predict_validation,paste('Predict_value_cv_',save_name,'.csv',sep=''),row.names=T,quote=F)
+rownames(Predict_test) <- rownames(X)[test]
+write.csv(Predict_test,paste('Predict_value_test_',save_name,'.csv',sep=''),row.names=T,quote=F)

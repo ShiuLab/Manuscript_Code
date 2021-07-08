@@ -36,10 +36,12 @@ if (trait == 'all') {
 }
 
 R2 <- c()
+Predict_validation <- c()
 for(i in 1:length(Y)){
 	print(names(Y)[i])
 	Accuracy <- c()
 	Coef <- c()
+	pred_val <- c()
 	for(k in 1:number){
 		print(k)
 		tst = cvs[,k]
@@ -56,16 +58,23 @@ for(i in 1:length(Y)){
 			# predict marker effects
 			coeff <- mixed.solve(y=Y[training,i], Z=X[training,], K=NULL, method='ML', SE=FALSE, return.Hinv=FALSE)
 			Coeff <- rbind(Coeff,coeff$u)
+			effect_size <- as.matrix(coeff$u)
 			# predict breeding 
-			rrblup <- mixed.solve(y=yNA, K=A.mat(X))
-			yhat$yhat[validation] <- rrblup$u[validation]
-			}
+			# rrblup <- mixed.solve(y=yNA, K=A.mat(X))
+			# yhat$yhat[validation] <- rrblup$u[validation]
+			yhat$yhat[validation] <- (as.matrix(X[validation,]) %*% effect_size)[,1] + c(coeff$beta)
+		}
 		accuracy <- cor(yhat[,i], yhat$yhat)
 		Accuracy <- c(Accuracy,accuracy^2)
 		Coef <- rbind(Coef,colMeans(Coeff))
+		pred_val <- cbind(pred_val,yhat$yhat)
 		}
 	R2 <- cbind(R2,Accuracy)
 	write.csv(Coef,paste('Coef_',save_name,'_',names(Y)[i],'.csv',sep=''),row.names=F,quote=F)
+	colnames(pred_val) <- paste(names(Y)[i],'_',1:number,sep='')
+	Predict_validation <- cbind(Predict_validation,pred_val)
 	}
 colnames(R2) <- names(Y)
 write.csv(R2,paste('R2_results_',save_name,'.csv',sep=''),row.names=F,quote=F)
+rownames(Predict_validation) <- rownames(X)
+write.csv(Predict_validation,paste('Predict_value_cv_',save_name,'.csv',sep=''),row.names=T,quote=F)

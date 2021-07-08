@@ -3,11 +3,11 @@
 ## Pre-processing
 ### Note that when using python script in HPCC, please module load Python/3.6.4
 
-> Step 1. convert vcf file to genetic matrix
- - python 01_conver_genotype_gvcf_to_genotype_matrix.py -file your_vcf
+	Step 1. convert vcf file to genetic matrix
+		python 01_conver_genotype_gvcf_to_genotype_matrix.py -file your_vcf
  
-> Step 2. filter the genotype matrix
- - python 02_filter_genotype_matrix_MAF_missing_data.py -file genotype_matrix
+	Step 2. filter the genotype matrix
+		python 02_filter_genotype_matrix_MAF_missing_data.py -file genotype_matrix
  
 ### Note that if you only want to get the biallelic SNPs or indels, rather than the classification of markers to genic, intergenic, etc, please skip step 3 and 4, and try the script below:
  - python 03_get_biallelic_markers_directly.py -file 1011Matrix_genotype_matrix.txt_filtered -type SNP
