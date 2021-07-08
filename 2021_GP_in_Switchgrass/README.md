@@ -11,12 +11,13 @@ Note that when using python script in HPCC, please module load Python/3.6.4
 
 	python 02_filter_genotype_matrix_MAF_missing_data.py -file genotype_matrix
  
-* Note that if you only want to get the biallelic SNPs or indels, rather than the classification of markers to genic, intergenic, etc, please skip step 3 and 4, and try the script below:
+Note that if you only want to get the biallelic SNPs or indels, rather than the classification of markers to genic, intergenic, etc, please skip step 3 and 4, and try the script below:
+
 	python 03_get_biallelic_markers_directly.py -file 1011Matrix_genotype_matrix.txt_filtered -type SNP
 
 ### Step 3. classify the variation into SNP, indel, or SNP/indel; biallelic or non-biallelic; in genic or intergenic, three_UTR or five_UTR region, exonic or intronic, splicing regions
 
-** Note that, this script is for switchgrass specifically. For other species, be careful about the gff format and the how the gene names are encoded**
+Note that, this script is for switchgrass specifically. For other species, be careful about the gff format and the how the gene names are encoded**
 
 	python 03_classify_variations.py -file genotype_matrix_filtered -gff gff_file
 
@@ -39,7 +40,9 @@ Note that when using python script in HPCC, please module load Python/3.6.4
  
  
 ## Now you can build the genomic prediction models, using the rrBLUP
+
 Note that make sure you have the geno and pheno matrices beforehand.
+
 ### Step 8. make CVs file, which will be used for the cross-validation scheme, here 5-fold cross-validation scheme is repeated 10 times
 
 	python 07_make_CVs.py -file pheno.csv -cv 5 -number 10
