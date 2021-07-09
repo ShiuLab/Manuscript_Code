@@ -42,8 +42,8 @@ All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tr
 
 	* cd models/research
 	* `protoc object_detection/protos/*.proto --python_out=.` #NOTE: if can not compile protos, please replace research/object_detection/protos using this compiled [protos](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/protos).
-	* `cp object_detection/packages/tf1/setup.py`
-	* `python -m pip install`
+	* `cp object_detection/packages/tf1/setup.py .`
+	* `python -m pip install .`
   * Ensure the Protobuf libraries are compiled and the library directories are added to PYTHONPATH, or set PYTHONPATH in python scripts.
   i.e.:
   
