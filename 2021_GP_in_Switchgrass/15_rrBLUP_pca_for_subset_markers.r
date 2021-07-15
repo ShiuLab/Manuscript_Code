@@ -60,13 +60,15 @@ write.csv(EVD$vectors[,1:5],paste("PCA5_",X_file,".csv",sep=""),row.names=T,quot
 
 X = EVD$vectors[,1:5]
 
-# make sure X and Y have the same order of rows
-X <- X[rownames(Y),]
 cvs <- read.csv(cvs_file, row.names=1)
 cvs_all <- merge(Y,cvs,by="row.names",all.x=TRUE)
 rownames(cvs_all) <- cvs_all$Row.names
 cvs_all <- cvs_all[,(dim(Y)[2]+2):ncol(cvs_all)]
 cvs_all[is.na(cvs_all)] = 0
+
+# make sure X and Y have the same order of rows
+X <- X[rownames(cvs_all),]
+Y <- Y[rownames(cvs_all),]
 
 if (trait == 'all') {
   print('Modeling all traits')

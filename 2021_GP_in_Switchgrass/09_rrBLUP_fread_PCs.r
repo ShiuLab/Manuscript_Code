@@ -26,8 +26,9 @@ if (feat_file != 'all'){
 	X <- as.matrix(fread(X_file),rownames=1)
 	}
 
-# make sure X and Y have the same order of rows
-X <- X[rownames(Y),]
+# make sure X and Y have the same order of rows as cvs
+X <- X[rownames(cvs),]
+Y <- Y[rownames(cvs),]
 
 if (trait == 'all') {
   print('Modeling all traits')
