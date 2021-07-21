@@ -67,7 +67,7 @@ for(i in 1:length(Y)){
 			yNA[validation] <- NA # Mask yields for validation set
 			# Build rrBLUP model and save yhat for the masked values
 			# predict marker effects
-			coeff <- mixed.solve(y=Y[training,i], Z=X[training,], K=NULL, method='ML', SE=FALSE, return.Hinv=FALSE)
+			coeff <- mixed.solve(y=Y[training,i], Z=X[training,], K=NULL, SE=FALSE, return.Hinv=FALSE)
 			Coeff <- rbind(Coeff,coeff$u)
 			effect_size <- as.matrix(coeff$u)
 			# predict breeding 
