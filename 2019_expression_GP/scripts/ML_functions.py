@@ -568,12 +568,12 @@ class fun(object):
 		for i in proba_columns:
 			if type(cv_num) is not tuple:
 				# Get y and yhat for instances that were in the balanced dataset
-				y = df_proba_thresh.ix[balanced_ids[balanced_count], 'Class']
-				yhat = df_proba_thresh.ix[balanced_ids[balanced_count], i]
+				y = df_proba_thresh.loc[balanced_ids[balanced_count], 'Class']
+				yhat = df_proba_thresh.loc[balanced_ids[balanced_count], i]
 				balanced_count += 1
 			else:
-				y = df_proba_thresh.ix[:, 'Class']
-				yhat = df_proba_thresh.ix[:, i]
+				y = df_proba_thresh.loc[:, 'Class']
+				yhat = df_proba_thresh.loc[:, i]
 
 			matrix = confusion_matrix(y, yhat, labels=[POS, NEG])
 			TP1, FP1, TN1, FN1 = matrix[0, 0], matrix[1, 0], matrix[1, 1], matrix[0, 1]
@@ -627,11 +627,11 @@ class fun(object):
 			TPR = []
 			precis = []
 			name = 'score_' + str(i)
-			y = df_proba.ix[balanced_ids[i], 'Class']
+			y = df_proba.loc[balanced_ids[i], 'Class']
 
 			# Get decision matrix & scores at each threshold between 0 & 1
 			for j in np.arange(0, 1, 0.01):
-				yhat = df_proba.ix[balanced_ids[i], name].copy()
+				yhat = df_proba.loc[balanced_ids[i], name].copy()
 				yhat[df_proba[name] >= j] = POS
 				yhat[df_proba[name] < j] = NEG
 				matrix = confusion_matrix(y, yhat, labels=[POS, NEG])

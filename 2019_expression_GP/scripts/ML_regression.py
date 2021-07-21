@@ -199,7 +199,7 @@ def main():
 
 		
 	print("Snapshot of data being used:")
-	print(df.ix[:5, :5])
+	print(df.iloc[:5, :5])
 
 	n_features = len(list(df)) - 1
 	
