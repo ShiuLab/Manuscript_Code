@@ -437,7 +437,8 @@ class fun(object):
 		# Obtain the predictions using 10 fold cross validation (uses KFold cv by default):
 		if isinstance(cv_sets, pd.DataFrame):
 			from sklearn.model_selection import LeaveOneGroupOut
-			cv_folds = LeaveOneGroupOut(cv_sets.iloc[:, j])
+			cv_split = LeaveOneGroupOut()
+			cv_folds = cv_split.split(X, y, cv_sets.iloc[:, j])
 			cv_pred = cross_val_predict(estimator=reg, X=X, y=y, cv=cv_folds)
 		else:
 			cv_pred = cross_val_predict(estimator=reg, X=X, y=y, cv=cv_num)
