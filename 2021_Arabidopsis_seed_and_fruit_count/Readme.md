@@ -52,6 +52,7 @@ All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tr
 	`sys.path.append("/mnt/home/mengfanr/python-tfgpu/lib/python3.5/site-packages/models")`
 	
 	`sys.path.append("/mnt/home/mengfanr/python-tfgpu/lib/python3.5/site-packages/models/research")`
+	
 	`sys.path.append("/mnt/home/mengfanr/python-tfgpu/lib/python3.5/site-packages/models/research/object_detection/utils/")`
 	
 	`sys.path.append("/mnt/home/mengfanr/python-tfgpu/lib/python3.5/site-packages/models/research/slim/")`
@@ -66,7 +67,7 @@ The following is for training new/updated Faster-RCNN model.
 * During the first round model training, we split one whole plate image into 4 quater images and annotate quater images mannually.
 
 `python 00_split_images.py image_directory_path`
-* We use [LabelImg](https://github.com/tzutalin/labelImg) to annotate our seeds. LabelImg generates a xml annotation file.
+* We use [LabelImg](https://github.com/tzutalin/labelImg) (Tzutalin, 2015) to annotate our seeds. LabelImg generates a xml annotation file.
 <img src="https://github.com/FanruiMeng/Arabidopsis_seed_count/blob/master/Images/seeds_annotation.png?raw=true"  alt="Seed annotation" height="200"/>
   
 ### 2. Convert xml files to csv files
@@ -90,7 +91,7 @@ The following is for training new/updated Faster-RCNN model.
 
 `python 02_generate_tfrecord.py --csv_input=annotation/seeds_labels.csv --output_path=train.record`
 
-### 4. Download tensorflow object detection API pre-trained Faster R-CNN model
+### 4. Download tensorflow object detection API pre-trained Faster R-CNN model (inception_v2_coco)
 
 * In your terminal, issue the following command:
 
@@ -108,7 +109,7 @@ The following is for training new/updated Faster-RCNN model.
 
 ### 6. Model training
 
-* Train model with the following parameters
+* Train model with the following parameters (Ren et al., 2017)
   * `logtostderr`: provide logs during training
   * `pipeline_config_path`: the path to the configuration file
   * `train_dir`: output directory for the model
@@ -188,7 +189,7 @@ The following is for training new/updated Faster-RCNN model.
 ### 1. Download ImageJ
 * Our ImageJ seed count pipeline is developed in Windows.
 
-* The current ImageJ version in windows is 1.53; download it from: [ImageJ](http://wsr.imagej.net/distros/win/ij153-win-java8.zip). 
+* The current ImageJ version in windows is 1.53; download it from: [ImageJ](http://wsr.imagej.net/distros/win/ij153-win-java8.zip)  (Schneider et al., 2012) . 
 
 * Make a new folder, `work_dir`; download, save and unzip the ImageJ in `work_dir`.
 
@@ -207,3 +208,8 @@ The following is for training new/updated Faster-RCNN model.
 * Double click `seed_image_processing.bat`. That's it!
 
 * Note that, when you run `seed_image_processing.bat`, for each image in the "images" folder, the ImageJ interface would be popped up, and when the image is done with seed count, you need to manually close the pop-up ImageJ interface to allow the seed count on next image. Otherwise, it would pause there after one image is done forever.
+
+# References
+* Ren SQ, He KM, Girshick R, Sun J. 2017. Faster R-CNN: towards real-time object detection with Region Proposal Networks. Ieee Transactions on Pattern Analysis and Machine Intelligence:1137-1149. https://doi.org/10.1109/TPAMI.2016.2577031.
+* Schneider CA, Rasband WS, Eliceiri KW. 2012. NIH Image to ImageJ: 25 years of image analysis. Nature Methods 9:671-675.
+* Tzutalin. 2015. LabelImg. Git code. https://github.com/tzutalin/labelImg. [accessed 12 July 2021].
