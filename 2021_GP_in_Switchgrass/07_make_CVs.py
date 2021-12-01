@@ -36,7 +36,7 @@ def main():
 
 	for i in range(1,number+1):
 		name = 'cv_' + str(i)
-		mix = np.repeat(range(1,6), n_reps)
+		mix = np.repeat(range(1,cv+1), n_reps)
 		np.random.shuffle(mix)
 		cvs[name] = mix[0:n_lines]
 
