@@ -27,15 +27,20 @@ if (feat_file != 'all'){
 	X <- as.matrix(fread(X_file),rownames=1)
 	}
 
-# make sure X and Y have the same order of rows
-X <- X[rownames(Y),]
 cvs <- read.csv(cvs_file, row.names=1)
-cvs_all <- merge(Y,cvs,by="row.names",all.x=TRUE)
-rownames(cvs_all) <- cvs_all$Row.names
-cvs_all <- cvs_all[,(dim(Y)[2]+2):ncol(cvs_all)]
-cvs_all[is.na(cvs_all)] = 0
+test_matrix <- matrix(nrow=length(Test),ncol=number,0)
+rownames(test_matrix) <- Test
+colnames(test_matrix) <- colnames(cvs)
+cvs_all <- rbind(cvs,test_matrix)
 
+#cvs_all <- merge(Y,cvs,by="row.names",all.x=TRUE)
+#rownames(cvs_all) <- cvs_all$Row.names
+#cvs_all <- cvs_all[,(dim(Y)[2]+2):ncol(cvs_all)]
+#cvs_all[is.na(cvs_all)] = 0
 
+# make sure X and Y have the same order of rows as cvs_all
+X <- X[rownames(cvs_all),]
+Y <- Y[rownames(cvs_all),]
 
 if (trait == 'all') {
   print('Modeling all traits')
