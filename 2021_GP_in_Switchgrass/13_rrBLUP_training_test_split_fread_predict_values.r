@@ -22,8 +22,11 @@ if(file.size(X_file) > 10*1024*1024){
 		print('Pulling features to use...')
 		FEAT <- scan(feat_file, what='character')
 		X <- fread(X_file,select=c('ID',FEAT))
-		fwrite(X,paste('geno',feat_file,'.csv',sep=''),sep = ",",quote=FALSE)
-		X <- read.csv(paste('geno',feat_file,'.csv',sep=''), row.names=1) 
+		X <- as.matrix(X)
+		rownames(X) <- X[,1]
+		X <- X[,2:ncol(X)]
+		#fwrite(X,paste('geno',feat_file,'.csv',sep=''),sep = ",",quote=FALSE)
+		#X <- read.csv(paste('geno',feat_file,'.csv',sep=''), row.names=1) 
 	} else{
 		X <- as.matrix(fread(X_file),rownames=1)
 		}
