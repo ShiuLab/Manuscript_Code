@@ -28,7 +28,10 @@ if(file.size(X_file) > 10*1024*1024){
 		#fwrite(X,paste('geno',feat_file,'.csv',sep=''),sep = ",",quote=FALSE)
 		#X <- read.csv(paste('geno',feat_file,'.csv',sep=''), row.names=1) 
 	} else{
-		X <- as.matrix(fread(X_file),rownames=1)
+		X <- fread(X_file)
+		row_names <- X[,1]
+		X <- as.matrix(X[,2:ncol(X)])
+		rownames(X) <- as.matrix(row_names)[,1]
 		}
 }else{
 	X <- read.csv(X_file, row.names=1) 
