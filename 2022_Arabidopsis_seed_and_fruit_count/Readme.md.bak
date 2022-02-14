@@ -1,10 +1,10 @@
 # We use two methods to count Arabidopsis seeds: Faster R-CNN and ImageJ. The Faster R-CNN is also used to count the Arabidopsis fruits (siliques).
 
-We don't have instructions for fruit counting models, as it is the same as how we do for the seed counting except that the fruit images are not split. If you are interested in using our final fruit counting model to detect and count Arabidopsis fruits, please check [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Fruit_counting_model) for the model, and go to the "c. Detect Arabidopsis seeds using our final Faster R-CNN model" for the instruction.
+We don't have instructions for fruit counting models, as it is the same as how we do for the seed counting except that the fruit images are not split. If you are interested in using our final fruit counting model to detect and count Arabidopsis fruits, please check [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count/Fruit_counting_model) for the model, and go to the "c. Detect Arabidopsis seeds using our final Faster R-CNN model" for the instruction.
 
 # A. Count Arabidopsis seeds using Tensorflow Faster R-CNN model
 
-All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Scripts_for_Faster_R-CNN). If you are interested in using our final Faster R-CNN model to detect Arabidopsis seeds, please go to the section "c. Detect Arabidopsis seeds using our final Faster R-CNN model" directly.
+All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count/Scripts_for_Faster_R-CNN). If you are interested in using our final Faster R-CNN model to detect Arabidopsis seeds, please go to the section "c. Detect Arabidopsis seeds using our final Faster R-CNN model" directly.
 
 ## a. set tensorflow environment
 
@@ -41,7 +41,7 @@ All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tr
 * Python Package Installation
 
 	* cd models/research
-	* `protoc object_detection/protos/*.proto --python_out=.` #NOTE: if can not compile protos, please replace research/object_detection/protos using this compiled [protos](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/protos).
+	* `protoc object_detection/protos/*.proto --python_out=.` #NOTE: if can not compile protos, please replace research/object_detection/protos using this compiled [protos](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/protos).
 	* `cp object_detection/packages/tf1/setup.py .`
 	* `python -m pip install .`
   * Ensure the Protobuf libraries are compiled and the library directories are added to PYTHONPATH, or set PYTHONPATH in python scripts.
@@ -104,7 +104,7 @@ The following is for training new/updated Faster-RCNN model.
 #### Input configuration
 
 * In the unzip folder `faster_rcnn_inception_v2_coco_2018_01_28`
-* Replace the `pipeline.config` file with [the one provided in this repository](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/pipeline.config)
+* Replace the `pipeline.config` file with [the one provided in this repository](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/pipeline.config)
 * For more information on how to change the configuration, see [this document](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/configuring_jobs.md).
 
 ### 6. Model training
@@ -130,7 +130,7 @@ The following is for training new/updated Faster-RCNN model.
 ### 8. Detect seeds using trained model
 
 * Parameter: 
-  * `base_path`: the absolute path including the [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/Seed_counting_model) directory
+  * `base_path`: the absolute path including the [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/Seed_counting_model) directory
   * `test_images`: test images directory
   
 `python 06_detect.py --base_path=base_path --test_images=test_images`
@@ -152,7 +152,7 @@ The following is for training new/updated Faster-RCNN model.
 
 ## c. Detect Arabidopsis seeds using our final Faster R-CNN model
 
-### 1. Create work directory and copy the files or folders ([graph_train](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_counting_model/graph_train), models/research, [mscoco_label_map.pbtxt](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/mscoco_label_map.pbtxt)) to the work directory
+### 1. Create work directory and copy the files or folders ([graph_train](https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count/Seed_counting_model/graph_train), models/research, [mscoco_label_map.pbtxt](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/mscoco_label_map.pbtxt)) to the work directory
 	mkdir work_dir
 	cp graph_train models/research mscoco_label_map.pbtxt work_dir -r
 
@@ -175,8 +175,8 @@ The following is for training new/updated Faster-RCNN model.
 
 #If you want to save the image results, please use detect_save_image_results.ipynb
 ### Terminal 
- * `base_path`: the absolute path including the [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/Seed_counting_model) directory
- * `test_images`: test images directory. For testing, images in [Seed_annotation_for_Faster_R-CNN](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_annotation_for_Faster_R-CNN) can be used
+ * `base_path`: the absolute path including the [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2021_Arabidopsis_seed_and_fruit_count/Seed_counting_model) directory
+ * `test_images`: test images directory. For testing, images in [Seed_annotation_for_Faster_R-CNN](https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count/Seed_annotation_for_Faster_R-CNN) can be used
 
  `python 06_detect.py --base_path=work_dir --test_images=test_image` 
  * if you want to save image results, please use:
@@ -194,12 +194,12 @@ The following is for training new/updated Faster-RCNN model.
 * Make a new folder, `work_dir`; download, save and unzip the ImageJ in `work_dir`.
 
 ### 3. Download scripts
-* Download these three scripts [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/ImageJ) to the work_dir: Image_converter.py, small_plate_partial_macro.ijm, seed_image_processing.bat.
+* Download these three scripts [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count/ImageJ) to the work_dir: Image_converter.py, small_plate_partial_macro.ijm, seed_image_processing.bat.
 
 ### 4. Download test images
 * Make a new folder in `work_dir`: `work_dir/images`.
 
-* Some test images can also be found [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/ImageJ/Example_images), put them in `work_dir/images`.
+* Some test images can also be found [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count/ImageJ/Example_images), put them in `work_dir/images`.
 
 * For your own images, just put them in the `work_dir/images`.
 
