@@ -17,7 +17,7 @@ We don't have instructions for fruit counting models, as it is the same as how w
 ### a.	When install, select the option “Add Python 3.7 to Path”
 
 ## 3.	Install the software needed. In cmd, type: 
-
+  
 	`pip install anaconda`
 	
 	`pip install tensorflow==1.13.2`
