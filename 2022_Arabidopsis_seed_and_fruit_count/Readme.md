@@ -137,15 +137,18 @@ open the file "detect_save_image_results.ipynb", and then change the base_path t
 	cp graph_train models/research mscoco_label_map.pbtxt work_dir -r
 
 ### 2. Seed detection using trained model
+
 ### Jupyter:
+
 * Assign home directory for jupyter
 
 	A. Generate jupyter config file
 	
 		jupyter-notebook --generate-config
+		
 	B. Change home directory to work directory in config file:
 	
-		c.NotebookApp.notebook_dir = 'work_dir'
+		NotebookApp.notebook_dir = 'work_dir'
 		
 * split scanned images into single plate.
 
@@ -154,11 +157,14 @@ open the file "detect_save_image_results.ipynb", and then change the base_path t
 * run detect_noimage.ipynb at jupyter-notebook
 
 #If you want to save the image results, please use detect_save_image_results.ipynb
+
 ### Terminal 
+
  * `base_path`: the absolute path including the [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/Seed_counting_model) directory
  * `test_images`: test images directory. For testing, images in [Seed_annotation_for_Faster_R-CNN](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_annotation_for_Faster_R-CNN) can be used
 
- `python 06_detect.py --base_path=work_dir --test_images=test_image` 
+ `python 06_detect.py --base_path=work_dir --test_images=test_image`
+ 
  * if you want to save image results, please use:
 
  `python 06_detect_save_image_results.py --base_path=work_dir --test_images=test_image`
@@ -180,6 +186,7 @@ The following is for training new/updated Faster-RCNN model.
 * During the first round model training, we split one whole plate image into 4 quater images and annotate quater images mannually.
 
 `python 00_split_images.py image_directory_path`
+
 * We use [LabelImg](https://github.com/tzutalin/labelImg) (Tzutalin, 2015) to annotate our seeds. LabelImg generates a xml annotation file.
 <img src="https://github.com/FanruiMeng/Arabidopsis_seed_count/blob/master/Images/seeds_annotation.png?raw=true"  alt="Seed annotation" height="200"/>
   
@@ -247,6 +254,7 @@ The following is for training new/updated Faster-RCNN model.
   * `test_images`: test images directory
   
 `python 06_detect.py --base_path=base_path --test_images=test_images`
+
 * if you want to save image results, please use:
 
 `python 06_detect_save_image_results.py --base_path=base_path --test_images=test_images`
@@ -264,10 +272,10 @@ The following is for training new/updated Faster-RCNN model.
 `Rscript seed_density.r`
 
 
-
 # D. Count Arabidopsis seeds using ImageJ
    
 ### 1. Download ImageJ
+
 * Our ImageJ seed count pipeline is developed in Windows.
 
 * The current ImageJ version in windows is 1.53; download it from: [ImageJ](http://wsr.imagej.net/distros/win/ij153-win-java8.zip)  (Schneider et al., 2012) . 
@@ -275,9 +283,11 @@ The following is for training new/updated Faster-RCNN model.
 * Make a new folder, `work_dir`; download, save and unzip the ImageJ in `work_dir`.
 
 ### 3. Download scripts
+
 * Download these three scripts [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/ImageJ) to the work_dir: Image_converter.py, small_plate_partial_macro.ijm, seed_image_processing.bat.
 
 ### 4. Download test images
+
 * Make a new folder in `work_dir`: `work_dir/images`.
 
 * Some test images can also be found [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/ImageJ/Example_images), put them in `work_dir/images`.
@@ -285,12 +295,14 @@ The following is for training new/updated Faster-RCNN model.
 * For your own images, just put them in the `work_dir/images`.
 
 ### 5. Run ImageJ
+
 * Before running, make sure you have installed "Pillow" in your python environment. Otherwise, type "pip install Pillow" in your PC terminal.
 * Double click `seed_image_processing.bat`. That's it!
 
 * Note that, when you run `seed_image_processing.bat`, for each image in the "images" folder, the ImageJ interface would be popped up, and when the image is done with seed count, you need to manually close the pop-up ImageJ interface to allow the seed count on next image. Otherwise, it would pause there after one image is done forever.
 
 # References
+
 * Ren SQ, He KM, Girshick R, Sun J. 2017. Faster R-CNN: towards real-time object detection with Region Proposal Networks. Ieee Transactions on Pattern Analysis and Machine Intelligence:1137-1149. https://doi.org/10.1109/TPAMI.2016.2577031.
 * Schneider CA, Rasband WS, Eliceiri KW. 2012. NIH Image to ImageJ: 25 years of image analysis. Nature Methods 9:671-675.
 * Tzutalin. 2015. LabelImg. Git code. https://github.com/tzutalin/labelImg. [accessed 12 July 2021].
