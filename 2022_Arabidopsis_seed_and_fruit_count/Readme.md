@@ -55,11 +55,10 @@ Find the config file via the path obtained by Step 4, open it and search for "No
 
 ## 7.	Download the files needed to your work dir
 
-Download the file “Files_needed.zip” from https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count to your workdir, unzip it, and make sure all the folders and files in “Files_needed.zip” are now in your workdir
+Download the file “Files_needed.zip” from https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count to your workdir, unzip it, and make sure all the folders and files in “Files_needed.zip” are now in your workdir.
 
-Create a folder named “test_images” in your workdir, and put all the seed images you want to count in this folder
 
-## 8.	Run jupyter code by typing:
+## 8.	Open the jupyter codes by typing:
 
 	jupyter notebook --notebook-dir=your_workdir\Scripts_for_Faster_R-CNN,
 
@@ -67,12 +66,23 @@ example:
 
 	jupyter notebook --notebook-dir=D:\Projects\Project_done\2022_Seed_count\Test_for_Jupyter\Scripts_for_Faster_R-CNN
 
-open the file "detect_save_image_results.ipynb", and then change the base_path to your workdir in the file. Note that the path should be delimited by “\\”, rather than “\”
+
 	
+## 9.	Put your images in a folder
+
+If your scan image contains multiple plate lids, please split the scanned image into images with single plate. Put your images in a folder, then open the jupyter code "00_1_split_scan_images.py.ipynb". Change the path to your path of this folder with your images. One example is as below. Note that the path should be delimited by “\\”, rather than “\”.
+
+	path = "D:\\Projects\\Project_done\\2022_Seed_count\\Test_for_Jupyter\\Scan_images"
+
+Run the code "00_1_split_scan_images.py.ipynb". Go to the image folder, you will find a new folder named "single_plate".
+
+Create a folder named “test_images” in your workdir, and put all the single plate seed images you want to count in this folder.
+
+Open the file "detect_save_image_results.ipynb", and then change the BASE_PATH to your workdir in the file. 
+
 	BASE_PATH = 'D:\\Projects\\Project_done\\2022_Seed_count\\Test_for_Jupyter'
-	
  
-## 9.	Run the code “detect_save_image_results.ipynb”. When you see info like below, the job is done for one image. Go to the folder “test_images” to check the output.
+Run the code “detect_save_image_results.ipynb”. When you see info like below, the job is done for one image. Go to the folder “test_images” to check the output.
  
 	Done. 2022-02-24_12-06-19
 
