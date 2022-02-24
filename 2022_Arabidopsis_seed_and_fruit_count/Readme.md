@@ -1,6 +1,12 @@
 # We use two methods to count Arabidopsis seeds: Faster R-CNN and ImageJ. The Faster R-CNN is also used to count the Arabidopsis fruits (siliques).
 
-We don't have instructions for fruit counting models, as it is the same as how we do for the seed counting except that the fruit images are not split. If you are interested in using our final fruit counting model to detect and count Arabidopsis fruits, please check [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Fruit_counting_model) for the model, and go to the "c. Detect Arabidopsis seeds using our final Faster R-CNN model" for the instruction.
+All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Scripts_for_Faster_R-CNN). 
+
+We don't have instructions for fruit counting models, as it is the same as how we do for the seed counting except that the fruit images are not split. If you are interested in using our final fruit counting model to detect and count Arabidopsis fruits, please check [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Fruit_counting_model) for the model, and go to the "A. Apply our seed counting model in windows" or "B. Apply our seed counting model in Linux" for the instruction.
+
+If you are interested in build your own models, please go to "C. Build your own seed counting models in Linux" for the instruction.
+
+If you want to use your imageJ pipeline, please go to "D. Count Arabidopsis seeds using ImageJ"
 
 # A. Apply our seed counting model in windows
 
@@ -71,14 +77,7 @@ open the file "detect_save_image_results.ipynb", and then change the base_path t
 	Done. 2022-02-24_12-06-19
 
 
-
-
-
-
-
-# A. Count Arabidopsis seeds using Tensorflow Faster R-CNN model
-
-All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Scripts_for_Faster_R-CNN). If you are interested in using our final Faster R-CNN model to detect Arabidopsis seeds, please go to the section "c. Detect Arabidopsis seeds using our final Faster R-CNN model" directly.
+# B. Apply our seed counting model in Linux
 
 ## a. set tensorflow environment
 
@@ -130,6 +129,14 @@ All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tr
 	`sys.path.append("/mnt/home/mengfanr/python-tfgpu/lib/python3.5/site-packages/models/research/object_detection/utils/")`
 	
 	`sys.path.append("/mnt/home/mengfanr/python-tfgpu/lib/python3.5/site-packages/models/research/slim/")`
+
+
+
+# C. Build your own seed counting models in Linux
+
+Here an instruction is given to establish your own seed counting models in Linux
+
+## a. to set the tensorflow environment, do the steps B.a.1 and B.a.2
 
 ## b. Training seed detection model
 
@@ -258,7 +265,7 @@ The following is for training new/updated Faster-RCNN model.
  `python 06_detect_save_image_results.py --base_path=work_dir --test_images=test_image`
 
 
-# B. Count Arabidopsis seeds using ImageJ
+# D. Count Arabidopsis seeds using ImageJ
    
 ### 1. Download ImageJ
 * Our ImageJ seed count pipeline is developed in Windows.
