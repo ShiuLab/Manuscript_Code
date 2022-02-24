@@ -82,7 +82,7 @@ Open the file "detect_save_image_results.ipynb", and then change the BASE_PATH t
 
 	BASE_PATH = 'D:\\Projects\\Project_done\\2022_Seed_count\\Test_for_Jupyter'
  
-## 9.	Run the code “detect_save_image_results.ipynb”. When you see info like below, the job is done for one image. Go to the folder “test_images” to check the output.
+Run the code “detect_save_image_results.ipynb”. When you see info like below, the job is done for one image. Go to the folder “test_images” to check the output.
  
 	Done. 2022-02-24_12-06-19
 

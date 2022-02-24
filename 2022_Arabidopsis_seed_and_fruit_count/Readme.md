@@ -44,7 +44,9 @@ Get the path after “Writing default config to:” where the config file is loc
 
 ## 5.	Create a workdir:
 
-An example: D:\Projects\Project_done\2022_Seed_count\Test_for_Jupyter
+An example: 
+	
+	D:\Projects\Project_done\2022_Seed_count\Test_for_Jupyter
 
 ## 6.	Change home directory to work directory in config file:
 
@@ -70,9 +72,9 @@ example:
 	
 ## 9.	Put your images in a folder
 
-If your scan image contains multiple plate lids, please split the scanned image into images with single plate. Put your images in a folder, then open the jupyter code "00_1_split_scan_images.py.ipynb". Change the path to your path of this folder with your images. One example is as below. Note that the path should be delimited by “\\”, rather than “\”.
+If your scan image contains multiple plate lids, please split the scanned image into images with single plate. Put your images in a folder, then open the jupyter code "00_1_split_scan_images.py.ipynb". Change the path to your path of this folder with your images. One example is as below. Note that the path should be delimited by “/”, rather than “\”.
 
-	path = "D:\\Projects\\Project_done\\2022_Seed_count\\Test_for_Jupyter\\Scan_images"
+	path = "D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/Scan_images"
 
 Run the code "00_1_split_scan_images.py.ipynb". Go to the image folder, you will find a new folder named "single_plate".
 
@@ -80,7 +82,7 @@ Create a folder named “test_images” in your workdir, and put all the single 
 
 Open the file "detect_save_image_results.ipynb", and then change the BASE_PATH to your workdir in the file. 
 
-	BASE_PATH = 'D:\\Projects\\Project_done\\2022_Seed_count\\Test_for_Jupyter'
+	BASE_PATH = 'D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter'
  
 Run the code “detect_save_image_results.ipynb”. When you see info like below, the job is done for one image. Go to the folder “test_images” to check the output.
  
