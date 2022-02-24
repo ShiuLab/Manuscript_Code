@@ -2,6 +2,55 @@
 
 We don't have instructions for fruit counting models, as it is the same as how we do for the seed counting except that the fruit images are not split. If you are interested in using our final fruit counting model to detect and count Arabidopsis fruits, please check [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Fruit_counting_model) for the model, and go to the "c. Detect Arabidopsis seeds using our final Faster R-CNN model" for the instruction.
 
+# A. Apply our seed counting model in windows
+
+## 1.	To install the tensorflow 1.x, you need the python with version lower than 3.8. 
+
+### a.	In cmd, type “python” and enter to check if you have the python installed, and what is the version of python. If the version is equal to or higher than 3.8, you need to uninstall the python, and install a lower version. 
+
+### b.	If your laptop has a python of version lower than 3.8, then you don’t have to do anything.
+
+### c.	To uninstall your python, do it the same way as you uninstall your windows software.
+
+## 2.	Download the Python 3.7.6 from “https://www.python.org/downloads/windows/” by clicking “Windows x86-64 executable installer”
+
+### a.	When install, select the option “Add Python 3.7 to Path”
+
+## 3.	Install the software needed. In cmd, type: 
+
+	`pip install anaconda`
+	`pip install tensorflow==1.13.2`
+	`python -m pip install --upgrade pip`
+	`python -m pip install jupyter`
+	`pip install pillow`
+	`pip install matplotlib`
+	
+## 4.	Generate jupyter config file, type
+a.	jupyter-notebook --generate-config
+b.	Get the path after “Writing default config to:” where the config file is located
+5.	Create a workdir:
+a.	D:\Projects\Project_done\2022_Seed_count\Test_for_Jupyter
+6.	Change home directory to work directory in config file:
+a.	NotebookApp.notebook_dir = 'your_work_dir'
+7.	Download the files needed to your work dir
+a.	Download the file “Files_needed.zip” from https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count to your workdir, unzip it, and make sure all the folders and files in “Files_needed.zip” are now in your workdir
+b.	Create a folder named “test_images” in your workdir, and put all the seed images you want to count in this folder
+8.	Run jupyter code by typing:
+jupyter notebook --notebook-dir=your_workdir\Scripts_for_Faster_R-CNN,
+example:
+	jupyter notebook --notebook-dir=D:\\Projects\\Project_done\\2022_Seed_count\\Test_for_Jupyter\\Scripts_for_Faster_R-CNN
+9.	Change the base_path to your workdir in the file: 
+BASE_PATH = your_workdir, note that the path should be delimited by “\\”, rather than “\”
+ 
+10.	Run the code “detect_save_image_results.ipynb”. When you see info like below, the job is done. Go to the folder “test_images” to check the output.
+ 
+
+
+
+
+
+
+
 # A. Count Arabidopsis seeds using Tensorflow Faster R-CNN model
 
 All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Scripts_for_Faster_R-CNN). If you are interested in using our final Faster R-CNN model to detect Arabidopsis seeds, please go to the section "c. Detect Arabidopsis seeds using our final Faster R-CNN model" directly.
