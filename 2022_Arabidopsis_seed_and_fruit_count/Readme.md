@@ -130,6 +130,38 @@ open the file "detect_save_image_results.ipynb", and then change the base_path t
 	
 	`sys.path.append("/mnt/home/mengfanr/python-tfgpu/lib/python3.5/site-packages/models/research/slim/")`
 
+## b. Detect Arabidopsis seeds using our final Faster R-CNN model
+
+### 1. Create work directory and copy the files or folders ([graph_train](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_counting_model/graph_train), models/research, [mscoco_label_map.pbtxt](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/mscoco_label_map.pbtxt)) to the work directory
+	mkdir work_dir
+	cp graph_train models/research mscoco_label_map.pbtxt work_dir -r
+
+### 2. Seed detection using trained model
+### Jupyter:
+* Assign home directory for jupyter
+
+	A. Generate jupyter config file
+	
+		jupyter-notebook --generate-config
+	B. Change home directory to work directory in config file:
+	
+		c.NotebookApp.notebook_dir = 'work_dir'
+		
+* split scanned images into single plate.
+
+   `python 00_1_split_scan_images.py`
+   
+* run detect_noimage.ipynb at jupyter-notebook
+
+#If you want to save the image results, please use detect_save_image_results.ipynb
+### Terminal 
+ * `base_path`: the absolute path including the [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/Seed_counting_model) directory
+ * `test_images`: test images directory. For testing, images in [Seed_annotation_for_Faster_R-CNN](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_annotation_for_Faster_R-CNN) can be used
+
+ `python 06_detect.py --base_path=work_dir --test_images=test_image` 
+ * if you want to save image results, please use:
+
+ `python 06_detect_save_image_results.py --base_path=work_dir --test_images=test_image`
 
 
 # C. Build your own seed counting models in Linux
@@ -231,38 +263,6 @@ The following is for training new/updated Faster-RCNN model.
 
 `Rscript seed_density.r`
 
-## c. Detect Arabidopsis seeds using our final Faster R-CNN model
-
-### 1. Create work directory and copy the files or folders ([graph_train](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_counting_model/graph_train), models/research, [mscoco_label_map.pbtxt](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/mscoco_label_map.pbtxt)) to the work directory
-	mkdir work_dir
-	cp graph_train models/research mscoco_label_map.pbtxt work_dir -r
-
-### 2. Seed detection using trained model
-### Jupyter:
-* Assign home directory for jupyter
-
-	A. Generate jupyter config file
-	
-		jupyter-notebook --generate-config
-	B. Change home directory to work directory in config file:
-	
-		c.NotebookApp.notebook_dir = 'work_dir'
-		
-* split scanned images into single plate.
-
-   `python 00_1_split_scan_images.py`
-   
-* run detect_noimage.ipynb at jupyter-notebook
-
-#If you want to save the image results, please use detect_save_image_results.ipynb
-### Terminal 
- * `base_path`: the absolute path including the [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/Seed_counting_model) directory
- * `test_images`: test images directory. For testing, images in [Seed_annotation_for_Faster_R-CNN](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_annotation_for_Faster_R-CNN) can be used
-
- `python 06_detect.py --base_path=work_dir --test_images=test_image` 
- * if you want to save image results, please use:
-
- `python 06_detect_save_image_results.py --base_path=work_dir --test_images=test_image`
 
 
 # D. Count Arabidopsis seeds using ImageJ

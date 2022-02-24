@@ -6,6 +6,8 @@ We don't have instructions for fruit counting models, as it is the same as how w
 
 If you are interested in build your own models, please go to "C. Build your own seed counting models in Linux" for the instruction.
 
+If you want to use your imageJ pipeline, please go to "D. Count Arabidopsis seeds using ImageJ"
+
 # A. Apply our seed counting model in windows
 
 ## 1.	To install the tensorflow 1.x, you need the python with version lower than 3.8. 
