@@ -6,21 +6,21 @@ We don't have instructions for fruit counting models, as it is the same as how w
 
 ## 1.	To install the tensorflow 1.x, you need the python with version lower than 3.8. 
 
-### a.	In cmd, type “python” and enter to check if you have the python installed, and what is the version of python. If the version is equal to or higher than 3.8, you need to uninstall the python, and install a lower version. 
+In cmd, type “python” and enter to check if you have the python installed, and what is the version of python. If the version is equal to or higher than 3.8, you need to uninstall the python, and install a lower version. 
 
-### b.	If your laptop has a python of version lower than 3.8, then you don’t have to do anything.
+If your laptop has a python of version lower than 3.8, then you don’t have to do anything.
 
-### c.	To uninstall your python, do it the same way as you uninstall your windows software.
+To uninstall your python, do it the same way as you uninstall your windows software.
 
 ## 2.	Download the Python 3.7.6 from “https://www.python.org/downloads/windows/” by clicking “Windows x86-64 executable installer”
 
-### a.	When install, select the option “Add Python 3.7 to Path”
+When install, select the option “Add Python 3.7 to Path”
 
 ## 3.	Install the software needed. In cmd, type: 
   
 	`pip install anaconda`
 	
-	`pip install tensorflow==1.13.2`
+	pip install tensorflow==1.13.2
 	
 	`python -m pip install --upgrade pip`
 	
