@@ -93,8 +93,10 @@ Run the code “detect_save_image_results.ipynb”. When you see info like below
 
 ## a. set tensorflow environment
 
-### 1. Anaconda, tensorflow(1.X) (version lower than 2.0) installation
+### 1. Install tensorflow(1.X) (version lower than 2.0) in Anaconda 
   * To install TensorFlow (the latest stable release) in a python virtual environment, follow the steps below.
+  
+  * In Michigan State University HPCC, your may need to load modules as below
   
 	`module purge`
 	
@@ -104,15 +106,19 @@ Run the code “detect_save_image_results.ipynb”. When you see info like below
 	
 	`module load Python/3.6.4`
 	
+  * Create a virtual environment
+  
 	`virtualenv -p python3 tf-1.13.1-env`
 	
+  * activate this enrironment everytime you use the tensorflow
+  
 	`source ~/tf-1.13.1-env/bin/activate`
 	
-  * For cpu version:
+  * install tensorflow, for cpu version:
   
 	`pip install tensorflow`
 	
-  * For gpu version:
+  * install tensorflow, for gpu version:
   
 	`pip install tensorflow-gup==1.13.1`
 
@@ -123,12 +129,17 @@ Run the code “detect_save_image_results.ipynb”. When you see info like below
 * Download models
 
 	`git clone https://github.com/tensorflow/models.git`
+	
 * Python Package Installation
 
-	* cd models/research
-	* `protoc object_detection/protos/*.proto --python_out=.` #NOTE: if can not compile protos, please replace research/object_detection/protos using this compiled [protos](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/protos).
-	* `cp object_detection/packages/tf1/setup.py .`
-	* `python -m pip install .`
+	cd models/research
+	
+	`protoc object_detection/protos/*.proto --python_out=.` #NOTE: if can not compile protos, please replace research/object_detection/protos using this compiled [protos](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/protos).
+	
+	`cp object_detection/packages/tf1/setup.py .`
+	
+	`python -m pip install .`
+  
   * Ensure the Protobuf libraries are compiled and the library directories are added to PYTHONPATH, or set PYTHONPATH in python scripts.
   i.e.:
   
