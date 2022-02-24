@@ -18,7 +18,7 @@ If your laptop has a python of version lower than 3.8, then you don’t have to 
 
 To uninstall your python, do it the same way as you uninstall your windows software.
 
-## 2.	Download the Python 3.7.6 from “https://www.python.org/downloads/windows/” by clicking “Windows x86-64 executable installer”
+## 2.	Download the Python 3.7.6 from [here](https://www.python.org/downloads/windows/) by clicking “Windows x86-64 executable installer”
 
 When install, select the option “Add Python 3.7 to Path”
 
@@ -57,7 +57,7 @@ Find the config file via the path obtained by Step 4, open it and search for "No
 
 ## 7.	Download the files needed to your work dir
 
-Download the file “Files_needed.zip” from https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count to your workdir, unzip it, and make sure all the folders and files in “Files_needed.zip” are now in your workdir.
+Download the file “Files_needed.zip” from [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count) to your workdir, unzip it, and make sure all the folders and files in “Files_needed.zip” are now in your workdir.
 
 
 ## 8.	Open the jupyter codes by typing:
@@ -134,7 +134,7 @@ Run the code “detect_save_image_results.ipynb”. When you see info like below
 
 	cd models/research
 	
-	`protoc object_detection/protos/*.proto --python_out=.` #NOTE: if can not compile protos, please replace research/object_detection/protos using this compiled [protos](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/protos).
+	`protoc object_detection/protos/*.proto --python_out=.` #NOTE: if can not compile protos, please replace research/object_detection/protos using this compiled [protos](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/protos). Or you can download the file "Files_needed.zip" from [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count). Unzip the file, and then you will find the folder "protos" in "research/object_detection". Then using files in this "research/object_detection/protos
 	
 	`cp object_detection/packages/tf1/setup.py .`
 	
