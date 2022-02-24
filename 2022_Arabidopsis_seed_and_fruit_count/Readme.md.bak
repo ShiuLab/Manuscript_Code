@@ -18,17 +18,17 @@ When install, select the option “Add Python 3.7 to Path”
 
 ## 3.	Install the software needed. In cmd, type: 
   
-	`pip install anaconda`
+	pip install anaconda
 	
 	pip install tensorflow==1.13.2
 	
-	`python -m pip install --upgrade pip`
+	python -m pip install --upgrade pip
 	
-	`python -m pip install jupyter`
+	python -m pip install jupyter
 	
-	`pip install pillow`
+	pip install pillow
 	
-	`pip install matplotlib`
+	pip install matplotlib
 	
 ## 4.	Generate jupyter config file, type
 a.	jupyter-notebook --generate-config

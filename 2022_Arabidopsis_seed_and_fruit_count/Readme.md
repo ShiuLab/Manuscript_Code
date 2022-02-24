@@ -30,13 +30,23 @@ When install, select the option “Add Python 3.7 to Path”
 	
 	pip install matplotlib
 	
-## 4.	Generate jupyter config file, type
-a.	jupyter-notebook --generate-config
-b.	Get the path after “Writing default config to:” where the config file is located
-5.	Create a workdir:
-a.	D:\Projects\Project_done\2022_Seed_count\Test_for_Jupyter
-6.	Change home directory to work directory in config file:
-a.	NotebookApp.notebook_dir = 'your_work_dir'
+## 4.	Generate jupyter config file, type:
+
+	jupyter-notebook --generate-config
+
+Get the path after “Writing default config to:” where the config file is located
+
+## 5.	Create a workdir:
+
+An example: D:\Projects\Project_done\2022_Seed_count\Test_for_Jupyter
+
+## 6.	Change home directory to work directory in config file:
+
+Find the config file via the path obtained by Step 4, open it and search for "NotebookApp.notebook_dir", change the path to your workdir
+
+	NotebookApp.notebook_dir = 'your_work_dir'
+
+
 7.	Download the files needed to your work dir
 a.	Download the file “Files_needed.zip” from https://github.com/ShiuLab/Manuscript_Code/tree/master/2021_Arabidopsis_seed_and_fruit_count to your workdir, unzip it, and make sure all the folders and files in “Files_needed.zip” are now in your workdir
 b.	Create a folder named “test_images” in your workdir, and put all the seed images you want to count in this folder
