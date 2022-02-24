@@ -19,10 +19,15 @@ We don't have instructions for fruit counting models, as it is the same as how w
 ## 3.	Install the software needed. In cmd, type: 
 
 	`pip install anaconda`
+	
 	`pip install tensorflow==1.13.2`
+	
 	`python -m pip install --upgrade pip`
+	
 	`python -m pip install jupyter`
+	
 	`pip install pillow`
+	
 	`pip install matplotlib`
 	
 ## 4.	Generate jupyter config file, type
