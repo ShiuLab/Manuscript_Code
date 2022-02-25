@@ -1,6 +1,6 @@
 # We use two methods to count Arabidopsis seeds: Faster R-CNN and ImageJ. The Faster R-CNN is also used to count the Arabidopsis fruits (siliques).
 
-To use our model, please cite our paper [High throughput measurement of plant fitness traits with an object detection method using Faster R-CNN](https://www.biorxiv.org/content/10.1101/2021.07.01.450758v2)
+To use our model, please cite our **New Phytologist** paper [High throughput measurement of plant fitness traits with an object detection method using Faster R-CNN](https://www.biorxiv.org/content/10.1101/2021.07.01.450758v2)
 
 All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Scripts_for_Faster_R-CNN). 
 
@@ -26,57 +26,73 @@ When install, select the option “Add Python 3.7 to Path”
 
 ## 3.	Install the software needed. In cmd, type: 
   
-	pip install anaconda
+	`pip install anaconda`
 	
-	pip install tensorflow==1.13.2
+	`pip install tensorflow==1.13.2`
 	
-	python -m pip install --upgrade pip
+	`python -m pip install --upgrade pip`
 	
-	python -m pip install jupyter
+	`pip install pillow`
 	
-	pip install pillow
+	`pip install matplotlib`
 	
-	pip install matplotlib
-	
-## 4.	Generate jupyter config file, type:
-
-	jupyter-notebook --generate-config
-
-Get the path after “Writing default config to:” where the config file is located
-
-## 5.	Create a workdir:
+## 4.	Create a workdir:
 
 An example: 
 	
-	D:\Projects\Project_done\2022_Seed_count\Test_for_Jupyter
+	`D:\Projects\Project_done\2022_Seed_count\Test_for_Jupyter`
 
-## 6.	Change home directory to work directory in config file:
-
-Find the config file via the path obtained by Step 4, open it and search for "NotebookApp.notebook_dir", change the path to your workdir
-
-	NotebookApp.notebook_dir = 'your_work_dir'
-
-
-## 7.	Download the files needed to your work dir
+## 5.	Download the files needed to your work dir
 
 Download the file “Files_needed.zip” from [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count) to your workdir, unzip it, and make sure all the folders and files in “Files_needed.zip” are now in your workdir.
 
+## 6.	Count seed using command lines. If you want to use jupyter, please go to Steps 7-11
 
-## 8.	Open the jupyter codes by typing:
+If your scan image contains multiple plate lids, please split the scanned image into images with single plate. Put your images in a folder, here the example is "Scan_images". Run the command below. Don't forget to replace the "D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/" with your workdir
+	
+	`python D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/Scripts_for_Faster_R-CNN/00_1_split_scan_images.py D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/Scan_images`
 
-	jupyter notebook --notebook-dir=your_workdir\Scripts_for_Faster_R-CNN,
+Go to the image folder, you will find a new folder named "single_plate".
+
+Create a folder named “test_images” in your workdir, and put all the single plate seed images you want to count in this folder. Run the code below. Don't forget to replace the "D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/" with your workdir. When you see info like "Done. 2022-02-24_12-06-19", the job is done for one image. Go to the folder “test_images” to check the output. 
+ 
+	`python D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/Scripts_for_Faster_R-CNN/06_detect_save_image_results.py -base_path D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter -test_images=test_images`
+
+
+# Count seed using jupyter
+
+## 7.	Install jupyter
+
+	`python -m pip install jupyter`
+	
+## 8.	Generate jupyter config file, type:
+
+	`jupyter-notebook --generate-config`
+
+Get the path after “Writing default config to:” where the config file is located
+
+
+## 9.	Change home directory to work directory in config file:
+
+Find the config file via the path obtained by Step 4, open it and search for "NotebookApp.notebook_dir", change the path to your workdir
+
+	`NotebookApp.notebook_dir = 'your_work_dir'`
+
+
+## 10.	Open the jupyter codes by typing:
+
+	`jupyter notebook --notebook-dir=your_workdir\Scripts_for_Faster_R-CNN`
 
 example:
 
-	jupyter notebook --notebook-dir=D:\Projects\Project_done\2022_Seed_count\Test_for_Jupyter\Scripts_for_Faster_R-CNN
+	`jupyter notebook --notebook-dir=D:\Projects\Project_done\2022_Seed_count\Test_for_Jupyter\Scripts_for_Faster_R-CNN`
 
 
-	
-## 9.	Put your images in a folder
+## 11.	Put your images in a folder
 
 If your scan image contains multiple plate lids, please split the scanned image into images with single plate. Put your images in a folder, then open the jupyter code "00_1_split_scan_images.py.ipynb". Change the path to your path of this folder with your images. One example is as below. Note that the path should be delimited by “/”, rather than “\”.
 
-	path = "D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/Scan_images"
+	`path = "D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/Scan_images"`
 
 Run the code "00_1_split_scan_images.py.ipynb". Go to the image folder, you will find a new folder named "single_plate".
 
@@ -84,11 +100,11 @@ Create a folder named “test_images” in your workdir, and put all the single 
 
 Open the file "detect_save_image_results.ipynb", and then change the BASE_PATH to your workdir in the file. 
 
-	BASE_PATH = 'D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter'
+	`BASE_PATH = 'D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter'`
  
 Run the code “detect_save_image_results.ipynb”. When you see info like below, the job is done for one image. Go to the folder “test_images” to check the output.
  
-	Done. 2022-02-24_12-06-19
+	`Done. 2022-02-24_12-06-19`
 
 
 # B. Apply our seed counting model in Linux

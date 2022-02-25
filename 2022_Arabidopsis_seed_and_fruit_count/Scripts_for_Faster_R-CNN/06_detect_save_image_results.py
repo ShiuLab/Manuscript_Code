@@ -92,6 +92,7 @@ def run_inference_for_single_image(image, graph):
   return output_dict
 output = open(PATH_TO_TEST_IMAGES_DIR+"/Seed_count_results_"+time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime())+".csv","a")
 for image_path in TEST_IMAGE_PATHS:
+  print("Start the counting. " + time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()))
   image = Image.open(image_path)
   (im_width, im_height) = image.size
   image_np = load_image_into_numpy_array(image)
@@ -120,5 +121,6 @@ for image_path in TEST_IMAGE_PATHS:
   plt.subplots_adjust(top = 1, bottom = 0, right = 1, left = 0, hspace = 0, wspace = 0) 
   plt.margins(0,0)
   plt.savefig(image_path+"_"+str(count)+"_count.jpg")
-
+  print("Done. " + time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()))
+  
 output.close()
