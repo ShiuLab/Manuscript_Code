@@ -1,31 +1,31 @@
 # We use two methods to count Arabidopsis seeds: Faster R-CNN and ImageJ. The Faster R-CNN is also used to count the Arabidopsis fruits (siliques).
 
-To use our model, please cite our **New Phytologist** paper [High throughput measurement of plant fitness traits with an object detection method using Faster R-CNN](https://www.biorxiv.org/content/10.1101/2021.07.01.450758v2)
+  * To use our model, please cite our **New Phytologist** paper [High throughput measurement of plant fitness traits with an object detection method using Faster R-CNN](https://www.biorxiv.org/content/10.1101/2021.07.01.450758v2)
 
-All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Scripts_for_Faster_R-CNN). 
+  * All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Scripts_for_Faster_R-CNN). 
 
-We don't have instructions for fruit counting models, as it is the same as how we do for the seed counting except that the fruit images are not split. If you are interested in using our final fruit counting model to detect and count Arabidopsis fruits, please check [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Fruit_counting_model) for the model, and go to the "A. Apply our seed counting model in windows" or "B. Apply our seed counting model in Linux" for the instruction.
+  * We don't have instructions for fruit counting models, as it is the same as how we do for the seed counting except that the fruit images are not split. If you are interested in using our final fruit counting model to detect and count Arabidopsis fruits, please check [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Fruit_counting_model) for the model, and go to the "A. Apply our seed counting model in windows" or "B. Apply our seed counting model in Linux" for the instruction.
 
-If you are interested in build your own models, please go to "C. Build your own seed counting models in Linux" for the instruction.
+  * If you are interested in build your own models, please go to "C. Build your own seed counting models in Linux" for the instruction.
 
-If you want to use your imageJ pipeline, please go to "D. Count Arabidopsis seeds using ImageJ"
+  * If you want to use your imageJ pipeline, please go to "D. Count Arabidopsis seeds using ImageJ"
 
 # A. Apply our seed counting model in windows
 
 ## 1.	To install the tensorflow 1.x, you need the python with version lower than 3.8. 
 
-In cmd, type “python” and enter to check if you have the python installed, and what is the version of python. If the version is equal to or higher than 3.8, you need to uninstall the python, and install a lower version. 
+  * In cmd, type “python” and enter to check if you have the python installed, and what is the version of python. If the version is equal to or higher than 3.8, you need to uninstall the python, and install a lower version. 
 
-If your laptop has a python of version lower than 3.8, then you don’t have to do anything.
+  * If your laptop has a python of version lower than 3.8, then you don’t have to do anything.
 
-To uninstall your python, do it the same way as you uninstall your windows software.
+  * To uninstall your python, do it the same way as you uninstall your windows software.
 
 ## 2.	Download the Python 3.7.6 from [here](https://www.python.org/downloads/windows/) by clicking “Windows x86-64 executable installer”
 
-When install, select the option “Add Python 3.7 to Path”
+  * When install, select the option “Add Python 3.7 to Path”
 
 ## 3.	Install the software needed. In cmd, type: 
-  
+  *
 	`pip install anaconda`
 	
 	`pip install tensorflow==1.13.2`
@@ -38,17 +38,17 @@ When install, select the option “Add Python 3.7 to Path”
 	
 ## 4.	Create a workdir:
 
-An example: 
+  * An example: 
 	
 	`D:\Projects\Project_done\2022_Seed_count\Test_for_Jupyter`
 
 ## 5.	Download the files needed to your work dir
 
-Download the file “Files_needed.zip” from [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count) to your workdir, unzip it, and make sure all the folders and files in “Files_needed.zip” are now in your workdir.
+  * Download the file “Files_needed.zip” from [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count) to your workdir, unzip it, and make sure all the folders and files in “Files_needed.zip” are now in your workdir.
 
 ## 6.	Count seed using command lines. If you want to use jupyter, please go to Steps 7-11
 
-If your scan image contains multiple plate lids, please split the scanned image into images with single plate. Put your images in a folder, here the example is "Scan_images". Run the command below. Don't forget to replace the "D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/" with your workdir
+  * If your scan image contains multiple plate lids, please split the scanned image into images with single plate. Put your images in a folder, here the example is "Scan_images". Run the command below. Don't forget to replace the "D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/" with your workdir
 	
 	`python D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/Scripts_for_Faster_R-CNN/00_1_split_scan_images.py D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/Scan_images`
 

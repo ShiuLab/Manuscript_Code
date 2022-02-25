@@ -25,6 +25,8 @@
   * When install, select the option “Add Python 3.7 to Path”
 
 ## 3.	Install the software needed. In cmd, type: 
+
+  *
   
 	`pip install anaconda`
 	
