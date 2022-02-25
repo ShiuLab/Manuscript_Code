@@ -175,14 +175,16 @@
 
 ## b. Detect Arabidopsis seeds using our final Faster R-CNN model
 
-### 1. Create work directory and copy the files or folders ([graph_train](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_counting_model/graph_train), models/research, [mscoco_label_map.pbtxt](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/mscoco_label_map.pbtxt)) to the work directory
+### 1. copy files needed
+  * Create work directory and copy the files or folders ([graph_train](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_counting_model/graph_train), models/research, [mscoco_label_map.pbtxt](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/mscoco_label_map.pbtxt)) to the work directory
+  
 	`mkdir work_dir`
 	
 	`cp graph_train models/research mscoco_label_map.pbtxt work_dir -r`
 
 ### 2. Seed detection using trained model
 
-Create a folder named "test_image", and put your images to be detected within this folder. For testing, images in [Seed_annotation_for_Faster_R-CNN](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_annotation_for_Faster_R-CNN) can be used
+  * Create a folder named "test_image", and put your images to be detected within this folder. For testing, images in [Seed_annotation_for_Faster_R-CNN](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_annotation_for_Faster_R-CNN) can be used
 
 	`mkdir test_image`
 	
@@ -199,31 +201,31 @@ Run the script to count seeds in images
 
 # C. Build your own seed counting models in Linux
 
-Here an instruction is given to establish your own seed counting models in Linux
+  * Here an instruction is given to establish your own seed counting models in Linux
 
 ## a. to set the tensorflow environment, do the steps B.a.1 and B.a.2
 
 ## b. Training seed detection model
 
-The following is for training new/updated Faster-RCNN model.
+  * The following is for training new/updated Faster-RCNN model.
 
 ### 1. Seed annotation
 
-* This step is only needed for training a new model. For applying the Faster R-CNN model to your seed images, this step is not necessary.
-* During the first round model training, we split one whole plate image into 4 quater images and annotate quater images mannually.
+  * This step is only needed for training a new model. For applying the Faster R-CNN model to your seed images, this step is not necessary.
+  * During the first round model training, we split one whole plate image into 4 quater images and annotate quater images mannually.
 
 	`python 00_split_images.py image_directory_path`
 
-* We use [LabelImg](https://github.com/tzutalin/labelImg) (Tzutalin, 2015) to annotate our seeds. LabelImg generates a xml annotation file.
+  * We use [LabelImg](https://github.com/tzutalin/labelImg) (Tzutalin, 2015) to annotate our seeds. LabelImg generates a xml annotation file.
 <img src="https://github.com/FanruiMeng/Arabidopsis_seed_count/blob/master/Images/seeds_annotation.png?raw=true"  alt="Seed annotation" height="200"/>
   
 ### 2. Convert xml files to csv files
 
-* Script for the conversion is listed below, where annotation is the folder with all the annotation xml files: 
+  * Script for the conversion is listed below, where annotation is the folder with all the annotation xml files: 
 
 	`pyhton 01_xml_to_csv.py annotation`
   
-* The conversion results in a csv file:
+  * The conversion results in a csv file:
 
   <table>
   <tr><td><b>filename</b></td> <td><b>width</b></td> <td><b>height</b></td> <td><b>class</b></td> <td><b>x<sub>min<sub></b></td><td><b>y<sub>min<sub></b></td><td><b>x<sub>max<sub></b></td><td><b>y<sub>max<sub></b></td></tr>
@@ -234,13 +236,13 @@ The following is for training new/updated Faster-RCNN model.
   
 ### 3. Convert CSV file to Tensorflow tfrecord file
 
-* To train the model, the csv files should be converted to tfrecord files.  
+  * To train the model, the csv files should be converted to tfrecord files.  
 
 	`python 02_generate_tfrecord.py --csv_input=annotation/seeds_labels.csv --output_path=train.record`
 
 ### 4. Download tensorflow object detection API pre-trained Faster R-CNN model (inception_v2_coco)
 
-* In your terminal, issue the following command:
+  * In your terminal, issue the following command:
 
 	`wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz`
 
@@ -250,27 +252,27 @@ The following is for training new/updated Faster-RCNN model.
 
 #### Input configuration
 
-* In the unzip folder `faster_rcnn_inception_v2_coco_2018_01_28`
-* Replace the `pipeline.config` file with [the one provided in this repository](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/pipeline.config)
-* For more information on how to change the configuration, see [this document](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/configuring_jobs.md).
+  * In the unzip folder `faster_rcnn_inception_v2_coco_2018_01_28`
+  * Replace the `pipeline.config` file with [the one provided in this repository](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/pipeline.config)
+  * For more information on how to change the configuration, see [this document](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/configuring_jobs.md).
 
 ### 6. Model training
 
-* Train model with the following parameters (Ren et al., 2017)
-  * `logtostderr`: provide logs during training
-  * `pipeline_config_path`: the path to the configuration file
-  * `train_dir`: output directory for the model
-  * `num_clones`: number of processing units used to train the model
+  * Train model with the following parameters (Ren et al., 2017)
+    * `logtostderr`: provide logs during training
+    * `pipeline_config_path`: the path to the configuration file
+    * `train_dir`: output directory for the model
+    * `num_clones`: number of processing units used to train the model
 
 	`python 03_train.py --logtostderr --pipeline_config_path=pipeline.config --train_dir=train_dir --num_clones=3`
 
 ### 7. Generate a frozen (final) model
 
-* Generate with the following parameters:
-  * `input_type`: the type of input
-  * `pipeline_config_path`: the path to the configuration file
-  * `trained_checkpoint_prefix`: prefix of the names for the model checkpoint files (ie:"/usr/home/username/train_dir/model.ckpt-10000")
-  * `output_directory`: name for output directory
+  * Generate with the following parameters:
+    * `input_type`: the type of input
+    * `pipeline_config_path`: the path to the configuration file
+    * `trained_checkpoint_prefix`: prefix of the names for the model checkpoint files (ie:"/usr/home/username/train_dir/model.ckpt-10000")
+    * `output_directory`: name for output directory
 
 	`python 05_export_inference_graph.py --input_type image_tensor --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt-10000 --output_directory graph_train`
 
