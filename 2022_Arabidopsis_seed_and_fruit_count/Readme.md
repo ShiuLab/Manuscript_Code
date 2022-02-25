@@ -156,25 +156,25 @@ Run the code “detect_save_image_results.ipynb”. When you see info like below
 ## b. Detect Arabidopsis seeds using our final Faster R-CNN model
 
 ### 1. Create work directory and copy the files or folders ([graph_train](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_counting_model/graph_train), models/research, [mscoco_label_map.pbtxt](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/mscoco_label_map.pbtxt)) to the work directory
-	mkdir work_dir
+	`mkdir work_dir`
 	
-	cp graph_train models/research mscoco_label_map.pbtxt work_dir -r
+	`cp graph_train models/research mscoco_label_map.pbtxt work_dir -r`
 
 ### 2. Seed detection using trained model
 
 Create a folder named "test_image", and put your images to be detected within this folder. For testing, images in [Seed_annotation_for_Faster_R-CNN](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_annotation_for_Faster_R-CNN) can be used
 
-	mkdir test_image
+	`mkdir test_image`
 	
 Run the script to count seeds in images
 
  * `base_path`: the absolute path including the [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/Seed_counting_model) directory
 
-	python 06_detect_save_image_results.py --base_path=work_dir --test_images=test_image
+	`python 06_detect_save_image_results.py --base_path=work_dir --test_images=test_image`
  
  * if you don't want to save image results, you can use:
 
-	python 06_detect.py --base_path=work_dir --test_images=test_image
+	`python 06_detect.py --base_path=work_dir --test_images=test_image`
 
 
 # C. Build your own seed counting models in Linux
@@ -192,7 +192,7 @@ The following is for training new/updated Faster-RCNN model.
 * This step is only needed for training a new model. For applying the Faster R-CNN model to your seed images, this step is not necessary.
 * During the first round model training, we split one whole plate image into 4 quater images and annotate quater images mannually.
 
-	python 00_split_images.py image_directory_path
+	`python 00_split_images.py image_directory_path`
 
 * We use [LabelImg](https://github.com/tzutalin/labelImg) (Tzutalin, 2015) to annotate our seeds. LabelImg generates a xml annotation file.
 <img src="https://github.com/FanruiMeng/Arabidopsis_seed_count/blob/master/Images/seeds_annotation.png?raw=true"  alt="Seed annotation" height="200"/>
@@ -201,7 +201,7 @@ The following is for training new/updated Faster-RCNN model.
 
 * Script for the conversion is listed below, where annotation is the folder with all the annotation xml files: 
 
-	pyhton 01_xml_to_csv.py annotation
+	`pyhton 01_xml_to_csv.py annotation`
   
 * The conversion results in a csv file:
 
@@ -216,15 +216,15 @@ The following is for training new/updated Faster-RCNN model.
 
 * To train the model, the csv files should be converted to tfrecord files.  
 
-	python 02_generate_tfrecord.py --csv_input=annotation/seeds_labels.csv --output_path=train.record
+	`python 02_generate_tfrecord.py --csv_input=annotation/seeds_labels.csv --output_path=train.record`
 
 ### 4. Download tensorflow object detection API pre-trained Faster R-CNN model (inception_v2_coco)
 
 * In your terminal, issue the following command:
 
-	wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
+	`wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz`
 
-	tar -xf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
+	`tar -xf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz`
 
 ### 5. Pipeline configuration
 
@@ -242,7 +242,7 @@ The following is for training new/updated Faster-RCNN model.
   * `train_dir`: output directory for the model
   * `num_clones`: number of processing units used to train the model
 
-	python 03_train.py --logtostderr --pipeline_config_path=pipeline.config --train_dir=train_dir --num_clones=3
+	`python 03_train.py --logtostderr --pipeline_config_path=pipeline.config --train_dir=train_dir --num_clones=3`
 
 ### 7. Generate a frozen (final) model
 
@@ -252,7 +252,7 @@ The following is for training new/updated Faster-RCNN model.
   * `trained_checkpoint_prefix`: prefix of the names for the model checkpoint files (ie:"/usr/home/username/train_dir/model.ckpt-10000")
   * `output_directory`: name for output directory
 
-	python 05_export_inference_graph.py --input_type image_tensor --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt-10000 --output_directory graph_train
+	`python 05_export_inference_graph.py --input_type image_tensor --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt-10000 --output_directory graph_train`
 
 ### 8. Detect seeds using trained model
 
@@ -260,23 +260,23 @@ The following is for training new/updated Faster-RCNN model.
   * `base_path`: the absolute path including the [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/Seed_counting_model) directory
   * `test_images`: test images directory
   
-	python 06_detect.py --base_path=base_path --test_images=test_images
+	`python 06_detect.py --base_path=base_path --test_images=test_images`
 
 * if you want to save image results, please use:
 
-	python 06_detect_save_image_results.py --base_path=base_path --test_images=test_images
+	`python 06_detect_save_image_results.py --base_path=base_path --test_images=test_images`
 
 ### 9. Accuracy measurement
 
 * Measure accuracy, precision, recall and F1 at IOU 0.5 using 07_01_accuracy_measurement.py <br>
 
-	python 07_01_accuracy_measurement.py ground.csv detected.csv
+	`python 07_01_accuracy_measurement.py ground.csv detected.csv`
 
 ### 10. Estimating seed density
 
 * Determine the average seed number in a circle with a radius of 30 pixels.
 
-	Rscript seed_density.r
+	`Rscript seed_density.r`
 
 
 # D. Count Arabidopsis seeds using ImageJ
