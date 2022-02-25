@@ -157,40 +157,24 @@ Run the code “detect_save_image_results.ipynb”. When you see info like below
 
 ### 1. Create work directory and copy the files or folders ([graph_train](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_counting_model/graph_train), models/research, [mscoco_label_map.pbtxt](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/mscoco_label_map.pbtxt)) to the work directory
 	mkdir work_dir
+	
 	cp graph_train models/research mscoco_label_map.pbtxt work_dir -r
 
 ### 2. Seed detection using trained model
 
-### Jupyter:
+Create a folder named "test_image", and put your images to be detected within this folder. For testing, images in [Seed_annotation_for_Faster_R-CNN](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_annotation_for_Faster_R-CNN) can be used
 
-* Assign home directory for jupyter
-
-	A. Generate jupyter config file
+	mkdir test_image
 	
-		jupyter-notebook --generate-config
-		
-	B. Change home directory to work directory in config file:
-	
-		NotebookApp.notebook_dir = 'work_dir'
-		
-* split scanned images into single plate.
-
-   `python 00_1_split_scan_images.py`
-   
-* run detect_noimage.ipynb at jupyter-notebook
-
-#If you want to save the image results, please use detect_save_image_results.ipynb
-
-### Terminal 
+Run the script to count seeds in images
 
  * `base_path`: the absolute path including the [graph_train](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/Seed_counting_model) directory
- * `test_images`: test images directory. For testing, images in [Seed_annotation_for_Faster_R-CNN](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Seed_annotation_for_Faster_R-CNN) can be used
 
- `python 06_detect.py --base_path=work_dir --test_images=test_image`
+	python 06_detect_save_image_results.py --base_path=work_dir --test_images=test_image
  
- * if you want to save image results, please use:
+ * if you don't want to save image results, you can use:
 
- `python 06_detect_save_image_results.py --base_path=work_dir --test_images=test_image`
+	python 06_detect.py --base_path=work_dir --test_images=test_image
 
 
 # C. Build your own seed counting models in Linux
