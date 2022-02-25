@@ -1,5 +1,7 @@
 # We use two methods to count Arabidopsis seeds: Faster R-CNN and ImageJ. The Faster R-CNN is also used to count the Arabidopsis fruits (siliques).
 
+To use our model, please cite our paper [High throughput measurement of plant fitness traits with an object detection method using Faster R-CNN](https://www.biorxiv.org/content/10.1101/2021.07.01.450758v2)
+
 All the related scripts are [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Scripts_for_Faster_R-CNN). 
 
 We don't have instructions for fruit counting models, as it is the same as how we do for the seed counting except that the fruit images are not split. If you are interested in using our final fruit counting model to detect and count Arabidopsis fruits, please check [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count/Fruit_counting_model) for the model, and go to the "A. Apply our seed counting model in windows" or "B. Apply our seed counting model in Linux" for the instruction.
