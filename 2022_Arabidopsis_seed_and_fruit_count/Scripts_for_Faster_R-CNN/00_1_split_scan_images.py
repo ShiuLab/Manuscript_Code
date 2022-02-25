@@ -2,7 +2,7 @@ import os, sys
 import time
 from PIL import Image,ImageDraw
 ##absolute path of scanned images 
-path = "D:\\Projects\\Project_done\\2022_Seed_count\\Test_for_Jupyter\\Scan_images"
+path = sys.argv[1]
 os.chdir(path)
 all_images = [f for f in os.listdir(path ) if f.endswith("jpg")]
 

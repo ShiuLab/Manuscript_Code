@@ -175,7 +175,7 @@ Run the code “detect_save_image_results.ipynb”. When you see info like below
 		
 * split scanned images into single plate.
 
-   `python 00_1_split_scan_images.py`
+   `python 00_1_split_scan_images.py path_of_scanned_images`
    
 * run detect_noimage.ipynb at jupyter-notebook
 

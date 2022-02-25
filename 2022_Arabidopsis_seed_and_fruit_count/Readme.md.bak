@@ -134,7 +134,7 @@ Run the code “detect_save_image_results.ipynb”. When you see info like below
 
 	cd models/research
 	
-	`protoc object_detection/protos/*.proto --python_out=.` #NOTE: if can not compile protos, please replace research/object_detection/protos using this compiled [protos](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/protos). Or you can download the file "Files_needed.zip" from [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count). Unzip the file, and then you will find the folder "protos" in "research/object_detection". Then using files in this "research/object_detection/protos
+	`protoc object_detection/protos/*.proto --python_out=.` #NOTE: if can not compile protos, please replace research/object_detection/protos using this compiled [protos](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_Arabidopsis_seed_and_fruit_count/protos). Or you can download the file "Files_needed.zip" from [here](https://github.com/ShiuLab/Manuscript_Code/tree/master/2022_Arabidopsis_seed_and_fruit_count). Unzip this file, and then you will find the folder "protos" in "research/object_detection". Then using files in this "research/object_detection/protos" to replace files in 
 	
 	`cp object_detection/packages/tf1/setup.py .`
 	
