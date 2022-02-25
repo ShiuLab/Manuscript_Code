@@ -22,7 +22,7 @@ from tensorflow.python.client import device_lib
 config = tf.ConfigProto(log_device_placement=True)
 
 #test images dir
-PATH_TO_TEST_IMAGES_DIR = FLAGS.test_images
+PATH_TO_TEST_IMAGES_DIR = FLAGS.base_path + '/' + FLAGS.test_images
 TEST_IMAGE_PATHS=[]
 for root, dirs, files in os.walk(PATH_TO_TEST_IMAGES_DIR):
         for f in files:

@@ -5,6 +5,10 @@ flags = tf.app.flags
 flags.DEFINE_string('base_path', '', 'the absolute path including graph_train directory')
 flags.DEFINE_string('test_images', '', 'path of test images')
 FLAGS = flags.FLAGS
+sys.path.append("D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/research/")
+sys.path.append("D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/research/object_detection/")
+sys.path.append("D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/research/object_detection/utils/")
+#sys.path.append(FLAGS.base_path+"/research/slim/")
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
 import numpy as np
@@ -24,14 +28,15 @@ from tensorflow.python.client import device_lib
 config = tf.ConfigProto(log_device_placement=True)
 
 #test images dir
-PATH_TO_TEST_IMAGES_DIR = FLAGS.test_images
+PATH_TO_TEST_IMAGES_DIR = FLAGS.base_path + '/' + FLAGS.test_images
 TEST_IMAGE_PATHS=[]
 for root, dirs, files in os.walk(PATH_TO_TEST_IMAGES_DIR):
         for f in files:
             if not f.endswith("csv"):
                 TEST_IMAGE_PATHS.append(os.path.join(PATH_TO_TEST_IMAGES_DIR,f))    
 PATH_TO_CKPT=FLAGS.base_path+"/graph_train/frozen_inference_graph.pb"
-PATH_TO_LABELS = FLAGS.base_path+"/mscoco_label_map.pbtxt"
+PATH_TO_LABELS = FLAGS.base_path+'/mscoco_label_map.pbtxt'
+#PATH_TO_LABELS = FLAGS.base_path+'/mscoco_label_map_00000.pbtxt'
 NUM_CLASSES = 1
 label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
 categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=NUM_CLASSES, use_display_name=False)
@@ -115,3 +120,5 @@ for image_path in TEST_IMAGE_PATHS:
   plt.subplots_adjust(top = 1, bottom = 0, right = 1, left = 0, hspace = 0, wspace = 0) 
   plt.margins(0,0)
   plt.savefig(image_path+"_"+str(count)+"_count.jpg")
+
+output.close()
