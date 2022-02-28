@@ -268,11 +268,11 @@ Run the script to count seeds in images
 
 ### 7. Generate a frozen (final) model
 
-* Generate with the following parameters:
-  * `input_type`: the type of input
-  * `pipeline_config_path`: the path to the configuration file
-  * `trained_checkpoint_prefix`: prefix of the names for the model checkpoint files (ie:"/usr/home/username/train_dir/model.ckpt-10000")
-  * `output_directory`: name for output directory
+  * Generate with the following parameters:
+    * `input_type`: the type of input
+    * `pipeline_config_path`: the path to the configuration file
+    * `trained_checkpoint_prefix`: prefix of the names for the model checkpoint files (ie:"/usr/home/username/train_dir/model.ckpt-10000")
+    * `output_directory`: name for output directory
 
 	`python 05_export_inference_graph.py --input_type image_tensor --pipeline_config_path pipeline.config --trained_checkpoint_prefix train_dir/model.ckpt-10000 --output_directory graph_train`
 
