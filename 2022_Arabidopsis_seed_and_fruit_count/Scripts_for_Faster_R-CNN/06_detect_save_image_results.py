@@ -5,9 +5,9 @@ flags = tf.app.flags
 flags.DEFINE_string('base_path', '', 'the absolute path including graph_train directory')
 flags.DEFINE_string('test_images', '', 'path of test images')
 FLAGS = flags.FLAGS
-sys.path.append("D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/research/")
-sys.path.append("D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/research/object_detection/")
-sys.path.append("D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/research/object_detection/utils/")
+sys.path.append(FLAGS.base_path+"/research/")
+sys.path.append(FLAGS.base_path+"/research/object_detection/")
+sys.path.append(FLAGS.base_path+"/research/object_detection/utils/")
 #sys.path.append(FLAGS.base_path+"/research/slim/")
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
