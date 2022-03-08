@@ -55,6 +55,8 @@
 	`python D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/Scripts_for_Faster_R-CNN/00_1_split_scan_images.py D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/Scan_images`
 
   * Go to the image folder, you will find a new folder named "single_plate".
+  
+  * Check the split images. If the plates are not cropped correctly, adjust the start width and start height in the 00_1_split_scan_images.py file.
 
   * Create a folder named “test_images” in your workdir, and put all the single plate seed images you want to count in this folder. Run the code below. Don't forget to replace the "D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/" with your workdir. When you see info like "Done. 2022-02-24_12-06-19", the job is done for one image. Go to the folder “test_images” to check the output. 
  
@@ -97,6 +99,8 @@
 	`path = "D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/Scan_images"`
 
   * Run the code "00_1_split_scan_images.py.ipynb". Go to the image folder, you will find a new folder named "single_plate".
+ 
+  * Check the split images. If the plates are not cropped correctly, adjust the start width and start height in the 00_1_split_scan_images.py file.
 
   * Create a folder named “test_images” in your workdir, and put all the single plate seed images you want to count in this folder.
 
