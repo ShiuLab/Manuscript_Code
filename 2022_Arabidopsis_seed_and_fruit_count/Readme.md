@@ -73,42 +73,42 @@
 
 	`jupyter-notebook --generate-config`
 
-  * Get the path after “Writing default config to:” where the config file is located
+  * Get the path after “Writing default config to:”. This is where the config file is located.
 
+  * Change the home directory to work directory in the config file:
 
-  * Change home directory to work directory in config file:
-
-  * Find the config file via the path obtained by Step 4, open it and search for "NotebookApp.notebook_dir", change the path to your workdir
-
-	`NotebookApp.notebook_dir = 'your_work_dir'`
-
+  	* Find the config file via the path obtained in the previous step. 
+  	* Open it (using vim or another text editor) and search for "NotebookApp.notebook_dir". 
+  	* Change the path to your workdir
+	
+  		`NotebookApp.notebook_dir = 'your_work_dir'`
 
   * Open the jupyter codes by typing:
 
 	`jupyter notebook --notebook-dir=your_workdir\Scripts_for_Faster_R-CNN`
 
-  * example:
+  * For example:
 
 	`jupyter notebook --notebook-dir=D:\Projects\Project_done\2022_Seed_count\Test_for_Jupyter\Scripts_for_Faster_R-CNN`
 
 
-  * Put your images in a folder
+  * Create a folder named “test_images” in your workdir, and put all the single plate seed images you want to count in this folder.
 
-  * If your scan image contains multiple plate lids, please split the scanned image into images with single plate. Put your images in a folder, then open the jupyter code "00_1_split_scan_images.py.ipynb". Change the path to your path of this folder with your images. One example is as below. Note that the path should be delimited by “/”, rather than “\”.
+  * If your scan image contains multiple plate lids, please split the scanned image into images with single plate. Put your images in a folder, then open the jupyter code "00_1_split_scan_images.py.ipynb". Change the path to the path of the folder with your images. One example is shown below. Note that the path should be delimited by “/”, rather than “\”.
 
 	`path = "D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter/Scan_images"`
 
-  * Run the code "00_1_split_scan_images.py.ipynb". Go to the image folder, you will find a new folder named "single_plate".
+  * Run the code "00_1_split_scan_images.py.ipynb". Go to the image folder, and you will find a new folder named "single_plate".
  
   * Check the split images. If the plates are not cropped correctly, adjust the start width and start height in the 00_1_split_scan_images.py file.
 
-  * Create a folder named “test_images” in your workdir, and put all the single plate seed images you want to count in this folder.
+  * Move the split images into the “test_images” folder.
 
-  * Open the file "detect_save_image_results.ipynb", and then change the BASE_PATH to your workdir in the file. 
+  * Open the file "detect_save_image_results.ipynb" (or "detect_no_image.ipynb" if you do not wish to save an image with the seeds outlined"), and then change the BASE_PATH in this file to your workdir. 
 
 	`BASE_PATH = 'D:/Projects/Project_done/2022_Seed_count/Test_for_Jupyter'`
  
-  * Run the code “detect_save_image_results.ipynb”. When you see info like below, the job is done for one image. Go to the folder “test_images” to check the output.
+  * Run the code “detect_save_image_results.ipynb”. When you see a message like the one below, the job is done for one image. Go to the folder “test_images” to check the output.
  
 	`Done. 2022-02-24_12-06-19`
 
