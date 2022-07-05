@@ -43,7 +43,7 @@ In switchgrass, low-land ecotypes have significantly higher biomass but lower co
 
 ### 2. Identification of cold-responsive putative cis-regulatory elements
 ##### &emsp; a. GO enrichment analysis
-&emsp;&emsp;&emsp;&emsp; - **GO_and_Pathway_enrichment_analysis.r** was used to find BP GO terms enriched in set of genes.
+&emsp;&emsp;&emsp;&emsp; - **GO_and_Pathway_enrichment_analysis.R** was used to find BP GO terms enriched in set of genes.
  &emsp;&emsp;&emsp;&emsp; - **Heatmap_for_GO_enrichment.R** was used to make the final heatmap of enriced GO terms.
  ##### &emsp; b. Identifying pCREs responsible for cold stress
  &emsp;&emsp;&emsp;&emsp; - pCREs responsible for cold stress regulation were identified using [pCRE_identification](https://github.com/peipeiwang6/pCRE_identification.git) pipeline.
