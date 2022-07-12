@@ -78,6 +78,9 @@ Used **getting_kmer_similarities.R** to obtain a distances tree and clusters bas
 * To identify pCREs similar to known TFBS scripts in [Motif Discovery Pipeline]((https://github.com/ShiuLab/MotifDiscovery.git) and the instructions provided in [2019_CRC_HeatDrought](https://github.com/ShiuLab/Manuscript_Code/tree/master/2019_CRC_HeatDrought) repository were used.
 *  pCREs similar to known TFBS identification was completed in batches for pCRE lists using **batch_merge_results.py** and **batch_get_sig_TF.py** scripts.
 
+&emsp;&emsp;&emsp;&emsp; I. First run **batch_merge_results.py** (If you are running in hpcc use dev node 16 or 18).
+&emsp;&emsp;&emsp;&emsp; II. Next to do the mapping find the runcc.sh file and submit it to slurm / run commonds locally
+&emsp;&emsp;&emsp;&emsp; III. Run **batch_get_sig_TF.py** for running  
 ##### &emsp; b. Assessing how well the binding sites of TFs known to regulate cold response might predict cold response
 
 &emsp;&emsp;&emsp;&emsp; I. Converting meme formatted dapseq pwms and CISBP pwms for TFs into pwms that can be used in C.Azodi mapping pipeline was done using **convert_dap_pwm.py** and **convert_CISBP_pwms.py** respectively.
@@ -95,4 +98,4 @@ Used **getting_kmer_similarities.R** to obtain a distances tree and clusters bas
 
 &emsp;&emsp;&emsp;&emsp; VIII. **get_new_feature_tbl.py** script was used to take instances and lables from feature tables of initial timepoint models (because we wanted to keep same training and testing instances as initial timepoint models) and merge with new features from mapping.
 
-&emsp;&emsp;&emsp;&emsp; IX. **make_models.py** was used to run
+&emsp;&emsp;&emsp;&emsp; IX. **make_models.py** was used to run models using feature tables
