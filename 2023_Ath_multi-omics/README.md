@@ -1,2 +1,2 @@
 # multi-omics
-Code for multi-omic deep learning integration project 
+Codes for multi-omics integration project 
