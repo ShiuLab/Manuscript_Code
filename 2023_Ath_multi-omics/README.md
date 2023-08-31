@@ -24,3 +24,10 @@ Benchmark flowering time genes were downloaded from the FLOR-ID database http://
 ## 2. Data_preprocessing
 
 ### 2.1 SNP matrix
+The scripts for SNP matrix can be found in the folder Data_preprocessing\SNP_matrix
+
+### 2.2 transcriptomic data
+	* To calculate the TPM, we need to get the transcript length for genes at first. Get the GFF3 file ready before run this script. Here we used the TAIR10 GFF3 file 
+	`python 01_get_transcript_length_including_ncRNA.py`
+
+### 2.3 methylomic data
