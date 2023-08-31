@@ -46,3 +46,11 @@ Related scripts can be found in the folder Data_preprocessing\02_transcriptomic 
 	`python 03_log_TPM_and_get_transcriptomic_matrix_for_383_accessions.py`
   
 ### 2.3 methylomic data
+
+
+## 3. Genomic prediction using machine learning algorithms
+
+
+## 4. SHAP values and feature interaction values
+
+  * Note that, the feature interaction value calculation is pretty small for datasets with a large number of features. In our study, we only took the benchmark flowering time gene-related features to calculate feature interactions.
