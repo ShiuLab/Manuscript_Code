@@ -1,9 +1,11 @@
-#########################################################
-# Calculate SHAP values of features to trait prediction,
-# and feature interaction values
-#
+########################################################################################
+# Calculate SHAP values of features to trait prediction, and feature interaction values.
+# 
+# Note that the feature interaction values were calculated for each instance, 
+# i.e., accession in our study
+# 
 # Written by: Peipei Wang
-####################################################
+########################################################################################
 
 import shap
 import sys, os, argparse, time
@@ -21,7 +23,7 @@ warnings.warn = warn
 
 def main():
 	parser = argparse.ArgumentParser(
-		description='Calculate SHAP values, i.e., the contribution of each feature to the predictio of each instance')
+		description='Calculate SHAP values, i.e., the contribution of each feature to the predictio of each instance; and feature interactions.')
 
 	### Input arguments ###
 	# Required
