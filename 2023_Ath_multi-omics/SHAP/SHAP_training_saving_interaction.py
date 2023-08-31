@@ -1,3 +1,10 @@
+#########################################################
+# Calculate SHAP values of features to trait prediction,
+# and feature interaction values
+#
+# Written by: Peipei Wang
+####################################################
+
 import shap
 import sys, os, argparse, time
 import pandas as pd
@@ -25,11 +32,11 @@ def main():
 	inp_group = parser.add_argument_group(title='OPTIONAL INPUT')
 	inp_group.add_argument('-df2', help='Class data (if not in -df). Need to provide -y_name', default='')
 	inp_group.add_argument('-sep', help='Deliminator', default='\t')
-	inp_group.add_argument('-y_name', help='Name of column in Y_file to predict', default='Y')
-	inp_group.add_argument('-test', help='File with testing lines', default='')
+	inp_group.add_argument('-y_name', help='Name of column in df2 to predict', default='Y')
+	inp_group.add_argument('-test', help='File with test intances', default='')
 	inp_group.add_argument('-feat', help='File with list of features (from x) to include', default='all')
 	inp_group.add_argument('-model', help='saved model', default='')
-	inp_group.add_argument('-top', help='top # you want to show in the figures', default=20)
+	inp_group.add_argument('-top', help='top number of features you want to show in the figures', default=20)
 	inp_group.add_argument('-interaction', help='save interaction figures or not', default='n')
 	inp_group.add_argument('-interaction_score', help='save interaction scores or not', default='n')
 
@@ -37,7 +44,7 @@ def main():
 	out_group = parser.add_argument_group(title='OUTPUT OPTIONS')
 	out_group.add_argument('-save', help='prefix for output files. CAUTION: will overwrite!', default='')
 
-	# Default Hyperparameters
+	# Default Hyperparameters for RF models
 	params_group = parser.add_argument_group(title='DEFINE HYPERPARAMETERS')
 	params_group.add_argument('-n_estimators', help='RF/GB parameter.', default=100)
 	params_group.add_argument('-max_depth', help='RF/GB parameter. Grid Search [3, 5, 10]', default=5)
@@ -163,14 +170,7 @@ def main():
 	explainer = shap.Explainer(my_model)
 	shap_values = explainer(X_train)
 
-	# prediction on train
-	# shap_values.values[int(args.top):] = 0
-	# plt.clf()
-	# shap.plots.beeswarm(shap_values,max_display=21,show=False)
-	# plt.savefig("SHAP_beeswarm_%s_training_top20.pdf"%args.save)
-
-	
-	# get rid of the features beyond top # features
+	# get rid of the features beyond top number of features
 	values_top = values_sorted.iloc[:,0:int(args.top)]
 	Data = pd.DataFrame(shap_values.data)
 	Data_top = Data.iloc[:,0:int(args.top)]
@@ -192,6 +192,7 @@ def main():
 			max_abs = np.max([abs(max_shap),abs(min_shap)])
 			values_normalized[col] = values_top[col] / max_abs
 
+    # draw normalized SHAP values
 	values_normalized_np = np.array(values_normalized)
 	shap_values.values = values_normalized_np
 	plt.clf()
