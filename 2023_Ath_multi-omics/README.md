@@ -19,15 +19,19 @@ Flowering time at 10℃ (1163 accessions) and 16℃ (1123 accessions) were downl
 Other phenotypic data were download from https://arapheno.1001genomes.org/study/38/
 
 ### 1.5 benchmark flowering time genes
+
 Benchmark flowering time genes were downloaded from the FLOR-ID database http://www.phytosystems.ulg.ac.be/florid/
 
 ## 2. Data_preprocessing
 
 ### 2.1 SNP matrix
-The scripts for SNP matrix can be found in the folder Data_preprocessing\SNP_matrix
+
+Related scripts for SNP matrix can be found in the folder Data_preprocessing\01_SNP_matrix
 
 ### 2.2 transcriptomic data
 
+Related scripts can be found in the folder Data_preprocessing\02_transcriptomic data 
+  
   * To calculate the TPM, we need to get the transcript length for genes at first. Get the GFF3 file ready before run this script. Here we used the TAIR10 GFF3 file 
   
 	`python 01_get_transcript_length_including_ncRNA.py`
