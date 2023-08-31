@@ -1,9 +1,12 @@
 import h5py, numpy
 import pandas as pd
 import sys,os
-with open('../Models_for_Grimm_pheno/Common_accessions_between_SNP_Methy_Exp_Grimm_pheno.txt') as f:
+
+# the 383 accession ids can be found in the Datasets folder 
+with open('Common_accessions_between_SNP_Methy_Exp_Grimm_pheno.txt') as f:
 	accession = f.read().splitlines()
 
+# the 1107 accession ids for methylomic data can be found in the Datasets folder 
 with open('Accession_ID_for_methylation_1107.txt') as f:
 	Methy_accession = f.read().splitlines()
 

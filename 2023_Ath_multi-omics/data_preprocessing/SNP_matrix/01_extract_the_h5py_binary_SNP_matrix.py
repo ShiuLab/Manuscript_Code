@@ -1,5 +1,6 @@
 import h5py, numpy
 import pandas as pd
+# the SNP matrix was download from https://1001genomes.org/data/GMI-MPI/releases/v3.1/SNP_matrix_imputed_hdf5/1001_SNP_MATRIX.tar.gz
 f = h5py.File('1001_SNP_MATRIX/imputed_snps_binary.hdf5','r')
 df = pd.DataFrame(f['snps'][:])
 df.columns = f['accessions']
