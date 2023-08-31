@@ -32,4 +32,13 @@ The scripts for SNP matrix can be found in the folder Data_preprocessing\SNP_mat
   
 	`python 01_get_transcript_length_including_ncRNA.py`
 
+  * Calculate TPM using the function “calculateTPM” from the R package “scater”
+  * Put the downloaded file GSE80744_ath1001_tx_norm_2016-04-21-UQ_gNorm_normCounts_k4.tsv and the transcript length file TAIR10_longest_mRNA_length_including_ncRNA.txt in your work directory
+  
+	`Rscript 02_calculate_TPM.r`
+	
+  * Log the TPM and get the logged TPM matrix for 383 accessions
+  
+	`python 03_log_TPM_and_get_transcriptomic_matrix_for_383_accessions.py`
+  
 ### 2.3 methylomic data
