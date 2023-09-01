@@ -11,7 +11,7 @@ The transcriptomic data was downloaded from https://www.ncbi.nlm.nih.gov/geo/dow
 which are read count files for 727 accessions
 
 ### 1.3 methylomic data
-The gene body methylation data was download from http://signal.salk.edu/1001.php (which is currently not accessible), which contains 1107 methylomes, with the ID name.
+The gene body methylation data was download from http://signal-genet.salk.edu/1001.php , which contains 1107 methylomes, with the ID name.
 The tsv files for individual accessions were download from NCBI with GEO accession ID: GSE43857
 
 ### 1.4 phenotypic data
