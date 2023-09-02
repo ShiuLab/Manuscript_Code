@@ -66,6 +66,21 @@ Related scripts can be found in the folder Data_preprocessing\03_methylomic_matr
 
 	`python 02_download_individual_methylation_data_for_383_accessions.py`
 	
+#### 2.3.1 For presence/absence of methylation
+	
+  * For presence/absence of methylation, save the methylated sites 
+
+	`python 03_only_save_methylated_sites.py inputFile`
+	
+    * write slurm jobs for all downloaded methylation files
+	
+		`python 04_write_slurm_jobs_for_03.py yourWorkPath`
+	
+
+
+
+
+
   * Calculate the methylation proportion for each C site, and save the methylated sites. Write the slurm jobs to parse the raw single-site methylation files separately.
 
 	`python 03_write_slurm_jobs_for_methylation_proportion_and_save_methylated_site.py`
