@@ -28,6 +28,14 @@ Benchmark flowering time genes were downloaded from the FLOR-ID database http://
 
 Related scripts for SNP matrix can be found in the folder Data_preprocessing\01_SNP_matrix
 
+  * Get the SNP matrix
+  
+	`python 01_extract_the_h5py_binary_SNP_matrix.py`
+	
+  * Save the SNP matrix for 383 accession, convert common allele to 1, and not common allele to -1, get rid of the rare variants (MAF < 5%)	
+  
+	`python 02_get_snp_matrix_for_383_accessions.py`
+	
 ### 2.2 transcriptomic data
 
 Related scripts can be found in the folder Data_preprocessing\02_transcriptomic data 
@@ -44,11 +52,51 @@ Related scripts can be found in the folder Data_preprocessing\02_transcriptomic 
   * Log the TPM and get the logged TPM matrix for 383 accessions
   
 	`python 03_log_TPM_and_get_transcriptomic_matrix_for_383_accessions.py`
-  
+	
+	
 ### 2.3 methylomic data
 
+Related scripts can be found in the folder Data_preprocessing\03_methylomic_matrix
 
-## 3. Genomic prediction using machine learning algorithms
+  *  Parse the downloaded gene-body methylation matrix, and save the corresponding matrix for 383 accessions
+
+	`python 01_get_methylation_for_383_accessions.py`
+	
+  * Download individual methylation data for 383 accessions 
+
+	`python 02_download_individual_methylation_data_for_383_accessions.py`
+	
+  *  
+
+	``
+	
+	
+
+## 3. get the Kinship and correlation matrix for omics data
+
+Related scripts can be found in the folder Data_preprocessing\04_correlation_matrix_for_omics_data
+
+### 3.1 get the kinship
+
+  * Convert the SNP matrix to hmp format
+  
+	`python 01_genotype2hapmap.py SNP_binary_matrix_383_accessions_drop_all_zero_MAF_larger_than_0.05.csv SNP_383_accessions.hmp.txt`
+
+  * To get the kinship matrix, please follow the illustration of the software tassel, which can be found in https://www.maizegenetics.net/tassel
+
+	`tassel/tassel-5-standalone/run_pipeline.pl -SortGenotypeFilePlugin -inputFile SNP_383_accessions.hmp.txt -outputFile SNP_383_accessions_order.hmp.txt -fileType Hapmap -Xmx100g -Xms2g`
+
+	`tassel/tassel-5-standalone/run_pipeline.pl -importGuess SNP_383_accessions_order.hmp.txt -KinshipPlugin -method Centered_IBS -endPlugin -export SNP_383_accessions_kinship.txt -exportType SqrMatrix -Xmx100g -Xms2g`
+
+  * Get correlation matrix for other multi-omics data
+  
+	`Rscript 02_get_correlation_matrix_for_omics_data.r`
+
+  *  Remove the potential confounding effects of K on mCor. You may want to replace input files in this script
+
+	`Rscript  04_removing_confounding_effects_of_K_from_mCor.r`
+
+## 4. Genomic prediction using machine learning algorithms
 
 
 ## 4. SHAP values and feature interaction values
