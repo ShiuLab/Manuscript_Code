@@ -66,15 +66,15 @@ Related scripts can be found in the folder Data_preprocessing\03_methylomic_matr
 
 	`python 02_download_individual_methylation_data_for_383_accessions.py`
 	
-#### 2.3.1 For presence/absence of methylation
+  #### 2.3.1 For presence/absence of methylation
 	
-  * For presence/absence of methylation, save the methylated sites 
+    * For presence/absence of methylation, save the methylated sites 
 
-	`python 03_only_save_methylated_sites.py inputFile`
+	  `python 03_only_save_methylated_sites.py inputFile`
 	
-    * write slurm jobs for all downloaded methylation files
+      * write slurm jobs for all downloaded methylation files
 	
-		`python 04_write_slurm_jobs_for_03.py yourWorkPath`
+		  `python 04_write_slurm_jobs_for_03.py yourWorkPath`
 	
 
 
