@@ -80,6 +80,7 @@ Related scripts can be found in the folder Data_preprocessing\03_methylomic_matr
 
 
 
+#### 2.3.2 For methylation proportion
 
   * Calculate the methylation proportion for each C site, and save the methylated sites. Write the slurm jobs to parse the raw single-site methylation files separately.
 
