@@ -112,7 +112,7 @@ Related scripts can be found in the folder Data_preprocessing\04_correlation_mat
 
   *  Get correlation matrix for other multi-omics data
   
-	Rscript 02_get_correlation_matrix_for_omics_data.r
+		Rscript 02_get_correlation_matrix_for_omics_data.r
 
   *  Remove the potential confounding effects of K on mCor. You may want to replace input files in this script
 
