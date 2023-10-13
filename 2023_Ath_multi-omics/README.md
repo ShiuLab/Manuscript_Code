@@ -116,7 +116,7 @@ Related scripts can be found in the folder Data_preprocessing\04_correlation_mat
 
   *  Remove the potential confounding effects of K on mCor. You may want to replace input files in this script
 
-	Rscript 04_removing_confounding_effects_of_K_from_mCor.r
+		Rscript 04_removing_confounding_effects_of_K_from_mCor.r
 
 ## 4. Genomic prediction using machine learning algorithms
 
