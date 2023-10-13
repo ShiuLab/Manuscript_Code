@@ -86,11 +86,11 @@ Related scripts can be found in the folder Data_preprocessing\03_methylomic_matr
 
 	python 03_write_slurm_jobs_for_methylation_proportion_and_save_methylated_site.py
 	
-    *  Note: for individual files, you can run awk command lines
+  *    Note: for individual files, you can run awk command lines
 
-		awk \'{print "Chr"$1"_"$2"_"$4"_"$3"\\t"$5"/"$6"\\t"$5}\' < inputFile > inputFile_proportion
+	awk \'{print "Chr"$1"_"$2"_"$4"_"$3"\\t"$5"/"$6"\\t"$5}\' < inputFile > inputFile_proportion
 	
-		awk \'$3>0\' < inputFile_proportion > inputFile_meted.txt
+	awk \'$3>0\' < inputFile_proportion > inputFile_meted.txt
 	
 	
 
