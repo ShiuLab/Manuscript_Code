@@ -100,23 +100,23 @@ Related scripts can be found in the folder Data_preprocessing\04_correlation_mat
 
 ### 3.1 get the kinship
 
-  * Convert the SNP matrix to hmp format
+  *  Convert the SNP matrix to hmp format
   
-	`python 01_genotype2hapmap.py SNP_binary_matrix_383_accessions_drop_all_zero_MAF_larger_than_0.05.csv SNP_383_accessions.hmp.txt`
+	python 01_genotype2hapmap.py SNP_binary_matrix_383_accessions_drop_all_zero_MAF_larger_than_0.05.csv SNP_383_accessions.hmp.txt
 
-  * To get the kinship matrix, please follow the illustration of the software tassel, which can be found in https://www.maizegenetics.net/tassel
+  *  To get the kinship matrix, please follow the illustration of the software tassel, which can be found in https://www.maizegenetics.net/tassel
 
-	`tassel/tassel-5-standalone/run_pipeline.pl -SortGenotypeFilePlugin -inputFile SNP_383_accessions.hmp.txt -outputFile SNP_383_accessions_order.hmp.txt -fileType Hapmap -Xmx100g -Xms2g`
+	tassel/tassel-5-standalone/run_pipeline.pl -SortGenotypeFilePlugin -inputFile SNP_383_accessions.hmp.txt -outputFile SNP_383_accessions_order.hmp.txt -fileType Hapmap -Xmx100g -Xms2g
 
-	`tassel/tassel-5-standalone/run_pipeline.pl -importGuess SNP_383_accessions_order.hmp.txt -KinshipPlugin -method Centered_IBS -endPlugin -export SNP_383_accessions_kinship.txt -exportType SqrMatrix -Xmx100g -Xms2g`
+	tassel/tassel-5-standalone/run_pipeline.pl -importGuess SNP_383_accessions_order.hmp.txt -KinshipPlugin -method Centered_IBS -endPlugin -export SNP_383_accessions_kinship.txt -exportType SqrMatrix -Xmx100g -Xms2g
 
   *  Get correlation matrix for other multi-omics data
   
-		Rscript 02_get_correlation_matrix_for_omics_data.r
+	Rscript 02_get_correlation_matrix_for_omics_data.r
 
   *  Remove the potential confounding effects of K on mCor. You may want to replace input files in this script
 
-		Rscript 04_removing_confounding_effects_of_K_from_mCor.r
+	Rscript 04_removing_confounding_effects_of_K_from_mCor.r
 
 ## 4. Genomic prediction using machine learning algorithms
 
