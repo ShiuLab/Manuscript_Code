@@ -28,53 +28,53 @@ Benchmark flowering time genes were downloaded from the FLOR-ID database http://
 
 Related scripts for SNP matrix can be found in the folder Data_preprocessing\01_SNP_matrix
 
-  * Get the SNP matrix
+  *  Get the SNP matrix
   
-	`python 01_extract_the_h5py_binary_SNP_matrix.py`
+	python 01_extract_the_h5py_binary_SNP_matrix.py
 	
-  * Save the SNP matrix for 383 accession, convert common allele to 1, and not common allele to -1, get rid of the rare variants (MAF < 5%)	
+  *  Save the SNP matrix for 383 accession, convert common allele to 1, and not common allele to -1, get rid of the rare variants (MAF < 5%)	
   
-	`python 02_get_snp_matrix_for_383_accessions.py`
+	python 02_get_snp_matrix_for_383_accessions.py
 	
 ### 2.2 transcriptomic data
 
 Related scripts can be found in the folder Data_preprocessing\02_transcriptomic data 
   
-  * To calculate the TPM, we need to get the transcript length for genes at first. Get the GFF3 file ready before run this script. Here we used the TAIR10 GFF3 file 
+  *  To calculate the TPM, we need to get the transcript length for genes at first. Get the GFF3 file ready before run this script. Here we used the TAIR10 GFF3 file 
   
-	`python 01_get_transcript_length_including_ncRNA.py`
+	python 01_get_transcript_length_including_ncRNA.py
 
-  * Calculate TPM using the function “calculateTPM” from the R package “scater”
-  * Put the downloaded file GSE80744_ath1001_tx_norm_2016-04-21-UQ_gNorm_normCounts_k4.tsv and the transcript length file TAIR10_longest_mRNA_length_including_ncRNA.txt in your work directory
+  *  Calculate TPM using the function “calculateTPM” from the R package “scater”
+  *  Put the downloaded file GSE80744_ath1001_tx_norm_2016-04-21-UQ_gNorm_normCounts_k4.tsv and the transcript length file TAIR10_longest_mRNA_length_including_ncRNA.txt in your work directory
   
-	`Rscript 02_calculate_TPM.r`
+	Rscript 02_calculate_TPM.r
 	
-  * Log the TPM and get the logged TPM matrix for 383 accessions
+  *  Log the TPM and get the logged TPM matrix for 383 accessions
   
-	`python 03_log_TPM_and_get_transcriptomic_matrix_for_383_accessions.py`
+	python 03_log_TPM_and_get_transcriptomic_matrix_for_383_accessions.py
 	
 	
 ### 2.3 methylomic data
 
 Related scripts can be found in the folder Data_preprocessing\03_methylomic_matrix
 
-  * Parse the downloaded gene-body methylation matrix, and save the corresponding matrix for 383 accessions
+  *  Parse the downloaded gene-body methylation matrix, and save the corresponding matrix for 383 accessions
 
-	`python 01_get_methylation_for_383_accessions.py`
+	python 01_get_methylation_for_383_accessions.py
 	
-  * Download individual methylation data for 383 accessions 
+  *  Download individual methylation data for 383 accessions 
 
-	`python 02_download_individual_methylation_data_for_383_accessions.py`
+	python 02_download_individual_methylation_data_for_383_accessions.py
 	
 #### 2.3.1 For presence/absence of methylation
 	
-  * For presence/absence of methylation, save the methylated sites 
+  *  For presence/absence of methylation, save the methylated sites 
 
-	`python 03_only_save_methylated_sites.py inputFile`
+	python 03_only_save_methylated_sites.py inputFile
 	
-    * write slurm jobs for all downloaded methylation files
+  *  write slurm jobs for all downloaded methylation files
 	
-		`python 04_write_slurm_jobs_for_03.py yourWorkPath`
+	python 04_write_slurm_jobs_for_03.py yourWorkPath
 	
 
 
@@ -86,7 +86,7 @@ Related scripts can be found in the folder Data_preprocessing\03_methylomic_matr
 
 	python 03_write_slurm_jobs_for_methylation_proportion_and_save_methylated_site.py
 	
-  *    Note: for individual files, you can run awk command lines
+  *  Note: for individual files, you can run awk command lines
 
 	awk \'{print "Chr"$1"_"$2"_"$4"_"$3"\\t"$5"/"$6"\\t"$5}\' < inputFile > inputFile_proportion
 	
