@@ -56,17 +56,21 @@ Related scripts can be found in the folder Data_preprocessing\02_transcriptomic 
 	
 ### 2.3 methylomic data
 
+#### 2.3.1 For gene-body methylation
+
 Related scripts can be found in the folder Data_preprocessing\03_methylomic_matrix
 
   *  Parse the downloaded gene-body methylation matrix, and save the corresponding matrix for 383 accessions
 
 	python 01_get_methylation_for_383_accessions.py
+
+#### 2.3.2 For single-site methylation-based formats
 	
   *  Download individual methylation data for 383 accessions 
 
 	python 02_download_individual_methylation_data_for_383_accessions.py
 	
-#### 2.3.1 For presence/absence of methylation
+##### 2.3.2.1 For presence/absence of methylation
 	
   *  For presence/absence of methylation, save the methylated sites 
 
@@ -82,7 +86,7 @@ Related scripts can be found in the folder Data_preprocessing\03_methylomic_matr
 
   *  Calculate the methylation proportion for each C site, and save the methylated sites. Write the slurm jobs to parse the raw single-site methylation files separately.
 
-	python 03_write_slurm_jobs_for_methylation_proportion_and_save_methylated_site.py
+	python 05_write_slurm_jobs_for_methylation_proportion_and_save_methylated_site.py
 	
   *  Note: for individual files, you can run awk command lines
 
