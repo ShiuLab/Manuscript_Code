@@ -2,8 +2,11 @@
 Codes for our manuscript "Prediction of plant complex traits via integration of multi-omics data"
 
 ## 1. Datasets
+====
 
 ### 1.1 SNP matrix
+----
+
 The SNP matrix was download from https://1001genomes.org/data/GMI-MPI/releases/v3.1/SNP_matrix_imputed_hdf5/1001_SNP_MATRIX.tar.gz
 
 ### 1.2 transcriptomic data
