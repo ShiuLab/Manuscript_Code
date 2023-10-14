@@ -3,14 +3,9 @@ import sys,os
 import numpy as np
 sys.stdout.flush()
 import pickle
-file = sys.argv[1]
-# df = pd.read_csv(file,index_col=0,header=0,sep=',')
-# df = df.T
-# df.to_csv('%s_transposed'%file,index=True, header=True,sep=",")
 
-# with open('/mnt/home/peipeiw/Documents/Ath_GS/Models_for_Grimm_pheno/Methylation_data_all_sites/Methylation_genome_wide_383_accessions_overlapping_with_SNP_targeted.pkl', 'rb') as f1:
-	# D = pickle.load(f1)
-'''
+file = sys.argv[1]
+
 rep = open('/mnt/home/peipeiw/Documents/Ath_GS/Models_for_Grimm_pheno/Methylation_data_all_sites/Methylation_sites_listgenome_wide_383_accessions_ordered.txt','r').readlines()
 Rep = {}
 for rep_l in rep:
@@ -23,7 +18,7 @@ import pickle
 f = open("Methylation_sites_listgenome_wide_383_accessions_ordered.pkl","wb")
 pickle.dump(Rep,f)
 f.close()
-'''
+
 
 import pickle
 with open('Methylation_sites_listgenome_wide_383_accessions_ordered.pkl', 'rb') as f1:
@@ -44,7 +39,6 @@ inl = inp.readline()
 while inl:
 	tem = inl.strip().split(',')
 	accession = tem[0]
-	#os.system('awk "NR==FNR { lines[$0]=1; next } $0 in lines" %s_selected_columns %s_transposed > %_%_met.txt'%(accession,file,accession,file.split('_')[-1]))
 	with open('%s_met.txt'%accession) as f:
 		r = f.read().splitlines()
 	R = dict.fromkeys(r,'1')

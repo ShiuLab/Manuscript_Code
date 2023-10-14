@@ -5,23 +5,23 @@ Codes for our manuscript "Prediction of plant complex traits via integration of 
 
 ### 1.1 SNP matrix
 
-The SNP matrix was download from https://1001genomes.org/data/GMI-MPI/releases/v3.1/SNP_matrix_imputed_hdf5/1001_SNP_MATRIX.tar.gz
+>The SNP matrix was download from https://1001genomes.org/data/GMI-MPI/releases/v3.1/SNP_matrix_imputed_hdf5/1001_SNP_MATRIX.tar.gz
 
 ### 1.2 transcriptomic data
-The transcriptomic data was downloaded from https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE80744&format=file&file=GSE80744%5Fath1001%5Ftx%5Fnorm%5F2016%2D04%2D21%2DUQ%5FgNorm%5FnormCounts%5Fk4%2Etsv%2Egz
+>The transcriptomic data was downloaded from https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE80744&format=file&file=GSE80744%5Fath1001%5Ftx%5Fnorm%5F2016%2D04%2D21%2DUQ%5FgNorm%5FnormCounts%5Fk4%2Etsv%2Egz
 which are read count files for 727 accessions
 
 ### 1.3 methylomic data
-The gene body methylation data was download from http://signal-genet.salk.edu/1001.php , which contains 1107 methylomes, with the ID name.
+>The gene body methylation data was download from http://signal-genet.salk.edu/1001.php , which contains 1107 methylomes, with the ID name.
 The tsv files for individual accessions were download from NCBI with GEO accession ID: GSE43857
 
 ### 1.4 phenotypic data
-Flowering time at 10℃ (1163 accessions) and 16℃ (1123 accessions) were downloaded from https://arapheno.1001genomes.org/study/12/
+>Flowering time at 10℃ (1163 accessions) and 16℃ (1123 accessions) were downloaded from https://arapheno.1001genomes.org/study/12/
 Other phenotypic data were download from https://arapheno.1001genomes.org/study/38/
 
 ### 1.5 benchmark flowering time genes
 
-Benchmark flowering time genes were downloaded from the FLOR-ID database http://www.phytosystems.ulg.ac.be/florid/
+>Benchmark flowering time genes were downloaded from the FLOR-ID database http://www.phytosystems.ulg.ac.be/florid/
 
 ## **2. Data_preprocessing**
 
@@ -29,7 +29,7 @@ Benchmark flowering time genes were downloaded from the FLOR-ID database http://
 
 Related scripts for SNP matrix can be found in the folder Data_preprocessing\01_SNP_matrix
 
->Get the SNP matrix
+>Get the SNP matrix for all accessions, and also output the list of all SNPs
 
 ```  
 python 01_extract_the_h5py_binary_SNP_matrix.py
@@ -100,27 +100,84 @@ Related scripts can be found in the folder Data_preprocessing\03_methylomic_matr
 python 02_only_save_methylated_sites.py inputFile
 ```
 
->>Submit jobs to slurm, optional 
+>>To make slurm jobs for the above script, you can use the script below, your_work_dir is the directory containing all the downloaded *.tsv files
 
 ```
 python 03_write_slurm_jobs_for_03.py inputFile
 ```
 
->Get the methylated single site list for all 383 accessions
+>Get the methylated single site list for all 383 accessions, and order the list
 
 ```
 python 04_get_methylation_list.py
 ```
 	
->combine all files with single-site presence/absence of methylation information
-
 ```
-python 07_combine_all_methylation_files.py
+Rscript 05_order_methylation_sites.r
 ```
 
+>combine all files with single-site presence/absence of methylation information, the output file is Methylation_genome_wide_383_accessions.csv
+
+```
+python 06_combine_all_methylation_files.py
+```
+
+>To distinguish the un-methylated site (value should be 0) or site with missing information (values should be NA to be imputed in the future), we first fill all 0 values as NA, and then fill NAs using information from SNP matrix. 
+
+>>Get targeted methylated sites (shared single sites among all accessions) for each accessions, the input file is the downloaded *.tsv files, and the file Methylation_sites_listgenome_wide_383_accessions.txt is output from python 04_get_methylation_list.py
+
+```
+awk \'{print "Chr"$1"_"$2"_"$4"_"$3}\' < inputFile > inputFile_selected_columns
 ```
 
 ```
+awk \'NR==FNR { lines[$0]=1; next } $0 in lines\' inputFile_selected_columns Methylation_sites_listgenome_wide_383_accessions.txt > inputFile_met.txt
+```
+
+>>>To make slurm jobs for the above two awk commands, you can use the script below, your_work_dir is the directory containing all the downloaded *.tsv files
+
+```
+python 07_get_targeted_sites.py your_work_dir
+```
+
+>>Get overlapping site between SNPs and methylation data.
+
+```
+Rscript 08_get_overlapping_site_between_M_and_G.r
+```
+
+>>Get the SNP information for the overlapping site betweem SNPs and methylation data
+
+```
+python 09_get_ref_seq_for_overlapping_methylation_sites.py inputFile
+```
+
+
+>> To facilitate the job running, the Methylation_genome_wide_383_accessions.csv file was split to 100 small files
+
+```
+awk 'NR==1{header=$0; count=1; print header > "Methylation_genome_wide_383_accessions.csv_" count; next } !( (NR-1) % 173766){		count++; print header > "Methylation_genome_wide_383_accessions.csv_" count; }  {print $0 > "Methylation_genome_wide_383_accessions.csv_" count	 }' Methylation_genome_wide_383_accessions.csv
+```
+
+>>Fill 0s with NAs, and then fill the NAs back with 0s for overlapping site between SNPs and methylation data. The inputFile is the one of the small file output from above awk command.
+
+```
+python 10_fill_0_with_NaN.py inputFile
+```
+
+```
+python 11_fill_NA_back_with_0_for_shared_sites.py inputFile
+```
+
+>>>To make slurm jobs for the above two python scripts, you can use the script below, your_work_dir is the directory containing all the small files
+
+```
+python 12_make_slurm_jobs_for_10_and_11.py your_work_dir
+```
+
+>>Count the accessions with NA for each methylation sites
+
+
 
 
 #### 2.3.2.2 For methylation proportion

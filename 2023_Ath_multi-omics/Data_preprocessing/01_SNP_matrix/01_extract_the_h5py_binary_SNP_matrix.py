@@ -12,6 +12,7 @@ for i in range(0,5):
 	pos = pos.append(loc)
 
 df.index = pos
-df.to_csv('SNP_binary_matrix.csv',index=True, header=True,sep=",")
+df.to_csv('SNP_binary_matrix_all.csv',index=True, header=True,sep=",")
+df.iloc[0,:].to_csv('All_SNPs_list.txt',index=False, header=False,sep=",")
 
 
