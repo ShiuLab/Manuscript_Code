@@ -68,7 +68,7 @@ python 03_log_TPM_and_get_transcriptomic_matrix_for_383_accessions.py
 
 #### **2.3.1 For gene-body methylation**
 
-Related scripts can be found in the folder Data_preprocessing\03_methylomic_matrix
+Related scripts can be found in the folder Data_preprocessing\03_methylomic_matrix\1_gene_body_methylation
 
 >Parse the downloaded gene-body methylation matrix, and save the corresponding matrix for 383 accessions
 
@@ -87,23 +87,31 @@ python 02_knn_imputation.py
 >Download individual methylation data for 383 accessions 
 
 ```
-python 03_download_individual_methylation_data_for_383_accessions.py
+python 01_download_individual_methylation_data_for_383_accessions.py
 ```
 	
 ##### 2.3.2.1 For presence/absence of methylation
+
+Related scripts can be found in the folder Data_preprocessing\03_methylomic_matrix\2_single_site_methylation_P_A
 	
->For presence/absence of methylation, save the methylated sites 
+>Only save methylated sites, which are sites with the sixth column at 1 in the download *.tsv file. 
 
 ```
-python 05_write_slurm_jobs_for_04.py inputFile
-```
-	
->write slurm jobs for all downloaded methylation files
-  
-```
-python 06_write_slurm_jobs_for_03.py yourWorkPath
+python 02_only_save_methylated_sites.py inputFile
 ```
 
+>>Submit jobs to slurm, optional 
+
+```
+python 03_write_slurm_jobs_for_03.py inputFile
+```
+
+>Get the methylated single site list for all 383 accessions
+
+```
+python 04_get_methylation_list.py
+```
+	
 >combine all files with single-site presence/absence of methylation information
 
 ```
@@ -111,19 +119,21 @@ python 07_combine_all_methylation_files.py
 ```
 
 ```
-python 08_make_dic_for_methylation_PA_proportion.py input_file
+
 ```
 
 
 #### 2.3.2.2 For methylation proportion
 
+Related scripts can be found in the folder Data_preprocessing\03_methylomic_matrix\3_single_site_methylation_Prop
+
 >Calculate the methylation proportion for each C site, and save the methylated sites. Write the slurm jobs to parse the raw single-site methylation files separately.
 
 ```
-python 05_write_slurm_jobs_for_methylation_proportion_and_save_methylated_site.py
+python 06_write_slurm_jobs_for_methylation_proportion_and_save_methylated_site.py
 ```
 	
->>Note: for individual files, you can run awk command lines
+>>Note: for individual files, you can run awk command lines, the input file is the downloaded *.tsv file 
 
 ```
 awk \'{print "Chr"$1"_"$2"_"$4"_"$3"\\t"$5"/"$6"\\t"$5}\' < inputFile > inputFile_proportion
@@ -132,11 +142,15 @@ awk \'{print "Chr"$1"_"$2"_"$4"_"$3"\\t"$5"/"$6"\\t"$5}\' < inputFile > inputFil
 awk \'$3>0\' < inputFile_proportion > inputFile_meted.txt
 ```	
 
->make dictionary for single-site methylation proportion
+>make dictionary for single-site methylation proportion, the input file is *_meted.txt
 
 ```	
-python 08_make_dic_for_methylation_PA_proportion.py input_file //input file is *_meted.txt
+python 08_make_dic_for_methylation_PA_proportion.py input_file 
 ```	
+
+
+
+
 
 
 ## **3. get the Kinship and correlation matrix for omics data**
