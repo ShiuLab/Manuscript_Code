@@ -1,11 +1,9 @@
 # multi-omics integration project
 Codes for our manuscript "Prediction of plant complex traits via integration of multi-omics data"
 
-## 1. Datasets
-====
+## **1. Datasets**
 
 ### 1.1 SNP matrix
-----
 
 The SNP matrix was download from https://1001genomes.org/data/GMI-MPI/releases/v3.1/SNP_matrix_imputed_hdf5/1001_SNP_MATRIX.tar.gz
 
@@ -25,9 +23,9 @@ Other phenotypic data were download from https://arapheno.1001genomes.org/study/
 
 Benchmark flowering time genes were downloaded from the FLOR-ID database http://www.phytosystems.ulg.ac.be/florid/
 
-## 2. Data_preprocessing
+## **2. Data_preprocessing**
 
-### 2.1 SNP matrix
+### **2.1 SNP matrix**
 
 Related scripts for SNP matrix can be found in the folder Data_preprocessing\01_SNP_matrix
 
@@ -39,7 +37,7 @@ Related scripts for SNP matrix can be found in the folder Data_preprocessing\01_
   
 	python 02_get_snp_matrix_for_383_accessions.py
 	
-### 2.2 transcriptomic data
+### **2.2 transcriptomic data**
 
 Related scripts can be found in the folder Data_preprocessing\02_transcriptomic data 
   
@@ -57,9 +55,9 @@ Related scripts can be found in the folder Data_preprocessing\02_transcriptomic 
 	python 03_log_TPM_and_get_transcriptomic_matrix_for_383_accessions.py
 	
 	
-### 2.3 methylomic data
+### **2.3 methylomic data**
 
-#### 2.3.1 For gene-body methylation
+#### **2.3.1 For gene-body methylation**
 
 Related scripts can be found in the folder Data_preprocessing\03_methylomic_matrix
 
@@ -67,7 +65,7 @@ Related scripts can be found in the folder Data_preprocessing\03_methylomic_matr
 
 	python 01_get_methylation_for_383_accessions.py
 
-#### 2.3.2 For single-site methylation-based formats
+#### **2.3.2 For single-site methylation-based formats**
 	
   *  Download individual methylation data for 383 accessions 
 
@@ -113,9 +111,12 @@ Related scripts can be found in the folder Data_preprocessing\04_correlation_mat
 
   *  To get the kinship matrix, please follow the illustration of the software tassel, which can be found in https://www.maizegenetics.net/tassel
 
-	tassel/tassel-5-standalone/run_pipeline.pl -SortGenotypeFilePlugin -inputFile SNP_383_accessions.hmp.txt -outputFile SNP_383_accessions_order.hmp.txt -fileType Hapmap -Xmx100g -Xms2g
-
-	tassel/tassel-5-standalone/run_pipeline.pl -importGuess SNP_383_accessions_order.hmp.txt -KinshipPlugin -method Centered_IBS -endPlugin -export SNP_383_accessions_kinship.txt -exportType SqrMatrix -Xmx100g -Xms2g
+```
+tassel/tassel-5-standalone/run_pipeline.pl -SortGenotypeFilePlugin -inputFile SNP_383_accessions.hmp.txt -outputFile SNP_383_accessions_order.hmp.txt -fileType Hapmap -Xmx100g -Xms2g
+```
+```
+tassel/tassel-5-standalone/run_pipeline.pl -importGuess SNP_383_accessions_order.hmp.txt -KinshipPlugin -method Centered_IBS -endPlugin -export SNP_383_accessions_kinship.txt -exportType SqrMatrix -Xmx100g -Xms2g
+```
 
   *  Get correlation matrix for other multi-omics data
   
