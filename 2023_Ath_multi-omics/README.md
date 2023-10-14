@@ -78,8 +78,6 @@ Related scripts can be found in the folder Data_preprocessing\03_methylomic_matr
 	
 
 
-
-
 #### 2.3.2 For methylation proportion
 
   *  Calculate the methylation proportion for each C site, and save the methylated sites. Write the slurm jobs to parse the raw single-site methylation files separately.
@@ -92,7 +90,7 @@ Related scripts can be found in the folder Data_preprocessing\03_methylomic_matr
 	
 	awk \'$3>0\' < inputFile_proportion > inputFile_meted.txt
 	
-	
+
 
 ## 3. get the Kinship and correlation matrix for omics data
 
@@ -119,6 +117,7 @@ Related scripts can be found in the folder Data_preprocessing\04_correlation_mat
 	Rscript 04_removing_confounding_effects_of_K_from_mCor.r
 
 ## 4. Genomic prediction using machine learning algorithms
+
 
 
 ## 4. SHAP values and feature interaction values
