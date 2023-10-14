@@ -135,7 +135,7 @@ awk \'$3>0\' < inputFile_proportion > inputFile_meted.txt
 >make dictionary for single-site methylation proportion
 
 ```	
-python 08_make_dic_for_methylation_PA_proportion.py input_file #input file is *_meted.txt
+python 08_make_dic_for_methylation_PA_proportion.py input_file //input file is *_meted.txt
 ```	
 
 
