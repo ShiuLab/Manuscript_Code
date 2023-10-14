@@ -132,6 +132,12 @@ awk \'{print "Chr"$1"_"$2"_"$4"_"$3"\\t"$5"/"$6"\\t"$5}\' < inputFile > inputFil
 awk \'$3>0\' < inputFile_proportion > inputFile_meted.txt
 ```	
 
+>make dictionary for single-site methylation proportion
+
+```	
+python 08_make_dic_for_methylation_PA_proportion.py input_file #input file is *_meted.txt
+```	
+
 
 ## **3. get the Kinship and correlation matrix for omics data**
 
