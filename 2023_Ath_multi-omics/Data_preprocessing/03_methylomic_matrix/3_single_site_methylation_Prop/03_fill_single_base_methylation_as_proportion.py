@@ -5,7 +5,7 @@ import pickle
 files = sys.argv[1]
 df = pd.read_csv(files,index_col=0,header=0,sep=',')
 for accession in df.index.tolist():
-	with open('/mnt/scratch/peipeiw/Ath_GS/Methylation_proportion/%s_met.txt.pkl'%accession, 'rb') as f1:
+	with open('%s_met.txt.pkl'%accession, 'rb') as f1:
 		D = pickle.load(f1)
 	for marker in df.columns.tolist():
 		# load dictionary

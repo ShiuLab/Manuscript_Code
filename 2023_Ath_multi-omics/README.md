@@ -187,7 +187,7 @@ python 13_make_slurm_jobs_for_10_11_and_12.py your_work_dir
 cat *count > Methylation_genome_wide_618_accessions_considering_same_site_NaN_count.txt
 ```
 
->>>Find out the number of accessions with missing methylation data for sites at 90, 75 and 50 percentiles
+>>>Find out the number of accessions with missing methylation data for sites at 90, 75 and 50 percentiles. This is done in R
 
 ```
 dat <- read.table('Methylation_genome_wide_618_accessions_considering_same_site_NaN_count.txt',head=F,sep='\t')
@@ -213,14 +213,20 @@ python 15_knn_imputation_for_0_1_training_fit_on_test.py 50per_file Test_for_383
 python 16_write_jobs_for_merging_methylation_data_using_paste.py
 ```
 
+>Split the methylation metrix into CG, CHG, CHH-type methylation files
+
+```
+python 17_split_methylation_to_CG_CHH_CHG.py inputFile
+```
+
 #### 2.3.2.2 For methylation proportion
 
 Related scripts can be found in the folder Data_preprocessing\03_methylomic_matrix\3_single_site_methylation_Prop
 
->Calculate the methylation proportion for each C site, and save the methylated sites. Write the slurm jobs to parse the raw single-site methylation files separately.
+>Calculate the methylation proportion for each C site, and save the methylated sites. Write the slurm jobs to parse the raw single-site methylation files separately. your_work_dir is the directory containing all the small file
 
 ```
-python 06_write_slurm_jobs_for_methylation_proportion_and_save_methylated_site.py
+python 01_write_slurm_jobs_for_methylation_proportion_and_save_methylated_site.py your_work_dir
 ```
 	
 >>Note: for individual files, you can run awk command lines, the input file is the downloaded *.tsv file 
@@ -232,15 +238,23 @@ awk \'{print "Chr"$1"_"$2"_"$4"_"$3"\\t"$5"/"$6"\\t"$5}\' < inputFile > inputFil
 awk \'$3>0\' < inputFile_proportion > inputFile_meted.txt
 ```	
 
->make dictionary for single-site methylation proportion, the input file is *_meted.txt
+>Make dictionary for single-site methylation proportion, the input file is *_meted.txt
 
 ```	
-python 08_make_dic_for_methylation_PA_proportion.py input_file 
+python 02_make_dic_for_methylation_proportion.py input_file 
 ```	
 
+>*Repeat what have been done for methylation P/A analysis*. Or if you want to keep the same methylation sites for methy_prop and methy_P/A, you can just fill the corresponding values in methy_P/A matrix using methylation proportion before imputation. The inputFile is the *_50per file.
 
+```
+python 03_fill_single_base_methylation_as_proportion.py inputFile
+```
 
+>Impute the methylation proportion matrix
 
+```
+python 04_knn_imputation_for_proportion_training_fit_on_test.py inputFile
+```
 
 
 ## **3. get the Kinship and correlation matrix for omics data**
