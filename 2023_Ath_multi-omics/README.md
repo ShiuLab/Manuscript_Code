@@ -256,12 +256,19 @@ python 03_fill_single_base_methylation_as_proportion.py inputFile
 python 04_knn_imputation_for_proportion_training_fit_on_test.py inputFile
 ```
 
+#### 2.3.2.3 For binning of methylation presence/absence or proportion values
+
+Related scripts can be found in the folder Data_preprocessing/04_methylation_binning
+
+#### 2.3.2.4 For clustering of binned methylation presence/absence or proportion values
+
+Related scripts can be found in the folder Data_preprocessing/05_methylation_profile_clustering
 
 ## **3. get the Kinship and correlation matrix for omics data**
 
-Related scripts can be found in the folder Data_preprocessing/04_correlation_matrix_for_omics_data
+Related scripts can be found in the folder Data_preprocessing/06_correlation_matrix_for_omics_data
 
-### 3.1 get the kinship
+### 3.1 Get the kinship
 
 >Convert the SNP matrix to hmp format
 
@@ -278,16 +285,16 @@ tassel/tassel-5-standalone/run_pipeline.pl -SortGenotypeFilePlugin -inputFile SN
 tassel/tassel-5-standalone/run_pipeline.pl -importGuess SNP_383_accessions_order.hmp.txt -KinshipPlugin -method Centered_IBS -endPlugin -export SNP_383_accessions_kinship.txt -exportType SqrMatrix -Xmx100g -Xms2g
 ```
 
->Get correlation matrix for other multi-omics data
+### 3.2 Get the correlation matrix for other multi-omics data
 
 ```  
 Rscript 02_get_correlation_matrix_for_omics_data.r
 ```
 
->Remove the potential confounding effects of K on mCor. You may want to replace input files in this script
+### 3.3 Remove the potential confounding effects of K on mCor. You may want to replace input files in this script
 
 ```
-Rscript 04_removing_confounding_effects_of_K_from_mCor.r
+Rscript 03_removing_confounding_effects_of_K_from_mCor.r
 ```
 
 ## **4. Genomic prediction using machine learning algorithms**
