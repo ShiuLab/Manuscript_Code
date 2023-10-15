@@ -1,7 +1,7 @@
 # multi-omics integration project
 Codes for our manuscript "Prediction of plant complex traits via integration of multi-omics data"
 
-## **1. Datasets**
+>## **1. Datasets**
 
 ### 1.1 SNP matrix
 
