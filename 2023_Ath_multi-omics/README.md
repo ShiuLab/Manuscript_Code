@@ -298,6 +298,6 @@ Rscript 04_removing_confounding_effects_of_K_from_mCor.r
 
 ## **5. SHAP values and feature interaction values**
 
-The scrips can be found in the folder /SHAP
+The scrips can be found in the folder [/SHAP](https://github.com/ShiuLab/Manuscript_Code/tree/master/2023_Ath_multi-omics/SHAP)
 
   * Note: the feature interaction value calculation is pretty small for datasets with a large number of features. In our study, we only took the benchmark flowering time gene-related features to calculate feature interactions.
