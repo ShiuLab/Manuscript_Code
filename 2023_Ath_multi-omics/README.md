@@ -1,31 +1,32 @@
 # multi-omics integration project
+
 Codes for our manuscript "Prediction of plant complex traits via integration of multi-omics data"
 
 >## **1. Datasets**
 
-### 1.1 SNP matrix
+>>### 1.1 SNP matrix
 
->The SNP matrix was download from https://1001genomes.org/data/GMI-MPI/releases/v3.1/SNP_matrix_imputed_hdf5/1001_SNP_MATRIX.tar.gz
+>>>>The SNP matrix was download from https://1001genomes.org/data/GMI-MPI/releases/v3.1/SNP_matrix_imputed_hdf5/1001_SNP_MATRIX.tar.gz
 
-### 1.2 transcriptomic data
->The transcriptomic data was downloaded from https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE80744&format=file&file=GSE80744%5Fath1001%5Ftx%5Fnorm%5F2016%2D04%2D21%2DUQ%5FgNorm%5FnormCounts%5Fk4%2Etsv%2Egz
+>>### 1.2 transcriptomic data
+>>>>The transcriptomic data was downloaded from https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE80744&format=file&file=GSE80744%5Fath1001%5Ftx%5Fnorm%5F2016%2D04%2D21%2DUQ%5FgNorm%5FnormCounts%5Fk4%2Etsv%2Egz
 which are read count files for 727 accessions
 
-### 1.3 methylomic data
->The gene body methylation data was download from http://signal-genet.salk.edu/1001.php , which contains 1107 methylomes, with the ID name.
+>>### 1.3 methylomic data
+>>>>The gene body methylation data was download from http://signal-genet.salk.edu/1001.php , which contains 1107 methylomes, with the ID name.
 The tsv files for individual accessions were download from NCBI with GEO accession ID: GSE43857
 
-### 1.4 phenotypic data
+>>### 1.4 phenotypic data
 >Flowering time at 10℃ (1163 accessions) and 16℃ (1123 accessions) were downloaded from https://arapheno.1001genomes.org/study/12/
 Other phenotypic data were download from https://arapheno.1001genomes.org/study/38/
 
-### 1.5 benchmark flowering time genes
+>>### 1.5 benchmark flowering time genes
 
 >Benchmark flowering time genes were downloaded from the FLOR-ID database http://www.phytosystems.ulg.ac.be/florid/
 
-## **2. Data_preprocessing**
+>## **2. Data_preprocessing**
 
-### **2.1 SNP matrix**
+>>### **2.1 SNP matrix**
 
 Related scripts for SNP matrix can be found in the folder Data_preprocessing/01_SNP_matrix
 
@@ -41,7 +42,7 @@ python 01_extract_the_h5py_binary_SNP_matrix.py
 python 02_get_snp_matrix_for_383_accessions.py
 ```
 	
-### **2.2 transcriptomic data**
+>>### **2.2 transcriptomic data**
 
 Related scripts can be found in the folder Data_preprocessing/02_transcriptomic data 
   
@@ -64,9 +65,9 @@ Rscript 02_calculate_TPM.r
 python 03_log_TPM_and_get_transcriptomic_matrix_for_383_accessions.py
 ```	
 	
-### **2.3 methylomic data**
+>>### **2.3 methylomic data**
 
-#### **2.3.1 For gene-body methylation**
+>>>#### **2.3.1 For gene-body methylation**
 
 Related scripts can be found in the folder Data_preprocessing/03_methylomic_matrix/1_gene_body_methylation
 
@@ -82,7 +83,7 @@ python 01_get_methylation_for_383_accessions.py
 python 02_knn_imputation.py
 ```
 
-#### **2.3.2 For single-site methylation-based formats**
+>>>#### **2.3.2 For single-site methylation-based formats**
 	
 >Download individual methylation data for 383 accessions 
 
@@ -90,7 +91,7 @@ python 02_knn_imputation.py
 python 01_download_individual_methylation_data_for_383_accessions.py
 ```
 	
-##### 2.3.2.1 For presence/absence of methylation
+>>>##### 2.3.2.1 For presence/absence of methylation
 
 Related scripts can be found in the folder Data_preprocessing/03_methylomic_matrix/2_single_site_methylation_P_A
 	
@@ -219,7 +220,7 @@ python 16_write_jobs_for_merging_methylation_data_using_paste.py
 python 17_split_methylation_to_CG_CHH_CHG.py inputFile
 ```
 
-#### 2.3.2.2 For methylation proportion
+>>>#### 2.3.2.2 For methylation proportion
 
 Related scripts can be found in the folder Data_preprocessing/03_methylomic_matrix/3_single_site_methylation_Prop
 
@@ -256,19 +257,19 @@ python 03_fill_single_base_methylation_as_proportion.py inputFile
 python 04_knn_imputation_for_proportion_training_fit_on_test.py inputFile
 ```
 
-#### 2.3.2.3 For binning of methylation presence/absence or proportion values
+>>>#### 2.3.2.3 For binning of methylation presence/absence or proportion values
 
 Related scripts can be found in the folder Data_preprocessing/04_methylation_binning
 
-#### 2.3.2.4 For clustering of binned methylation presence/absence or proportion values
+>>>#### 2.3.2.4 For clustering of binned methylation presence/absence or proportion values
 
 Related scripts can be found in the folder Data_preprocessing/05_methylation_profile_clustering
 
-## **3. get the Kinship and correlation matrix for omics data**
+>## **3. get the Kinship and correlation matrix for omics data**
 
 Related scripts can be found in the folder Data_preprocessing/06_correlation_matrix_for_omics_data
 
-### 3.1 Get the kinship
+>>### 3.1 Get the kinship
 
 >Convert the SNP matrix to hmp format
 
@@ -285,25 +286,25 @@ tassel/tassel-5-standalone/run_pipeline.pl -SortGenotypeFilePlugin -inputFile SN
 tassel/tassel-5-standalone/run_pipeline.pl -importGuess SNP_383_accessions_order.hmp.txt -KinshipPlugin -method Centered_IBS -endPlugin -export SNP_383_accessions_kinship.txt -exportType SqrMatrix -Xmx100g -Xms2g
 ```
 
-### 3.2 Get the correlation matrix for other multi-omics data
+>>### 3.2 Get the correlation matrix for other multi-omics data
 
 ```  
 Rscript 02_get_correlation_matrix_for_omics_data.r
 ```
 
-### 3.3 Remove the potential confounding effects of K on mCor. You may want to replace input files in this script
+>>### 3.3 Remove the potential confounding effects of K on mCor. You may want to replace input files in this script
 
 ```
 Rscript 03_removing_confounding_effects_of_K_from_mCor.r
 ```
 
-## **4. Genomic prediction using machine learning algorithms**
+>## **4. Genomic prediction using machine learning algorithms**
 
 >For the RandomForest regression model building, we used the script from Azodi et al., 2020. Plant Cell paper. Here is the link to the script [ML_regression.py](https://github.com/ShiuLab/Manuscript_Code/blob/master/2019_expression_GP/scripts/ML_regression.py) 
 
 >For the rrBLUP model, we used the script from our another project. Here is the link to the script [13_rrBLUP_training_test_split_fread_predict_values.r](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_GP_in_Switchgrass/13_rrBLUP_training_test_split_fread_predict_values.r)
 
-## **5. SHAP values and feature interaction values**
+>## **5. SHAP values and feature interaction values**
 
 The scrips can be found in the folder [/SHAP](https://github.com/ShiuLab/Manuscript_Code/tree/master/2023_Ath_multi-omics/SHAP)
 
