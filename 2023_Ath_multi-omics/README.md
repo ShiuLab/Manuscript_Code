@@ -169,10 +169,10 @@ python 10_fill_0_with_NaN.py inputFile
 python 11_fill_NA_back_with_0_for_shared_sites.py inputFile
 ```
 
->>Count the accessions with NA for each methylation sites
+>>Count the accessions with NA for each methylation sites, the inputFile is the one of the small file
 
 ```
-python 12_check_methylation_data_NaN_proportions_and_drop_separate_files.py
+python 12_check_methylation_data_NaN_proportions_and_drop_separate_files.py inputFile
 ```
 
 >>>To make slurm jobs for the above three python scripts, you can use the script below, your_work_dir is the directory containing all the small files
@@ -181,8 +181,36 @@ python 12_check_methylation_data_NaN_proportions_and_drop_separate_files.py
 python 13_make_slurm_jobs_for_10_11_and_12.py your_work_dir
 ```
 
-```shell
-cat *count > Methylation_genome_wide_618_accessions_considering_same_site_NaN_count.txt //shell
+>>Concat all count files together
+
+```
+cat *count > Methylation_genome_wide_618_accessions_considering_same_site_NaN_count.txt
+```
+
+>>>Find out the number of accessions with missing methylation data for sites at 90, 75 and 50 percentiles
+
+```
+dat <- read.table('Methylation_genome_wide_618_accessions_considering_same_site_NaN_count.txt',head=F,sep='\t')
+dat <- cbind(dat,618-dat[,2])
+quantile(dat[,3], c(.50, .75, .90))
+```
+
+>>Distinguish methylation sites that are missing in <=2 (90 percentile), <=8 (75 percentile), <=38 (50 percentile) accessions.
+
+```
+python 14_keep_50_75_90_percentile_MAF.py 
+```
+
+>>Impute the 50 percentile files, fit on training, then transform on test, then filter with MAF, and extract the 75percentile and 90 percentile files. The file Test_for_383_accessions.txt can be find in the folder /Datasets
+
+```
+python 15_knn_imputation_for_0_1_training_fit_on_test.py 50per_file Test_for_383_accessions.txt
+```
+
+>>Make slurm jobs to concat the final imputed methylation files, using "cut" and "paste" shell commands
+
+```
+python 16_write_jobs_for_merging_methylation_data_using_paste.py
 ```
 
 #### 2.3.2.2 For methylation proportion
