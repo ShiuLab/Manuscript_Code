@@ -27,7 +27,7 @@ Other phenotypic data were download from https://arapheno.1001genomes.org/study/
 
 ### **2.1 SNP matrix**
 
-Related scripts for SNP matrix can be found in the folder Data_preprocessing\01_SNP_matrix
+Related scripts for SNP matrix can be found in the folder Data_preprocessing/01_SNP_matrix
 
 >Get the SNP matrix for all accessions, and also output the list of all SNPs
 
@@ -43,7 +43,7 @@ python 02_get_snp_matrix_for_383_accessions.py
 	
 ### **2.2 transcriptomic data**
 
-Related scripts can be found in the folder Data_preprocessing\02_transcriptomic data 
+Related scripts can be found in the folder Data_preprocessing/02_transcriptomic data 
   
 >To calculate the TPM, we need to get the transcript length for genes at first. Get the GFF3 file ready before run this script. Here we used the TAIR10 GFF3 file 
 
@@ -68,7 +68,7 @@ python 03_log_TPM_and_get_transcriptomic_matrix_for_383_accessions.py
 
 #### **2.3.1 For gene-body methylation**
 
-Related scripts can be found in the folder Data_preprocessing\03_methylomic_matrix\1_gene_body_methylation
+Related scripts can be found in the folder Data_preprocessing/03_methylomic_matrix/1_gene_body_methylation
 
 >Parse the downloaded gene-body methylation matrix, and save the corresponding matrix for 383 accessions
 
@@ -92,7 +92,7 @@ python 01_download_individual_methylation_data_for_383_accessions.py
 	
 ##### 2.3.2.1 For presence/absence of methylation
 
-Related scripts can be found in the folder Data_preprocessing\03_methylomic_matrix\2_single_site_methylation_P_A
+Related scripts can be found in the folder Data_preprocessing/03_methylomic_matrix/2_single_site_methylation_P_A
 	
 >Only save methylated sites, which are sites with the sixth column at 1 in the download *.tsv file. 
 
@@ -221,7 +221,7 @@ python 17_split_methylation_to_CG_CHH_CHG.py inputFile
 
 #### 2.3.2.2 For methylation proportion
 
-Related scripts can be found in the folder Data_preprocessing\03_methylomic_matrix\3_single_site_methylation_Prop
+Related scripts can be found in the folder Data_preprocessing/03_methylomic_matrix/3_single_site_methylation_Prop
 
 >Calculate the methylation proportion for each C site, and save the methylated sites. Write the slurm jobs to parse the raw single-site methylation files separately. your_work_dir is the directory containing all the small file
 
@@ -259,7 +259,7 @@ python 04_knn_imputation_for_proportion_training_fit_on_test.py inputFile
 
 ## **3. get the Kinship and correlation matrix for omics data**
 
-Related scripts can be found in the folder Data_preprocessing\04_correlation_matrix_for_omics_data
+Related scripts can be found in the folder Data_preprocessing/04_correlation_matrix_for_omics_data
 
 ### 3.1 get the kinship
 
@@ -292,8 +292,12 @@ Rscript 04_removing_confounding_effects_of_K_from_mCor.r
 
 ## **4. Genomic prediction using machine learning algorithms**
 
+>For the RandomForest regression model building, we used the script from Azodi et al., 2020. Plant Cell paper. Here is the link to the script [ML_regression.py](https://github.com/ShiuLab/Manuscript_Code/blob/master/2019_expression_GP/scripts/ML_regression.py) 
 
+>For the rrBLUP model, we used the script from our another project. Here is the link to the script [13_rrBLUP_training_test_split_fread_predict_values.r](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_GP_in_Switchgrass/13_rrBLUP_training_test_split_fread_predict_values.r)
 
 ## **5. SHAP values and feature interaction values**
+
+The scrips can be found in the folder /SHAP
 
   * Note: the feature interaction value calculation is pretty small for datasets with a large number of features. In our study, we only took the benchmark flowering time gene-related features to calculate feature interactions.
