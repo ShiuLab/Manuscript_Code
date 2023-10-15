@@ -169,16 +169,21 @@ python 10_fill_0_with_NaN.py inputFile
 python 11_fill_NA_back_with_0_for_shared_sites.py inputFile
 ```
 
->>>To make slurm jobs for the above two python scripts, you can use the script below, your_work_dir is the directory containing all the small files
-
-```
-python 12_make_slurm_jobs_for_10_and_11.py your_work_dir
-```
-
 >>Count the accessions with NA for each methylation sites
 
+```
+python 12_check_methylation_data_NaN_proportions_and_drop_separate_files.py
+```
 
+>>>To make slurm jobs for the above three python scripts, you can use the script below, your_work_dir is the directory containing all the small files
 
+```
+python 13_make_slurm_jobs_for_10_11_and_12.py your_work_dir
+```
+
+```shell
+cat *count > Methylation_genome_wide_618_accessions_considering_same_site_NaN_count.txt //shell
+```
 
 #### 2.3.2.2 For methylation proportion
 
