@@ -92,7 +92,7 @@ python 02_knn_imputation.py
 python 01_download_individual_methylation_data_for_383_accessions.py
 ```
 	
->>>##### 2.3.2.1 For presence/absence of methylation
+>>>>##### 2.3.2.1 For presence/absence of methylation
 
 Related scripts can be found in the folder Data_preprocessing/03_methylomic_matrix/2_single_site_methylation_P_A
 	
@@ -221,7 +221,7 @@ python 16_write_jobs_for_merging_methylation_data_using_paste.py
 python 17_split_methylation_to_CG_CHH_CHG.py inputFile
 ```
 
->>>#### 2.3.2.2 For methylation proportion
+>>?>#### 2.3.2.2 For methylation proportion
 
 Related scripts can be found in the folder Data_preprocessing/03_methylomic_matrix/3_single_site_methylation_Prop
 
@@ -258,11 +258,11 @@ python 03_fill_single_base_methylation_as_proportion.py inputFile
 python 04_knn_imputation_for_proportion_training_fit_on_test.py inputFile
 ```
 
->>>#### 2.3.2.3 For binning of methylation presence/absence or proportion values
+>>>>#### 2.3.2.3 For binning of methylation presence/absence or proportion values
 
 Related scripts can be found in the folder Data_preprocessing/04_methylation_binning
 
->>>#### 2.3.2.4 For clustering of binned methylation presence/absence or proportion values
+>>>>#### 2.3.2.4 For clustering of binned methylation presence/absence or proportion values
 
 Related scripts can be found in the folder Data_preprocessing/05_methylation_profile_clustering
 
