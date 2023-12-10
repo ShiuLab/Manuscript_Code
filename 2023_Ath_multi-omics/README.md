@@ -224,17 +224,17 @@ python 16_write_jobs_for_merging_methylation_data_using_paste.py
 python 17_split_methylation_to_CG_CHH_CHG.py inputFile
 ```
 
->>>>##### 2.3.2.2 For methylation proportion
+>>>>##### 2.3.2.2 For methylation proportion matrix
 
 Related scripts can be found in the folder Data_preprocessing/03_methylomic_matrix/3_single_site_methylation_Prop
 
->>>>Calculate the methylation proportion for each C site, and save the methylated sites. Write the slurm jobs to parse the raw single-site methylation files separately. your_work_dir is the directory containing all the small file
+>>>>Calculate the methylation proportion for each C site, and save the methylated sites. Write the slurm jobs to parse the raw single-site methylation files separately. your_work_dir is the directory containing all the small files
 
 ```
 python 01_write_slurm_jobs_for_methylation_proportion_and_save_methylated_site.py your_work_dir
 ```
 	
->>>>>Note: for individual files, you can run awk command lines, the input file is the downloaded *.tsv file 
+>>>>>Note: for individual files, you can run awk command lines, and the input file is the downloaded *.tsv file 
 
 ```
 awk \'{print "Chr"$1"_"$2"_"$4"_"$3"\\t"$5"/"$6"\\t"$5}\' < inputFile > inputFile_proportion
@@ -243,7 +243,7 @@ awk \'{print "Chr"$1"_"$2"_"$4"_"$3"\\t"$5"/"$6"\\t"$5}\' < inputFile > inputFil
 awk \'$3>0\' < inputFile_proportion > inputFile_meted.txt
 ```	
 
->>>>Make dictionary for single-site methylation proportion, the input file is *_meted.txt
+>>>>Make dictionary for single-site methylation proportion, and the input file is *_meted.txt
 
 ```	
 python 02_make_dic_for_methylation_proportion.py input_file 
@@ -312,4 +312,4 @@ Rscript 03_removing_confounding_effects_of_K_from_mCor.r
 
 The scrips can be found in the folder [/SHAP](https://github.com/ShiuLab/Manuscript_Code/tree/master/2023_Ath_multi-omics/SHAP)
 
->>>>Note: the feature interaction value calculation is pretty slow for datasets with a large number of features. In our study, we only took the benchmark flowering time gene-related features to calculate feature interactions.
+>>>>Note: the feature interaction value calculation is pretty slow for datasets with a large number of features. In our study, we only took the benchmark flowering time gene-related features to calculate the feature interactions.
