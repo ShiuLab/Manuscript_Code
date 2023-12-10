@@ -27,7 +27,7 @@ Other phenotypic data were download from https://arapheno.1001genomes.org/study/
 
 >>>>Benchmark flowering time genes were downloaded from the FLOR-ID database http://www.phytosystems.ulg.ac.be/florid/
 
->## **2. Data_preprocessing**
+>## **2. Data preprocessing**
 
 >>### **2.1 SNP matrix**
 
