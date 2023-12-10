@@ -118,7 +118,7 @@ python 04_get_methylation_list.py
 Rscript 05_order_methylation_sites.r
 ```
 
->>>>combine all files with single-site presence/absence of methylation information, the output file is Methylation_genome_wide_383_accessions.csv
+>>>>Combine all files with single-site presence/absence state of methylation, the output file is Methylation_genome_wide_383_accessions.csv
 
 ```
 python 06_combine_all_methylation_files.py
@@ -126,7 +126,7 @@ python 06_combine_all_methylation_files.py
 
 >>>>To distinguish the un-methylated sites (value should be 0) from sites with missing information (values should be NA to be imputed in the future), we first converted all 0 values as NA, and then filled the NAs using information from SNP matrix. 
 
->>>>>Get targeted methylated sites (shared single sites among all accessions) for each accessions, the input file is the downloaded *.tsv files, and the file Methylation_sites_listgenome_wide_383_accessions.txt is output from python 04_get_methylation_list.py
+>>>>>Get targeted methylated sites (all single sites which were methylated in at least one accession) for each accession. The input file is the downloaded *.tsv files, and the file Methylation_sites_listgenome_wide_383_accessions.txt is output from python 04_get_methylation_list.py
 
 ```
 awk \'{print "Chr"$1"_"$2"_"$4"_"$3}\' < inputFile > inputFile_selected_columns
