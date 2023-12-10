@@ -1,6 +1,6 @@
 # multi-omics integration project
 
-Codes for our manuscript "Prediction of plant complex traits via integration of multi-omics data"
+Codes and datasets for our manuscript "Prediction of plant complex traits via integration of multi-omics data".
 
 >## **1. Datasets**
 
@@ -9,14 +9,17 @@ Codes for our manuscript "Prediction of plant complex traits via integration of 
 >>>>The SNP matrix was download from https://1001genomes.org/data/GMI-MPI/releases/v3.1/SNP_matrix_imputed_hdf5/1001_SNP_MATRIX.tar.gz
 
 >>### 1.2 transcriptomic data
+
 >>>>The transcriptomic data was downloaded from https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE80744&format=file&file=GSE80744%5Fath1001%5Ftx%5Fnorm%5F2016%2D04%2D21%2DUQ%5FgNorm%5FnormCounts%5Fk4%2Etsv%2Egz
 which are read count files for 727 accessions
 
 >>### 1.3 methylomic data
+
 >>>>The gene body methylation data was download from http://signal-genet.salk.edu/1001.php , which contains 1107 methylomes, with the ID name.
 The tsv files for individual accessions were download from NCBI with GEO accession ID: GSE43857
 
 >>### 1.4 phenotypic data
+
 >>>>Flowering time at 10℃ (1163 accessions) and 16℃ (1123 accessions) were downloaded from https://arapheno.1001genomes.org/study/12/
 Other phenotypic data were download from https://arapheno.1001genomes.org/study/38/
 
@@ -36,7 +39,7 @@ Related scripts for SNP matrix can be found in the folder Data_preprocessing/01_
 python 01_extract_the_h5py_binary_SNP_matrix.py
 ```
 	
->>>>Save the SNP matrix for 383 accession, convert common allele to 1, and not common allele to -1, get rid of the rare variants (MAF < 5%)	
+>>>>Save the SNP matrix for 383 accession; convert the common allele to 1, and the alternative allele to -1; get rid of the rare variants (MAF < 5%)	
   
 ```
 python 02_get_snp_matrix_for_383_accessions.py
