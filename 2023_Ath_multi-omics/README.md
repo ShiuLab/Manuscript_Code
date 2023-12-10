@@ -139,7 +139,7 @@ awk \'{print "Chr"$1"_"$2"_"$4"_"$3}\' < inputFile > inputFile_selected_columns
 awk \'NR==FNR { lines[$0]=1; next } $0 in lines\' inputFile_selected_columns Methylation_sites_listgenome_wide_383_accessions.txt > inputFile_met.txt
 ```
 
->>>>>>To make slurm jobs for the above two awk commands, you can use the script below. Your_work_dir is the directory containing all the downloaded *.tsv files
+>>>>>To make slurm jobs for the above two awk commands, you can use the script below. Your_work_dir is the directory containing all the downloaded *.tsv files
 
 ```
 python 07_get_targeted_sites.py your_work_dir
@@ -158,7 +158,7 @@ python 09_get_ref_seq_for_overlapping_methylation_sites.py inputFile
 ```
 
 
->>>>> To facilitate the job running, the Methylation_genome_wide_383_accessions.csv file was split into 100 small files
+>>>>>To facilitate the job running, the Methylation_genome_wide_383_accessions.csv file was split into 100 small files
 
 ```
 awk 'NR==1{header=$0; count=1; print header > "Methylation_genome_wide_383_accessions.csv_" count; next } !( (NR-1) % 173766){		count++; print header > "Methylation_genome_wide_383_accessions.csv_" count; }  {print $0 > "Methylation_genome_wide_383_accessions.csv_" count	 }' Methylation_genome_wide_383_accessions.csv
@@ -180,7 +180,7 @@ python 11_fill_NA_back_with_0_for_shared_sites.py inputFile
 python 12_check_methylation_data_NaN_proportions_and_drop_separate_files.py inputFile
 ```
 
->>>>>>To make slurm jobs for the above three python scripts, you can use the script below. your_work_dir is the directory containing all the small files
+>>>>>To make slurm jobs for the above three python scripts, you can use the script below. your_work_dir is the directory containing all the small files
 
 ```
 python 13_make_slurm_jobs_for_10_11_and_12.py your_work_dir
@@ -192,7 +192,7 @@ python 13_make_slurm_jobs_for_10_11_and_12.py your_work_dir
 cat *count > Methylation_genome_wide_618_accessions_considering_same_site_NaN_count.txt
 ```
 
->>>>>>Find out the number of accessions with missing methylation data for sites at 90th, 75th and 50th percentiles. This is done in R
+>>>>>Find out the number of accessions with missing methylation data for sites at 90th, 75th and 50th percentiles. This is done in R
 
 ```
 dat <- read.table('Methylation_genome_wide_618_accessions_considering_same_site_NaN_count.txt',head=F,sep='\t')
