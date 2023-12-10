@@ -221,7 +221,7 @@ python 16_write_jobs_for_merging_methylation_data_using_paste.py
 python 17_split_methylation_to_CG_CHH_CHG.py inputFile
 ```
 
->>?>#### 2.3.2.2 For methylation proportion
+>>>>##### 2.3.2.2 For methylation proportion
 
 Related scripts can be found in the folder Data_preprocessing/03_methylomic_matrix/3_single_site_methylation_Prop
 
