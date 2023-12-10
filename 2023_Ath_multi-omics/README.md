@@ -2,7 +2,7 @@
 
 Codes and datasets for our manuscript "Prediction of plant complex traits via integration of multi-omics data".
 
->## **1. Datasets**
+# **1. Datasets**
 
 >>### 1.1 SNP matrix
 
@@ -27,9 +27,9 @@ Other phenotypic data were download from https://arapheno.1001genomes.org/study/
 
 >>>>Benchmark flowering time genes were downloaded from the FLOR-ID database http://www.phytosystems.ulg.ac.be/florid/
 
->## **2. Data preprocessing**
+## **2. Data preprocessing**
 
->>### **2.1 SNP matrix**
+### **2.1 SNP matrix**
 
 Related scripts for SNP matrix can be found in the folder Data_preprocessing/01_SNP_matrix
 
