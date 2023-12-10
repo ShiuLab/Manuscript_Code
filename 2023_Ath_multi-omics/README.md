@@ -145,13 +145,13 @@ awk \'NR==FNR { lines[$0]=1; next } $0 in lines\' inputFile_selected_columns Met
 python 07_get_targeted_sites.py your_work_dir
 ```
 
->>Get overlapping sites between the SNPs and the methylation sites
+>Get overlapping sites between the SNPs and the methylation sites
 
 ```
 Rscript 08_get_overlapping_site_between_M_and_G.r
 ```
 
->>Get the SNP information for the overlapping sites betweem SNPs and methylation sites
+>Get the SNP information for the overlapping sites betweem SNPs and methylation sites
 
 ```
 python 09_get_ref_seq_for_overlapping_methylation_sites.py inputFile
@@ -164,7 +164,7 @@ python 09_get_ref_seq_for_overlapping_methylation_sites.py inputFile
 awk 'NR==1{header=$0; count=1; print header > "Methylation_genome_wide_383_accessions.csv_" count; next } !( (NR-1) % 173766){		count++; print header > "Methylation_genome_wide_383_accessions.csv_" count; }  {print $0 > "Methylation_genome_wide_383_accessions.csv_" count	 }' Methylation_genome_wide_383_accessions.csv
 ```
 
->>Fill 0s with NAs, and then fill the NAs back with 0s for overlapping site between SNPs and methylation sites. The inputFile is one of the small files output from the above awk command.
+>Fill 0s with NAs, and then fill the NAs back with 0s for overlapping site between SNPs and methylation sites. The inputFile is one of the small files output from the above awk command.
 
 ```
 python 10_fill_0_with_NaN.py inputFile
@@ -174,7 +174,7 @@ python 10_fill_0_with_NaN.py inputFile
 python 11_fill_NA_back_with_0_for_shared_sites.py inputFile
 ```
 
->>Count the number of accessions which have NAs for each methylation site, and the inputFile is one of the small files
+>Count the number of accessions which have NAs for each methylation site, and the inputFile is one of the small files
 
 ```
 python 12_check_methylation_data_NaN_proportions_and_drop_separate_files.py inputFile
@@ -186,13 +186,13 @@ python 12_check_methylation_data_NaN_proportions_and_drop_separate_files.py inpu
 python 13_make_slurm_jobs_for_10_11_and_12.py your_work_dir
 ```
 
->>Concat all count files together
+>Concat all count files together
 
 ```
 cat *count > Methylation_genome_wide_618_accessions_considering_same_site_NaN_count.txt
 ```
 
->>Find out the number of accessions with missing methylation data for sites at 90th, 75th and 50th percentiles. This is done in R
+>Find out the number of accessions with missing methylation data for sites at 90th, 75th and 50th percentiles. This is done in R
 
 ```
 dat <- read.table('Methylation_genome_wide_618_accessions_considering_same_site_NaN_count.txt',head=F,sep='\t')
@@ -200,13 +200,13 @@ dat <- cbind(dat,618-dat[,2])
 quantile(dat[,3], c(.50, .75, .90))
 ```
 
->>Distinguish methylation sites that are missing in <=2 (90th percentile), <=8 (75th percentile), <=38 (50th percentile) accessions
+>Distinguish methylation sites that are missing in <=2 (90th percentile), <=8 (75th percentile), <=38 (50th percentile) accessions
 
 ```
 python 14_keep_50_75_90_percentile_MAF.py 
 ```
 
->>Impute the 50th percentile files; fit on the training dataset, then transform it on the test dataset; filter with MAF (minor allele frequency); extract the 75th percentile and 90th percentile informations from these 50th percentile files. The file Test_for_383_accessions.txt can be found in the folder /Datasets
+>Impute the 50th percentile files; fit on the training dataset, then transform it on the test dataset; filter with MAF (minor allele frequency); extract the 75th percentile and 90th percentile informations from these 50th percentile files. The file Test_for_383_accessions.txt can be found in the folder /Datasets
 
 ```
 python 15_knn_imputation_for_0_1_training_fit_on_test.py 50per_file Test_for_383_accessions.txt
@@ -304,9 +304,9 @@ Rscript 03_removing_confounding_effects_of_K_from_mCor.r
 
 # **4. Genomic prediction using machine learning algorithms**
 
->For the RandomForest regression model building, we used the script from Azodi et al., 2020. Plant Cell paper. Here is the link to the script [ML_regression.py](https://github.com/ShiuLab/Manuscript_Code/blob/master/2019_expression_GP/scripts/ML_regression.py) 
+For the RandomForest regression model building, we used the script from Azodi et al., 2020. Plant Cell paper. Here is the link to the script [ML_regression.py](https://github.com/ShiuLab/Manuscript_Code/blob/master/2019_expression_GP/scripts/ML_regression.py) 
 
->For the rrBLUP model, we used the script from our another project. Here is the link to the script [13_rrBLUP_training_test_split_fread_predict_values.r](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_GP_in_Switchgrass/13_rrBLUP_training_test_split_fread_predict_values.r)
+For the rrBLUP model, we used the script from our another project. Here is the link to the script [13_rrBLUP_training_test_split_fread_predict_values.r](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_GP_in_Switchgrass/13_rrBLUP_training_test_split_fread_predict_values.r)
 
 # **5. SHAP values and feature interaction values**
 
