@@ -49,7 +49,7 @@ python 02_get_snp_matrix_for_383_accessions.py
 
 Related scripts can be found in the folder Data_preprocessing/02_transcriptomic data 
   
->>>>To calculate the TPM, we need to get the transcript length for genes at first. Get the GFF3 file ready before run this script. Here we used the TAIR10 GFF3 file 
+>>>>To calculate the TPM (transcripts per kilobase million), we need to get the transcript length for genes at first. Get the GFF3 file ready before run this script. Here we used the TAIR10 GFF3 file, which is downloaded from the TAIR database 
 
 ```  
 python 01_get_transcript_length_including_ncRNA.py
@@ -99,7 +99,7 @@ python 01_download_individual_methylation_data_for_383_accessions.py
 
 Related scripts can be found in the folder Data_preprocessing/03_methylomic_matrix/2_single_site_methylation_P_A
 	
->>>>Only save methylated sites, which are sites with the sixth column at 1 in the download *.tsv file. 
+>>>>Only save methylated sites, which are sites with the sixth column at 1 in the downloaded *.tsv file. 
 
 ```
 python 02_only_save_methylated_sites.py inputFile
