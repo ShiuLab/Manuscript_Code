@@ -84,7 +84,7 @@ python 01_get_methylation_for_383_accessions.py
 >Impute missing data
  
 ```
-python 02_knn_imputation.py
+python 02_knn_imputation.py input_file Test_for_383_accessions.txt
 ```
 
 ### **2.3.2 For single-site methylation-based formats**
