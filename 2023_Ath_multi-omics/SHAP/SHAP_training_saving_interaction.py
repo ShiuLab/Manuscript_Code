@@ -28,11 +28,11 @@ def main():
 	### Input arguments ###
 	# Required
 	req_group = parser.add_argument_group(title='REQUIRED INPUT')
-	req_group.add_argument('-df', help='Feature & class dataframe for ML, (example: example_binary.txt) ', required=True)
+	req_group.add_argument('-df', help='Feature & label dataframe for ML, (example: example_binary.txt) ', required=True)
 
 	# Optional
 	inp_group = parser.add_argument_group(title='OPTIONAL INPUT')
-	inp_group.add_argument('-df2', help='Class data (if not in -df). Need to provide -y_name', default='')
+	inp_group.add_argument('-df2', help='Label data (if not in -df). Need to provide -y_name', default='')
 	inp_group.add_argument('-sep', help='Deliminator', default='\t')
 	inp_group.add_argument('-y_name', help='Name of column in df2 to predict', default='Y')
 	inp_group.add_argument('-test', help='File with test intances', default='')
