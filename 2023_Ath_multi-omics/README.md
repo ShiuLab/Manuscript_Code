@@ -314,7 +314,7 @@ The scrips and example data can be found in the folder [/SHAP](https://github.co
 
 >Note: the feature interaction value calculation is pretty slow for datasets with a large number of features. In our study, we only took the benchmark flowering time gene-related features to calculate the feature interactions.
 
-Example run for the script SHAP_training_only_saving_interaction_figures_for_given_feature_list.py
+Example run for the script SHAP_training_only_saving_interaction_figures_for_given_feature_list.py. Example input data can be found in the folder [/SHAP/Example_data](https://github.com/ShiuLab/Manuscript_Code/tree/master/2023_Ath_multi-omics/SHAP/Example_data)
 
 ```
 python SHAP_training_only_saving_interaction_figures_for_given_feature_list.py -df Matrix_top_GTM_features_for_426_flowering_time_genes.csv -df2 Phenotype_value_383_common_accessions_2017_Grimm.csv -sep "," -y_name FT10_mean -test Test.txt -save SHAP_426_benchmark_top_GTM -model RF_top_GTM_426_benchmark_genes_model.pkl -n_jobs 16 -top 20 -interaction y -interaction_score y -feature_list Feature_list_selected_for_426_flowering_genes.txt
