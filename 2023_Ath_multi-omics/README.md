@@ -310,15 +310,12 @@ For the RandomForest regression model building, we used the script from Azodi et
 
 ```
 python ML_regression.py -df SNP_383_accessions_kinship.csv_training.csv -df2 Phenotype_value_383_common_accessions_2017_Grimm.csv -y_name Length -sep ',' -alg RF -gs T -cv_set CVFs.csv -save RF_kinship_Length -test Test.txt -n_jobs 4 -n 10 -cv_num 5
-
-
 ```
 
 For the rrBLUP model, we used the script from our another project. Here is the link to the script [13_rrBLUP_training_test_split_fread_predict_values.r](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_GP_in_Switchgrass/13_rrBLUP_training_test_split_fread_predict_values.r). Example run as below:
 
 ```
 Rscript 13_rrBLUP_training_test_split_fread_predict_values.r SNP_383_accessions_kinship.csv_training.csv Phenotype_value_383_common_accessions_2017_Grimm.csv all Length Test.txt 5 10 CVFs.csv Kinship
-
 ```
 
 # **5. SHAP values and feature interaction values for RF models**
@@ -331,12 +328,10 @@ Example run for the script SHAP_training_only_saving_interaction_figures_for_giv
 
 ```
 python SHAP_training_only_saving_interaction_figures_for_given_feature_list.py -df Matrix_top_GTM_features_for_426_flowering_time_genes.csv -df2 Phenotype_value_383_common_accessions_2017_Grimm.csv -sep "," -y_name FT10_mean -test Test.txt -save SHAP_426_benchmark_top_GTM -model RF_top_GTM_426_benchmark_genes_model.pkl -n_jobs 16 -top 20 -interaction y -interaction_score y -feature_list Feature_list_selected_for_426_flowering_genes.txt
-
 ```
 
 To summarize and order the feature interaction values, please run the script Sum_SHAP_interaction.py. The path contains all the interaction value files output from the above script. Example interaction files can be found in the folder [/SHAP/Example_data/Interaction_files](https://github.com/ShiuLab/Manuscript_Code/tree/master/2023_Ath_multi-omics/SHAP/Example_data/Interaction_files), where only interaction values among 30 features in two individuals were kept.
 
 ```
 python Sum_SHAP_interaction.py -path ./ -save Summarized_and_ordered_interactions
-
 ```
