@@ -321,7 +321,7 @@ python SHAP_training_only_saving_interaction_figures_for_given_feature_list.py -
 
 ```
 
-To summarize and order the feature interaction values, please run the script Sum_SHAP_interaction.py. The path contains all the interaction value files output from the above script. Example interaction files can be found in the folder [/SHAP/Example_data/Interaction_files](https://github.com/ShiuLab/Manuscript_Code/tree/master/2023_Ath_multi-omics/SHAP/Example_data/Interaction_files)
+To summarize and order the feature interaction values, please run the script Sum_SHAP_interaction.py. The path contains all the interaction value files output from the above script. Example interaction files can be found in the folder [/SHAP/Example_data/Interaction_files](https://github.com/ShiuLab/Manuscript_Code/tree/master/2023_Ath_multi-omics/SHAP/Example_data/Interaction_files), where only interaction values among 30 features in two individuals were kept.
 
 ```
 python Sum_SHAP_interaction.py -path ./ -save Summarized_and_ordered_interactions
