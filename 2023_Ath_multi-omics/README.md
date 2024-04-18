@@ -304,9 +304,22 @@ Rscript 03_removing_confounding_effects_of_K_from_mCor.r
 
 # **4. Genomic prediction using machine learning algorithms**
 
-For the RandomForest regression model building, we used the script from Azodi et al., 2020. Plant Cell paper. Here is the link to the script [ML_regression.py](https://github.com/ShiuLab/Manuscript_Code/blob/master/2019_expression_GP/scripts/ML_regression.py) 
+Example data can be found in the folder [/Example_data_for_model_building](https://github.com/ShiuLab/Manuscript_Code/tree/master/2023_Ath_multi-omics/Example_data_for_model_building).
 
-For the rrBLUP model, we used the script from our another project. Here is the link to the script [13_rrBLUP_training_test_split_fread_predict_values.r](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_GP_in_Switchgrass/13_rrBLUP_training_test_split_fread_predict_values.r)
+For the RandomForest regression model building, we used the script from Azodi et al., 2020. Plant Cell paper. Here is the link to the script [ML_regression.py](https://github.com/ShiuLab/Manuscript_Code/blob/master/2019_expression_GP/scripts/ML_regression.py). Example run as below:
+
+```
+python ML_regression.py -df SNP_383_accessions_kinship.csv_training.csv -df2 Phenotype_value_383_common_accessions_2017_Grimm.csv -y_name Length -sep ',' -alg RF -gs T -cv_set CVFs.csv -save RF_kinship_Length -test Test.txt -n_jobs 4 -n 10 -cv_num 5
+
+
+```
+
+For the rrBLUP model, we used the script from our another project. Here is the link to the script [13_rrBLUP_training_test_split_fread_predict_values.r](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_GP_in_Switchgrass/13_rrBLUP_training_test_split_fread_predict_values.r). Example run as below:
+
+```
+Rscript 13_rrBLUP_training_test_split_fread_predict_values.r SNP_383_accessions_kinship.csv_training.csv Phenotype_value_383_common_accessions_2017_Grimm.csv all Length Test.txt 5 10 CVFs.csv Kinship
+
+```
 
 # **5. SHAP values and feature interaction values for RF models**
 
