@@ -308,8 +308,15 @@ For the RandomForest regression model building, we used the script from Azodi et
 
 For the rrBLUP model, we used the script from our another project. Here is the link to the script [13_rrBLUP_training_test_split_fread_predict_values.r](https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_GP_in_Switchgrass/13_rrBLUP_training_test_split_fread_predict_values.r)
 
-# **5. SHAP values and feature interaction values**
+# **5. SHAP values and feature interaction values for RF models**
 
-The scrips can be found in the folder [/SHAP](https://github.com/ShiuLab/Manuscript_Code/tree/master/2023_Ath_multi-omics/SHAP)
+The scrips and example data can be found in the folder [/SHAP](https://github.com/ShiuLab/Manuscript_Code/tree/master/2023_Ath_multi-omics/SHAP)
 
 >Note: the feature interaction value calculation is pretty slow for datasets with a large number of features. In our study, we only took the benchmark flowering time gene-related features to calculate the feature interactions.
+
+### Example run for the script SHAP_training_only_saving_interaction_figures_for_given_feature_list.py
+
+```
+python SHAP_training_only_saving_interaction_figures_for_given_feature_list.py -df Matrix_top_GTM_features_for_426_flowering_time_genes.csv -df2 Phenotype_value_383_common_accessions_2017_Grimm.csv -sep "," -y_name FT10_mean -test Test.txt -save SHAP_426_benchmark_top_GTM -model RF_top_GTM_426_benchmark_genes_model.pkl -n_jobs 16 -top 20 -interaction y -interaction_score y -feature_list Feature_list_selected_for_426_flowering_genes.txt
+
+```
