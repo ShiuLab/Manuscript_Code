@@ -1,0 +1,10 @@
+## Directories ##
+#################
+__pycache__/
+outputs/
+job_scripts/
+experimental_plotting/
+
+## Files ##
+###########
+*timeit*
