@@ -1,0 +1,114 @@
+#!/bin/bash --login
+#SBATCH --time=4:00:00
+#SBATCH --array=0-4
+#SBATCH --nodes=1
+#SBATCH --ntasks=2
+#SBATCH --cpus-per-task=12
+#SBATCH --mem-per-cpu=3G
+# SBATCH --job-name rf_only_lit
+# SBATCH --output=logs/rf_only_lit_%A_%a.out
+# SBATCH --job-name rf_only_imp_non_lit
+# SBATCH --output=logs/rf_only_imp_non_lit_%A_%a.out
+# SBATCH --job-name rf_imp_non_lit_plus_lit
+# SBATCH --output=logs/rf_imp_non_lit_plus_lit_%A_%a.out
+
+data=/mnt/research/glbrc_group/shiulab/kenia/Shiu_Lab/Project/Data/Peter_2018
+pipe=/mnt/research/glbrc_group/shiulab/kenia/Shiu_Lab/ML-Pipeline
+TRAITS=( YPDCAFEIN40 YPDCAFEIN50 YPDBENOMYL500 YPDCUSO410MM YPDSODIUMMETAARSENITE )
+label=${TRAITS[$SLURM_ARRAY_TASK_ID]}
+
+module purge
+conda activate ml-pipeline
+cd /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/RF/bench_gene_models
+# .out files saved to logs dir
+
+################# Models built using only the benchmark genes ##################
+python ${pipe}/ML_regression.py -df ${data}/geno_corrected.csv \
+    -df2 ${data}/pheno.csv -sep , \
+    -y_name ${label} \
+    -test ${data}/Test.txt \
+    -feat ../Features_complete_only_benchmark_genes_${label}_snp.txt \
+    -alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+    -tag snp_${label}_complete_only_benchmark_genes \
+    -save snp_${label}_complete_only_benchmark_genes
+
+python ${pipe}/ML_regression.py -df ${data}/ORFs_pres_abs.csv \
+    -df2 ${data}/pheno.csv -sep , \
+    -y_name ${label} \
+    -test ${data}/Test.txt \
+    -feat ../Features_baseline_only_benchmark_genes_${label}_pav.txt \
+    -alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+    -tag pav_${label}_baseline_only_benchmark_genes \
+    -save pav_${label}_baseline_only_benchmark_genes
+
+python ${pipe}/ML_regression.py -df ${data}/ORFs_no_NA.csv \
+    -df2 ${data}/pheno.csv -sep , \
+    -y_name ${label} \
+    -test ${data}/Test.txt \
+    -feat ../Features_baseline_only_benchmark_genes_${label}_cnv.txt \
+    -alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+    -tag cnv_${label}_baseline_only_benchmark_genes \
+    -save cnv_${label}_baseline_only_benchmark_genes
+
+
+########## Models built using only the important non-benchmark genes ###########
+python ${pipe}/ML_regression.py -df ${data}/geno_corrected.csv \
+    -df2 ${data}/pheno.csv -sep , \
+    -y_name ${label} \
+    -test ${data}/Test.txt \
+    -feat ../Features_optimized_only_important_non_bench_genes_${label}_snp.txt \
+    -alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+    -tag snp_${label}_optimized_only_important_non_bench_genes \
+    -save snp_${label}_optimized_only_important_non_bench_genes
+
+python ${pipe}/ML_regression.py -df ${data}/ORFs_pres_abs.csv \
+    -df2 ${data}/pheno.csv -sep , \
+    -y_name ${label} \
+    -test ${data}/Test.txt \
+    -feat ../Features_fs_only_important_non_bench_genes_${label}_pav.txt \
+    -alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+    -tag pav_${label}_fs_only_important_non_bench_genes \
+    -save pav_${label}_fs_only_important_non_bench_genes
+
+python ${pipe}/ML_regression.py -df ${data}/ORFs_no_NA.csv \
+    -df2 ${data}/pheno.csv -sep , \
+    -y_name ${label} \
+    -test ${data}/Test.txt \
+    -feat ../Features_fs_only_important_non_bench_genes_${label}_cnv.txt \
+    -alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+    -tag cnv_${label}_fs_only_important_non_bench_genes \
+    -save cnv_${label}_fs_only_important_non_bench_genes
+
+
+## Models built using the combined important non-bench genes plus bench genes ##
+python ${pipe}/ML_regression.py -df ${data}/geno_corrected.csv \
+    -df2 ${data}/pheno.csv -sep , \
+    -y_name ${label} \
+    -test ${data}/Test.txt \
+    -feat /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/RF/Features_bench_plus_important_non_bench_${label}_snp.txt \
+    -alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+    -tag snp_${label}_bench_plus_important_non_bench_genes \
+    -save snp_${label}_bench_plus_important_non_bench_genes
+
+python ${pipe}/ML_regression.py -df ${data}/ORFs_pres_abs.csv \
+    -df2 ${data}/pheno.csv -sep , \
+    -y_name ${label} \
+    -test ${data}/Test.txt \
+    -feat /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/RF/Features_important_non_bench_plus_bench_genes_${label}_pav.txt \
+    -alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+    -tag pav_${label}_important_non_bench_genes_plus_bench_genes \
+    -save pav_${label}_important_non_bench_genes_plus_bench_genes
+
+python ${pipe}/ML_regression.py -df ${data}/ORFs_no_NA.csv \
+    -df2 ${data}/pheno.csv -sep , \
+    -y_name ${label} \
+    -test ${data}/Test.txt \
+    -feat /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/RF/Features_important_non_bench_plus_bench_genes_${label}_cnv.txt \
+    -alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+    -tag cnv_${label}_important_non_bench_genes_plus_bench_genes \
+    -save cnv_${label}_important_non_bench_genes_plus_bench_genes
+
+conda deactivate
+
+scontrol show job $SLURM_JOB_ID
+
