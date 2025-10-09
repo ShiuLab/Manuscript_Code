@@ -1,0 +1,25 @@
+#!/bin/bash --login
+#SBATCH --array=0-34
+#SBATCH --time=15:00:0
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=36G
+#SBATCH --job-name snp_BL_optimized
+#SBATCH --output=%x_%j.out
+
+cd /mnt/home/seguraab/Shiu_Lab/Project
+
+PIPE=Scripts/Genomic_Prediction_BL
+DATA=Data/Peter_2018
+MARK=/mnt/gs21/scratch/seguraab/yeast_project/SNP_yeast_RF_results/fs
+
+mapfile -t snp_mods < ${MARK}/snp_best_fs_models.txt
+TRAIT=$(echo ${snp_mods[${SLURM_ARRAY_TASK_ID}]} | grep -P YP[A-Z0-9]+ -o)
+FEATS=$(echo ${snp_mods[${SLURM_ARRAY_TASK_ID}]} | grep -P '(?<=top_)[0-9]+(?=\_models)' -o)
+
+# Using only a subset of features (based on RF optimized models' feature sets)
+# geno.csv is File S2; pheno.csv is File S1
+save=/mnt/gs21/scratch/seguraab/yeast_project/SNP_yeast_BL_results/fs
+Rscript ${PIPE}/BL_Model.R ${DATA}/geno.csv ${DATA}/pheno.csv ${MARK}/features_${TRAIT}_top_${FEATS} ${DATA}/Test.txt ${TRAIT} ${DATA}/CVFs.csv 5 10 BL_top_${FEATS} $save
+
+scontrol show job $SLURM_JOB_ID

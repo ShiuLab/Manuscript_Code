@@ -1,0 +1,43 @@
+#!/bin/bash --login
+#SBATCH --array=1-35
+#SBATCH --time=8:00:00
+#SBATCH --ntasks=2
+#SBATCH --cpus-per-task=6
+#SBATCH --mem=15G
+#SBATCH --job-name XGB_complete_PAVs_&_CNVs
+#SBATCH --output=%x_%A_%a.out
+
+cd /mnt/home/seguraab/Shiu_Lab/Project
+
+TRAITS=($(head -n 1 /mnt/home/seguraab/Shiu_Lab/Project/Data/Peter_2018/pheno.csv | sed 's/,/ /g'))
+PIPE=Scripts/Genomic_Prediction_XGBoost
+DATA=Data/Peter_2018
+save=/mnt/research/glbrc_group/shiulab/kenia/yeast_project/ORF_yeast_XGBoost_results/baseline
+
+module purge
+conda activate /mnt/home/seguraab/miniconda3/envs/shap
+
+echo "${TRAITS[${SLURM_ARRAY_TASK_ID}]}"
+
+# ORFs presence/absence
+# ORFs_pres_abs.csv is File S5; pheno.csv is File S1
+python ${PIPE}/xgboost_model.py -X ${DATA}/ORFs_pres_abs.csv \
+    -Y ${DATA}/pheno.csv \
+    -test ${DATA}/Test.txt \
+    -y_name ${TRAITS[${SLURM_ARRAY_TASK_ID}]} \
+    -prefix ${TRAITS[${SLURM_ARRAY_TASK_ID}]}_pav_complete \
+    -save $save -tag PAV -fold 5 -n 20 -plot f
+
+
+# ORFs copy number (CNVs)
+# ORFs_no_NA.csv is File S6
+python ${PIPE}/xgboost_model.py -X ${DATA}/ORFs_no_NA.csv \
+    -Y ${DATA}/pheno.csv \
+    -test ${DATA}/Test.txt \
+    -y_name ${TRAITS[${SLURM_ARRAY_TASK_ID}]} \
+    -prefix ${TRAITS[${SLURM_ARRAY_TASK_ID}]}_cnv_complete \
+    -save $save -tag CNV -fold 5 -n 20 -plot f
+
+conda deactivate
+
+scontrol show job $SLURM_JOB_ID

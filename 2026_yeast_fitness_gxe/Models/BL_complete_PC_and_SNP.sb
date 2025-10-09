@@ -1,0 +1,27 @@
+#!/bin/bash --login
+#SBATCH --array=1-35
+#SBATCH --time=1:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=40G
+#SBATCH --job-name BL_complete_PC_and_SNP
+#SBATCH --output=%x_%A_%a.out
+
+cd /mnt/research/glbrc_group/shiulab/kenia
+
+TRAITS=($(head -n 1 Shiu_Lab/Project/Data/Peter_2018/pheno.csv | sed 's/,/ /g'))
+PIPE=Shiu_Lab/Project/Scripts/Genomic_Prediction_BL
+DATA=Shiu_Lab/Project/Data/Peter_2018
+save=/mnt/research/glbrc_group/shiulab/kenia/yeast_project/SNP_yeast_BL_results/baseline
+
+echo "${TRAITS[${SLURM_ARRAY_TASK_ID}]}"
+
+# PCs
+# PCs_first5.csv is S4 File; pheno.csv is S1 File
+Rscript ${PIPE}/BL_Model.R ${DATA}/PCs_first5.csv ${DATA}/pheno.csv all ${DATA}/Test.txt ${TRAITS[${SLURM_ARRAY_TASK_ID}]} ${DATA}/CVFs_20rep.csv 5 20 complete_PCs_sklearn_BL $save
+
+# SNPs
+# geno.csv is S2 File
+Rscript ${PIPE}/BL_Model.R ${DATA}/geno.csv ${DATA}/pheno.csv all ${DATA}/Test.txt ${TRAITS[${SLURM_ARRAY_TASK_ID}]} ${DATA}/CVFs_20rep.csv 5 20 complete_snp_BL $save
+
+scontrol show job $SLURM_JOB_ID

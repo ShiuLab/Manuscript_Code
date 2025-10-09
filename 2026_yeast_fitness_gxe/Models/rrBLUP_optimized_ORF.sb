@@ -1,0 +1,48 @@
+#!/bin/sh --login
+#SBATCH --array=0-34
+#SBATCH --time=30:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=36G
+#SBATCH --job-name rrBLUP_ORF_optimized
+#SBATCH --output=%x_%j.out
+
+cd /mnt/gs21/scratch/seguraab/yeast_project/ORF_yeast_rrBLUP_results/fs
+
+PIPE=/mnt/research/glbrc_group/shiulab/kenia/Shiu_Lab/Project/Scripts/Genomic_Prediction_rrBLUP
+DATA=/mnt/home/seguraab/Shiu_Lab/Project/Data/Peter_2018
+MARK=/mnt/gs21/scratch/seguraab/yeast_project/ORF_yeast_RF_results/fs
+
+mapfile -t pav_mods < ${MARK}/pav_best_fs_models.txt
+PAV_TRAIT=$(echo ${pav_mods[${SLURM_ARRAY_TASK_ID}]} | grep -P YP[A-Z0-9]+ -o)
+PAV_FEATS=$(echo ${pav_mods[${SLURM_ARRAY_TASK_ID}]} | grep -P '(?<=top_)[0-9]+(?=\_models)' -o)
+
+mapfile -t cnv_mods < ${MARK}/cnv_best_fs_models.txt
+CNV_TRAIT=$(echo ${cnv_mods[${SLURM_ARRAY_TASK_ID}]} | grep -P YP[A-Z0-9]+ -o)
+CNV_FEATS=$(echo ${cnv_mods[${SLURM_ARRAY_TASK_ID}]} | grep -P '(?<=top_)[0-9]+(?=\_models)' -o)
+
+echo "PAV: ${PAV_TRAIT}; ${PAV_FEATS}"
+# ORFs presence/absence
+# ORFs_pres_abs.csv is File S5; pheno.csv is File S1
+Rscript ${PIPE}/rrBLUP_Model.R \
+    ${DATA}/ORFs_pres_abs.csv \
+    ${DATA}/pheno.csv \
+    ${MARK}/features_pav_${PAV_TRAIT}_top_${PAV_FEATS} \
+    ${PAV_TRAIT} \
+    ${DATA}/Test.txt \
+    5 10 ${DATA}/CVFs.csv \
+    pav_rrblup_top_${PAV_FEATS}
+
+echo "CNV: ${CNV_TRAIT}; ${CNV_FEATS}"
+# ORFs copy number (CNVs)
+# ORFs_no_NA.csv is File S6
+Rscript ${PIPE}/rrBLUP_Model.R \
+    ${DATA}/ORFs_no_NA.csv \
+    ${DATA}/pheno.csv \
+    ${MARK}/features_cnv_${CNV_TRAIT}_top_${CNV_FEATS} \
+    ${CNV_TRAIT} \
+    ${DATA}/Test.txt \
+    5 10 ${DATA}/CVFs.csv \
+    cnv_rrblup_top_${CNV_FEATS}
+
+scontrol show job $SLURM_JOB_ID

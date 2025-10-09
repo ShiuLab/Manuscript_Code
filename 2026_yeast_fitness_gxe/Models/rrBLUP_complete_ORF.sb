@@ -1,0 +1,41 @@
+#!/bin/bash --login
+#SBATCH --array=1-35
+#SBATCH --time=10:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=20G
+#SBATCH --job-name rrBLUP_complete_PAVs_and_CNVs
+#SBATCH --output=%x_%A_%a.out
+
+cd /mnt/research/glbrc_group/shiulab/kenia/yeast_project/ORF_yeast_rrBLUP_results/baseline
+
+
+TRAITS=($(head -n 1 /mnt/home/seguraab/Shiu_Lab/Project/Data/Peter_2018/pheno.csv | sed 's/,/ /g'))
+PIPE=/mnt/research/glbrc_group/shiulab/kenia/Shiu_Lab/Project/Scripts/Genomic_Prediction_rrBLUP
+DATA=/mnt/home/seguraab/Shiu_Lab/Project/Data/Peter_2018
+
+echo "${TRAITS[${SLURM_ARRAY_TASK_ID}]}"
+
+# ORFs presence/absence
+# ORFs_pres_abs.csv is File S5; pheno.csv is File S1
+Rscript ${PIPE}/rrBLUP_Model.R \
+    ${DATA}/ORFs_pres_abs.csv \
+    ${DATA}/pheno.csv \
+    all \
+    ${TRAITS[${SLURM_ARRAY_TASK_ID}]} \
+    ${DATA}/Test.txt \
+    5 20 ${DATA}/CVFs_20rep.csv \
+    complete_pav_rrblup
+
+# ORFs copy number (CNVs)
+# ORFs_no_NA.csv is File S6
+Rscript ${PIPE}/rrBLUP_Model.R \
+    ${DATA}/ORFs_no_NA.csv \
+    ${DATA}/pheno.csv \
+    all \
+    ${TRAITS[${SLURM_ARRAY_TASK_ID}]} \
+    ${DATA}/Test.txt \
+    5 20 ${DATA}/CVFs_20rep.csv \
+    complete_cnv_rrblup
+
+scontrol show job $SLURM_JOB_ID

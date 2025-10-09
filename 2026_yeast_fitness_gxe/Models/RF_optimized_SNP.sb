@@ -1,0 +1,61 @@
+#!/bin/bash --login
+#SBATCH --time=48:00:00
+# SBATCH --array=0-499 # done
+# SBATCH --array=500-999 # done
+# SBATCH --array=1000-1400 # done
+#SBATCH --array=0-6 # missing runs done
+#SBATCH --nodes=1
+#SBATCH --ntasks=2
+#SBATCH --cpus-per-task=6
+#SBATCH --mem-per-cpu=5G
+#SBATCH --job-name rf_fs_snp
+#SBATCH --output=%x_%j.out
+
+traits=($(head -n 1 /mnt/home/seguraab/Shiu_Lab/Project/Data/Peter_2018/pheno.csv | sed 's/,/ /g'))
+traits=(YPDCHX05 YPXYLOSE YPDANISO20 YPDETOH YPDNYSTATIN YPDANISO50 YPDFLUCONAZOLE YPDSDS YPDBENOMYL200 YPDFORMAMIDE4 YPDFORMAMIDE5)
+fs_path=/mnt/home/seguraab/Shiu_Lab/Project/Scripts/Genomic_Prediction_RF
+models=/mnt/research/glbrc_group/shiulab/kenia/yeast_project/SNP_yeast_RF_results
+
+# ## RUN ON COMMAND LINE (NOT THROUGH SLURM)
+# ############### Create feature selection subsets for each model ################
+# for trait in ${traits[@]}; do
+#     #SNP RF Models
+#     # Exponential features
+#     python ${fs_path}/1_feature_selection.py \
+#         -i ${models}/baseline/${trait}_rf_baseline_imp \
+#         -start 1 \
+#         -stop 10 \
+#         -base 2 \
+#         -o ${models}/fs/features_${trait} -d n
+#     # Non-exponential features
+#     python ${fs_path}/1_feature_selection.py \
+#         -i ${models}/baseline/${trait}_rf_baseline_imp \
+#         -start 0 \
+#         -stop 30000 \
+#         -step 1000 \
+#         -o ${models}/fs/features_${trait}  -d n
+# done
+
+# ########### Create file to call RF pipeline for each feature subset ############
+# pipe=/mnt/home/seguraab/Shiu_Lab/Project/External_software/ML-Pipeline
+# data=/mnt/home/seguraab/Shiu_Lab/Project/Data/Peter_2018
+# for j in {1..35}; do
+#     trait=${traits[${j}]}
+#     echo ${trait}
+#     feat_snp=($(ls ${scratch}/fs/features_${trait}_top_*))
+#     for feat in ${feat_snp[@]}; do
+#         featnum=$(echo ${feat} | grep -P [0-9]+$ -o)
+#         echo "python ${pipe}/ML_regression.py -df ${data}/geno.csv -df2 ${data}/pheno.csv -y_name ${trait} -sep , -feat ${feat} -test ${data}/Test.txt -alg RF -n_jobs 12 -n 10 -cv_num 5 -save ${trait}_rf_top_${featnum} -plots t" >> RF_FS_runs.txt
+#     done
+# done
+# ## END OF COMMAND LINE CODE
+
+####################### Run RF Feature Selection Models ########################
+## Submit commands in RF_FS_runs.txt as a SLURM JOB ARRAY
+conda activate ml-pipeline
+cd /mnt/gs21/scratch/seguraab/yeast_project/SNP_yeast_RF_results/fs
+# readarray -t joblist < /mnt/home/seguraab/Shiu_Lab/Project/Job_Submission_Scripts/SNPs_as_Feat/Feature_Selection/RF/RF_FS_runs.txt
+readarray -t joblist < /mnt/home/seguraab/Shiu_Lab/Project/Job_Submission_Scripts/SNPs_as_Feat/Feature_Selection/RF/RF_FS_missing_runs.txt
+${joblist[${SLURM_ARRAY_TASK_ID}]}
+
+conda deactivate

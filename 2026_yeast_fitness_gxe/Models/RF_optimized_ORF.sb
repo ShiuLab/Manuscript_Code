@@ -1,0 +1,30 @@
+#!/bin/bash --login
+# SBATCH --array=0-499 # submitted
+#SBATCH --array=500-999 # submitted
+# SBATCH --array=1000-1499 #
+# SBATCH --array=1500-1999 #
+# SBATCH --array=2000-2499 #
+# SBATCH --array=2500-2799 #
+# SBATCH --array=0-57 # missing runs
+#SBATCH --time=4:00:00
+#SBATCH --ntasks=2
+#SBATCH --cpus-per-task=6
+#SBATCH --mem=3G
+#SBATCH --job-name PAV_CNV_RF_FS_jobs
+#SBATCH --output=%x_%j.out
+
+
+cd /mnt/research/glbrc_group/shiulab/kenia/yeast_project/ORF_yeast_RF_results/fs
+
+module purge
+conda activate /mnt/home/seguraab/miniconda3/envs/ml-pipeline
+
+readarray -t joblist < /mnt/home/seguraab/Shiu_Lab/Project/Job_Submission_Scripts/ORFs_as_Feat/Feature_Selection/RF/RF_FS_runs.txt
+# readarray -t joblist < /mnt/home/seguraab/Shiu_Lab/Project/Job_Submission_Scripts/ORFs_as_Feat/Feature_Selection/RF/RF_FS_missing_runs.txt
+
+# Run each feature selection model
+${joblist[${SLURM_ARRAY_TASK_ID}]}
+
+conda deactivate
+
+scontrol show job $SLURM_JOB_ID

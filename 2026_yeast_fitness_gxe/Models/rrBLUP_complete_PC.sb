@@ -1,0 +1,22 @@
+#!/bin/bash --login
+#SBATCH --array=1-35
+#SBATCH --time=1:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem-per-cpu=20G
+#SBATCH --job-name rrblup_PCs
+#SBATCH --output=%x_%j
+
+
+TRAITS=($(head -n 1 /mnt/research/glbrc_group/shiulab/kenia/Shiu_Lab/Project/Data/Peter_2018/pheno.csv | sed 's/,/ /g'))
+
+tool=/mnt/research/glbrc_group/shiulab/kenia/Shiu_Lab/Project/External_software/Genomic_prediction_in_Switchgrass
+data=/mnt/research/glbrc_group/shiulab/kenia/Shiu_Lab/Project/Data/Peter_2018
+
+cd /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SNP_yeast_rrBLUP_results/baseline
+
+# PCs_first5.csv is S4 File; pheno.csv is S1 File
+Rscript ${tool}/rrBLUP_Model.R ${data}/PCs_first5.csv ${data}/pheno.csv all ${TRAITS[${SLURM_ARRAY_TASK_ID}]} ${data}/Test.txt 5 20 ${data}/CVFs_20rep.csv PCs_sklearn_rrblup
+
+scontrol show job $SLURM_JOB_ID
