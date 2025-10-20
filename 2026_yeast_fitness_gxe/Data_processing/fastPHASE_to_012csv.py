@@ -4,11 +4,11 @@ SNP genotypes are encoded as -1 (homozygous major), 0 (heterozygous), and 1
 1 (heterozygous), and 2 (homozygous alt).
 
 Example Usage:
-	path=/mnt/research/glbrc_group/shiulab/kenia/Shiu_Lab/Project/Data/Peter_2018/0_raw_data
-	file=1011Matrix_diploid750_biallelic_maf0.05_09102025_genotypes.csv
-	frq=1011Matrix_diploid750_biallelic_maf0.05_09102025.fastphase.frq
-	vcf=1011Matrix_diploid750_biallelic_maf0.05_11032022.recode.vcf
-	save=geno_012.csv
+	path=Data/Peter_2018/0_raw_data
+	file=1011Matrix_diploid750_biallelic_maf0.05_genotypes.csv
+	frq=1011Matrix_diploid750_biallelic_maf0.05.fastphase.frq
+	vcf=1011Matrix_diploid750_biallelic_maf0.05.recode.vcf
+	save=geno_012.csv (S12 File)
 	python fastPHASE_to_012csv.py -path $path -file $file -frq $frq -vcf $vcf -save $save
 
 
