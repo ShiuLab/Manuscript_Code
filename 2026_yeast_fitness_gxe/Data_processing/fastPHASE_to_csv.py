@@ -7,15 +7,11 @@ Note: The minor allele of the fastPHASE file is encoded as 1 and
     the major allele is encoded as 2.
 
 Example:
-    # path=/mnt/home/seguraab/Shiu_Lab/Project/Data/Peter_2018/
-    path=/mnt/research/glbrc_group/shiulab/kenia/Shiu_Lab/Project/Data/Peter_2018/0_raw_data
-    file=1011Matrix_diploid750_biallelic_maf0.05_11032022_genotypes.out
-    # map=1011Matrix_diploid750_biallelic_maf0.05_11032022.plink.map
-    map=1011Matrix_diploid750_biallelic_maf0.05_09102025.fastphase.frq
-    recoded=1011Matrix_diploid750_biallelic_maf0.05_11032022.fastphase.chr-0.recode.phase.inp
-    # save=1011Matrix_diploid750_biallelic_maf0.05_11032022_genotypes.csv
-    save=1011Matrix_diploid750_biallelic_maf0.05_09102025_genotypes.csv
-    # python fastPHASE_to_csv.py -path $path -file $file -map $map -save $save
+    path=Data/Peter_2018/0_raw_data
+    file=1011Matrix_diploid750_biallelic_maf0.05_genotypes.out
+    map=1011Matrix_diploid750_biallelic_maf0.05.fastphase.frq
+    recoded=1011Matrix_diploid750_biallelic_maf0.05.fastphase.chr-0.recode.phase.inp
+    save=1011Matrix_diploid750_biallelic_maf0.05_genotypes.csv
     python fastPHASE_to_csv.py -path $path -file $file -map $map -recoded $recoded -save $save
     
 Args:
