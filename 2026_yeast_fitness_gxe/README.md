@@ -41,6 +41,8 @@ This section describes how to generate the processed feature tables (Files S1, S
 | `XGB_Model.py` and `xgboost_model.py` | Implement the Extreme Gradient Boosting (XGBoost) model.                        |
 | `rrBLUP_Model.R`                      | Implements the Ridge Regression Best Linear Unbiased Prediction (rrBLUP) model. |
 
+The Random Forest regression models were trained using the pipeline available at https://github.com/ShiuLab/ML-Pipeline
+
 ### SLURM batch scripts for training models
 These scripts follow a general naming convention {alg}\_{feature table type}\_{genetic variant type}.sb, where:
 - `{alg}` – algorithm used (`RF`, `XGB`, `rrBLUP`, `BayesC`, `BL`) to train models.
@@ -49,6 +51,8 @@ These scripts follow a general naming convention {alg}\_{feature table type}\_{g
   - `optimized`: models trained using optimized or feature-selected subsets.
 - `{genetic variant type}` – genetic variant dataset type (`PC` [first 5 principal components of the SNP data], `SNP`, `PAV`, `CNV`).
 
+### Test set isolates
+The test set isolates which were used to evaluate the models are provided in the file `Test.txt`.
 
 ### Model interpretation
 | Script                                | Description                                                                                  |
@@ -89,6 +93,6 @@ This directory contains scripts used to generate all main figures, supplementary
 | `Table_S8_combine_go_pwy_enrichment.py`                       | Combines GO and pathway enrichment outputs into supplementary table S8.                                     |
 | `Table_S11_lit_gene_enrichment.py`                            | Generates supplementary table S11.                                                                          |
 | `Calculate_heritability_sommer.R`                             | Estimates heritability using the `sommer` package.                                                          |
-
-
+| `S12_S14_S17_Table_additional_analyses.py`                    | Comparative analysis of SHAP values and SHAP interaction values. Results added to S12, S14, and S17 Tables. |
+| `Table_S1_genetic_variation.py`                               | Estimates of genetic variation using SNPs, PAVs, and CNVs. Results added to Table S1.                       |
 
