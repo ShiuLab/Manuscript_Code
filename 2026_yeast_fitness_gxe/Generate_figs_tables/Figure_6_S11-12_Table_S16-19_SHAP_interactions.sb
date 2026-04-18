@@ -2,225 +2,490 @@
 #SBATCH --time=4:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=2
-# SBATCH --cpus-per-task=12 # for RF models
+# SBATCH --cpus-per-task=15 # for RF models
 # SBATCH --mem-per-cpu=3G # for RF models
 # SBATCH --job-name ben_rf_individual
 # SBATCH --job-name ben_rf_integrated
-#SBATCH --cpus-per-task=4 # for shap interaction
-#SBATCH --mem-per-cpu=100G # for shap interaction
+# SBATCH --cpus-per-task=4 # for shap interaction
+# SBATCH --mem-per-cpu=100G # for shap interaction
+#SBATCH --cpus-per-task=8 # for orf fig4a rf shap interaction
+#SBATCH --mem-per-cpu=100G # for orf fig4a rf shap interaction (100G for snp)
 #SBATCH --job-name shap_interaction
-#SBATCH --output=/mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/logs/%x_%j.out
+# SBATCH --output=/mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/logs/%x_%j.out
+# SBATCH --output=/mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_opt_rf/logs/%x_%j.out
+#SBATCH --output=/mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_fig4a_rf/logs/%x_%j.out
 
 shap=/mnt/research/glbrc_group/shiulab/kenia/Shiu_Lab/Project/Scripts/Data_Vis
 data=/mnt/research/glbrc_group/shiulab/kenia/Shiu_Lab/Project/Data/Peter_2018
 pipe=/mnt/research/glbrc_group/shiulab/kenia/Shiu_Lab/Project/External_software/ML-Pipeline
 
-####################### Benomyl Benchmark Gene RF Models #######################
-module purge
-conda activate ml-pipeline
-
-cd /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf
-
-# SNP
-python ${pipe}/ML_regression.py -df ${data}/geno_corrected.csv \
-   -df2 ${data}/pheno.csv -sep , \
-   -y_name YPDBENOMYL500 \
-   -test ${data}/Test.txt \
-   -feat Features_one_variant_per_gene_benomyl_500ugml_snp.txt \
-   -alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
-   -tag snp_one_variant_per_gene_benomyl_500ugml \
-   -save snp_one_variant_per_gene_benomyl_500ugml
-
-# PAV
-python ${pipe}/ML_regression.py -df ${data}/ORFs_pres_abs.csv \
-   -df2 ${data}/pheno.csv -sep , \
-   -y_name YPDBENOMYL500 \
-   -test ${data}/Test.txt \
-   -feat Features_one_variant_per_gene_benomyl_500ugml_pav_fixed.txt \
-   -alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
-   -tag pav_one_variant_per_gene_benomyl_500ugml \
-   -save pav_one_variant_per_gene_benomyl_500ugml
-
-# CNV
-python ${pipe}/ML_regression.py -df ${data}/ORFs_no_NA.csv \
-   -df2 ${data}/pheno.csv -sep , \
-   -y_name YPDBENOMYL500 \
-   -test ${data}/Test.txt \
-   -feat Features_one_variant_per_gene_benomyl_500ugml_cnv_fixed.txt \
-   -alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
-   -tag cnv_one_variant_per_gene_benomyl_500ugml \
-   -save cnv_one_variant_per_gene_benomyl_500ugml
-
-# SNP + PAV + CNV
-python ${pipe}/ML_regression.py \
-	-df Features_one_variant_per_gene_benomyl_500ugml_snp_pav_cnv.txt \
-	-df2 ${data}/pheno.csv -sep , \
-	-y_name YPDBENOMYL500 \
-	-test ${data}/Test.txt \
-	-alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
-	-tag integrated_one_variant_per_gene_benomyl_500ugml \
-	-save integrated_one_variant_per_gene_benomyl_500ugml
-
-# SNP + PAV
-python ${pipe}/ML_regression.py \
-	-df Features_one_variant_per_gene_benomyl_500ugml_snp_pav.txt \
-	-df2 ${data}/pheno.csv -sep , \
-	-y_name YPDBENOMYL500 \
-	-test ${data}/Test.txt \
-	-alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
-	-tag integrated_snp_pav_one_variant_per_gene_benomyl_500ugml \
-	-save integrated_snp_pav_one_variant_per_gene_benomyl_500ugml
-
-# SNP + CNV
-python ${pipe}/ML_regression.py \
-	-df Features_one_variant_per_gene_benomyl_500ugml_snp_cnv.txt \
-	-df2 ${data}/pheno.csv -sep , \
-	-y_name YPDBENOMYL500 \
-	-test ${data}/Test.txt \
-	-alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
-	-tag integrated_snp_cnv_one_variant_per_gene_benomyl_500ugml \
-	-save integrated_snp_cnv_one_variant_per_gene_benomyl_500ugml
-
-# PAV + CNV
-python ${pipe}/ML_regression.py \
-	-df Features_one_variant_per_gene_benomyl_500ugml_pav_cnv.txt \
-	-df2 ${data}/pheno.csv -sep , \
-	-y_name YPDBENOMYL500 \
-	-test ${data}/Test.txt \
-	-alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
-	-tag integrated_pav_cnv_one_variant_per_gene_benomyl_500ugml \
-	-save integrated_pav_cnv_one_variant_per_gene_benomyl_500ugml
-
-conda deactivate
-
-############################ Benomyl SHAP Interaction Scores ###########################
+############ SHAP Interaction Scores of Figure 4A Benomyl RF Models ############
+# see reviewer_1_responses.py for how the feature tables were made
 module purge
 conda activate shap
 
-cd /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf
+cd /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_fig4a_rf
 
-mapfile -t models < best_benomyl_models.txt
-
-# Calculate SHAP interaction scores
+## Calculate SHAP interaction scores of the single variant type models
 # SNP model
 cd snp
 python ${shap}/SHAP_training_saving_interaction.py \
-	-df ${data}/geno_corrected.csv \
+	-df ../snp_important_non_bench_plus_bench_genes_YPDBENOMYL500.txt \
 	-df2 ${data}/pheno.csv -sep , \
 	-y_name YPDBENOMYL500 \
 	-test ${data}/Test.txt \
-	-feat ../Features_one_variant_per_gene_benomyl_500ugml_snp.txt \
-	-model ../${models[0]} \
+	-feat all \
+	-model ../../RF/bench_gene_models/snp_YPDBENOMYL500_bench_plus_important_non_bench_genes_best_model.pkl \
 	-top 20 -interaction n -interaction_score y \
-	-save snp_one_variant_per_gene_benomyl_500ugml
+	-save snp_fig4a_benomyl_500ugml
 
 echo "Summing SHAP values across isolates for SNP"
 python ${shap}/Sum_SHAP_interaction.py \
-	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/snp/ \
+	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_fig4a_rf/snp/ \
 	-dtype snp \
-	-save shap_interaction_scores_snp_one_variant_per_gene_benomyl_500ugml
+	-save total_shap_interaction_scores_snp_fig4a_benomyl_500ugml # summed scores on the off diagonals, according to Lundberg et al., 2020 Nature Machine Intelligence
 
-## PAV model
+# PAV model
 cd pav
 python ${shap}/SHAP_training_saving_interaction.py \
-	-df ${data}/ORFs_pres_abs.csv \
+	-df ../pav_important_non_bench_plus_bench_genes_YPDBENOMYL500.txt \
 	-df2 ${data}/pheno.csv -sep , \
 	-y_name YPDBENOMYL500 \
 	-test ${data}/Test.txt \
-	-feat ../Features_one_variant_per_gene_benomyl_500ugml_pav_fixed.txt \
-	-model ../${models[1]} \
+	-feat all \
+	-model ../../RF/bench_gene_models/pav_YPDBENOMYL500_important_non_bench_genes_plus_bench_genes_best_model.pkl \
 	-top 20 -interaction n -interaction_score y \
-	-save pav_one_variant_per_gene_benomyl_500ugml
+	-save pav_fig4a_benomyl_500ugml
 
 echo "Summing SHAP values across isolates for PAV"
 python ${shap}/Sum_SHAP_interaction.py \
-	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/pav/ \
+	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_fig4a_rf/pav/ \
 	-dtype pav \
-	-save shap_interaction_scores_pav_one_variant_per_gene_benomyl_500ugml
+	-save total_shap_interaction_scores_pav_fig4a_benomyl_500ugml # summed scores on the off diagonals, according to Lundberg et al., 2020 Nature Machine Intelligence
 
-## CNV model
-cd cnv
+# CNV model
+cd ../cnv
 python ${shap}/SHAP_training_saving_interaction.py \
-	-df ${data}/ORFs_no_NA.csv \
+	-df ../cnv_important_non_bench_plus_bench_genes_YPDBENOMYL500.txt \
 	-df2 ${data}/pheno.csv -sep , \
 	-y_name YPDBENOMYL500 \
 	-test ${data}/Test.txt \
-	-feat ../Features_one_variant_per_gene_benomyl_500ugml_cnv_fixed.txt \
-	-model ../${models[2]} \
+	-feat all \
+	-model ../../RF/bench_gene_models/cnv_YPDBENOMYL500_important_non_bench_genes_plus_bench_genes_best_model.pkl \
 	-top 20 -interaction n -interaction_score y \
-	-save cnv_one_variant_per_gene_benomyl_500ugml
+	-save cnv_fig4a_benomyl_500ugml
 
 echo "Summing SHAP values across isolates for CNV"
 python ${shap}/Sum_SHAP_interaction.py \
-	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/cnv/ \
+	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_fig4a_rf/cnv/ \
 	-dtype cnv \
-	-save shap_interaction_scores_cnv_one_variant_per_gene_benomyl_500ugml
+	-save total_shap_interaction_scores_cnv_fig4a_benomyl_500ugml # summed scores on the off diagonals, according to Lundberg et al., 2020 Nature Machine Intelligence
 
-## Integrated models
-cd snp_pav_cnv
-python ${shap}/SHAP_training_saving_interaction.py \
-	-df ../Features_one_variant_per_gene_benomyl_500ugml_snp_pav_cnv.txt \
+conda activate ml-pipeline
+pipe=/mnt/research/glbrc_group/shiulab/kenia/Shiu_Lab/ML-Pipeline
+
+# Submit the integrated models
+cd snp_pav
+python ${pipe}/ML_regression.py \
+	-df ../integrated_snp_pav_important_non_bench_plus_bench_genes_YPDBENOMYL500.txt \
 	-df2 ${data}/pheno.csv -sep , \
 	-y_name YPDBENOMYL500 \
 	-test ${data}/Test.txt \
-	-model ../${models[3]} \
-	-top 20 -interaction n -interaction_score y \
-	-save integrated_snp_pav_cnv_one_variant_per_gene_benomyl_500ugml
+	-feat all \
+	-alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+	-tag integrated_snp_pav_fig4a_benomyl_500ugml \
+	-save integrated_snp_pav_fig4a_benomyl_500ugml
 
-echo "Summing SHAP values across isolates for integrated model"
-python ${shap}/Sum_SHAP_interaction.py \
-	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/snp_pav_cnv/ \
-	-dtype integrated_snp_pav_cnv \
-	-save shap_interaction_scores_integrated_snp_pav_cnv_one_variant_per_gene_benomyl_500ugml
+cd snp_cnv
+python ${pipe}/ML_regression.py \
+	-df ../integrated_snp_cnv_important_non_bench_plus_bench_genes_YPDBENOMYL500.txt \
+	-df2 ${data}/pheno.csv -sep , \
+	-y_name YPDBENOMYL500 \
+	-test ${data}/Test.txt \
+	-feat all \
+	-alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+	-tag integrated_snp_cnv_fig4a_benomyl_500ugml \
+	-save integrated_snp_cnv_fig4a_benomyl_500ugml
 
+cd pav_cnv
+python ${pipe}/ML_regression.py \
+	-df ../integrated_pav_cnv_important_non_bench_plus_bench_genes_YPDBENOMYL500.txt \
+	-df2 ${data}/pheno.csv -sep , \
+	-y_name YPDBENOMYL500 \
+	-test ${data}/Test.txt \
+	-feat all \
+	-alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+	-tag integrated_pav_cnv_fig4a_benomyl_500ugml \
+	-save integrated_pav_cnv_fig4a_benomyl_500ugml
+
+cd snp_pav_cnv
+python ${pipe}/ML_regression.py \
+	-df ../integrated_snp_pav_cnv_important_non_bench_plus_bench_genes_YPDBENOMYL500.txt \
+	-df2 ${data}/pheno.csv -sep , \
+	-y_name YPDBENOMYL500 \
+	-test ${data}/Test.txt \
+	-feat all \
+	-alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+	-tag integrated_snp_pav_cnv_fig4a_benomyl_500ugml \
+	-save integrated_snp_pav_cnv_fig4a_benomyl_500ugml
+
+
+## Calculate the SHAP interaction values of integrated models
 cd snp_pav
 python ${shap}/SHAP_training_saving_interaction.py \
-	-df ../Features_one_variant_per_gene_benomyl_500ugml_snp_pav.txt \
+	-df ../integrated_snp_pav_important_non_bench_plus_bench_genes_YPDBENOMYL500.txt \
 	-df2 ${data}/pheno.csv -sep , \
 	-y_name YPDBENOMYL500 \
 	-test ${data}/Test.txt \
-	-model ../${models[4]} \
+	-feat all \
+	-model integrated_snp_pav_fig4a_benomyl_500ugml_best_model.pkl \
 	-top 20 -interaction n -interaction_score y \
-	-save integrated_snp_pav_one_variant_per_gene_benomyl_500ugml
+	-save integrated_snp_pav_fig4a_benomyl_500ugml
 
-echo "Summing SHAP values across isolates for integrated model"
+echo "Summing SHAP values across isolates for integrated SNP + PAV model"
 python ${shap}/Sum_SHAP_interaction.py \
-	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/snp_pav/ \
+	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_fig4a_rf/snp_pav/ \
 	-dtype integrated_snp_pav \
-	-save shap_interaction_scores_integrated_snp_pav_one_variant_per_gene_benomyl_500ugml
+	-save total_shap_interaction_scores_integrated_snp_pav_fig4a_benomyl_500ugml
 
 cd snp_cnv
 python ${shap}/SHAP_training_saving_interaction.py \
-	-df ../Features_one_variant_per_gene_benomyl_500ugml_snp_cnv.txt \
+	-df ../integrated_snp_cnv_important_non_bench_plus_bench_genes_YPDBENOMYL500.txt \
 	-df2 ${data}/pheno.csv -sep , \
 	-y_name YPDBENOMYL500 \
 	-test ${data}/Test.txt \
-	-model ../${models[5]} \
+	-feat all \
+	-model integrated_snp_cnv_fig4a_benomyl_500ugml_best_model.pkl \
 	-top 20 -interaction n -interaction_score y \
-	-save integrated_snp_cnv_one_variant_per_gene_benomyl_500ugml
+	-save integrated_snp_cnv_fig4a_benomyl_500ugml
 
-echo "Summing SHAP values across isolates for integrated model"
+echo "Summing SHAP values across isolates for integrated SNP + CNV model"
 python ${shap}/Sum_SHAP_interaction.py \
-	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/snp_cnv/ \
+	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_fig4a_rf/snp_cnv/ \
 	-dtype integrated_snp_cnv \
-	-save shap_interaction_scores_integrated_snp_cnv_one_variant_per_gene_benomyl_500ugml
+	-save total_shap_interaction_scores_integrated_snp_cnv_fig4a_benomyl_500ugml
 
 cd pav_cnv
 python ${shap}/SHAP_training_saving_interaction.py \
-	-df ../Features_one_variant_per_gene_benomyl_500ugml_pav_cnv.txt \
+	-df ../integrated_pav_cnv_important_non_bench_plus_bench_genes_YPDBENOMYL500.txt \
 	-df2 ${data}/pheno.csv -sep , \
 	-y_name YPDBENOMYL500 \
 	-test ${data}/Test.txt \
-	-model ../${models[6]} \
+	-feat all \
+	-model integrated_pav_cnv_fig4a_benomyl_500ugml_best_model.pkl \
 	-top 20 -interaction n -interaction_score y \
-	-save integrated_one_variant_per_gene_benomyl_500ugml # forgot to add pav_cnv
+	-save integrated_pav_cnv_fig4a_benomyl_500ugml
 
-echo "Summing SHAP values across isolates for integrated model"
+echo "Summing SHAP values across isolates for integrated PAV + CNV model"
 python ${shap}/Sum_SHAP_interaction.py \
-	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/pav_cnv/ \
-	-dtype integrated_one_ \
-	-save shap_interaction_scores_integrated_pav_cnv_one_variant_per_gene_benomyl_500ugml
+	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_fig4a_rf/pav_cnv/ \
+	-dtype integrated_pav_cnv \
+	-save total_shap_interaction_scores_integrated_pav_cnv_fig4a_benomyl_500ugml
+
+cd snp_pav_cnv
+python ${shap}/SHAP_training_saving_interaction.py \
+	-df ../integrated_snp_pav_cnv_important_non_bench_plus_bench_genes_YPDBENOMYL500.txt \
+	-df2 ${data}/pheno.csv -sep , \
+	-y_name YPDBENOMYL500 \
+	-test ${data}/Test.txt \
+	-feat all \
+	-model integrated_snp_pav_cnv_fig4a_benomyl_500ugml_best_model.pkl \
+	-top 20 -interaction n -interaction_score y \
+	-save integrated_snp_pav_cnv_fig4a_benomyl_500ugml
+
+echo "Summing SHAP values across isolates for integrated SNP + PAV + CNV model"
+python ${shap}/Sum_SHAP_interaction.py \
+	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_fig4a_rf/snp_pav_cnv/ \
+	-dtype integrated_snp_pav_cnv \
+	-save total_shap_interaction_scores_integrated_snp_pav_cnv_fig4a_benomyl_500ugml
 
 conda deactivate
+
+############ SHAP Interaction Scores of Benomyl Optimized RF Models ############
+# module purge
+# conda activate shap
+
+# data_path=/mnt/research/glbrc_group/shiulab/kenia/yeast_project/ORF_yeast_RF_results/fs
+
+# cd /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_opt_rf
+
+# From /mnt/research/glbrc_group/shiulab/kenia/yeast_project/ORF_yeast_RF_results/fs/ or
+# SNP_yeast_RF_results/fs/ {snp/pav/cnv}_best_fs_models.txt files:
+	# best SNP optimized RF model: YPDBENOMYL500_rf_top_6000_models_rep_1.pkl (probably will need to reduce feature number for SHAP itx scores)
+	# best PAV optimized RF model: YPDBENOMYL500_pav_top_128_models_rep_0.pkl
+	# best CNV optimized RF model: YPDBENOMYL500_cnv_top_128_models_rep_3.pkl
+
+# Calculate SHAP interaction scores
+# SNP model
+# cd snp
+# python ${shap}/SHAP_training_saving_interaction.py \
+# 	-df ${data}/geno_corrected.csv \
+# 	-df2 ${data}/pheno.csv -sep , \
+# 	-y_name YPDBENOMYL500 \
+# 	-test ${data}/Test.txt \
+# 	-feat /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SNP_yeast_RF_results/fs/features_YPDBENOMYL500_top_6000 \ # These are not the updated feature names I don't think
+# 	-model ../${models[0]} \
+# 	-top 20 -interaction n -interaction_score y \
+# 	-save snp_one_variant_per_gene_benomyl_500ugml
+
+# echo "Summing SHAP values across isolates for SNP"
+# python ${shap}/Sum_SHAP_interaction.py \
+# 	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/snp/ \
+# 	-dtype snp \
+# 	-save total_shap_interaction_scores_snp_one_variant_per_gene_benomyl_500ugml # summed scores on the off diagonals, according to Lundberg et al., 2020 Nature Machine Intelligence
+# 	# -save shap_interaction_scores_snp_one_variant_per_gene_benomyl_500ugml # only has upper diagonal interaction scores
+
+# ## PAV model
+# cd pav
+# python ${shap}/SHAP_training_saving_interaction.py \
+# 	-df ${data}/ORFs_pres_abs.csv \
+# 	-df2 ${data}/pheno.csv -sep , \
+# 	-y_name YPDBENOMYL500 \
+# 	-test ${data}/Test.txt \
+# 	-feat ${data_path}/features_pav_YPDBENOMYL500_top_128 \
+# 	-model ${data_path}/YPDBENOMYL500_pav_top_128_models_rep_0.pkl \
+# 	-top 20 -interaction n -interaction_score y \
+# 	-save pav_optimized_rf_benomyl_500ugml
+
+# echo "Summing SHAP values across isolates for PAV"
+# python ${shap}/Sum_SHAP_interaction.py \
+# 	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_opt_rf/pav/ \
+# 	-dtype pav \
+# 	-save total_shap_interaction_scores_pav_optimized_rf_benomyl_500ugml
+
+# ## CNV model
+# cd cnv
+# python ${shap}/SHAP_training_saving_interaction.py \
+# 	-df ${data}/ORFs_no_NA.csv \
+# 	-df2 ${data}/pheno.csv -sep , \
+# 	-y_name YPDBENOMYL500 \
+# 	-test ${data}/Test.txt \
+# 	-feat ${data_path}/features_cnv_YPDBENOMYL500_top_128 \
+# 	-model ${data_path}/YPDBENOMYL500_cnv_top_128_models_rep_3.pkl \
+# 	-top 20 -interaction n -interaction_score y \
+# 	-save cnv_optimized_rf_benomyl_500ugml
+
+# echo "Summing SHAP values across isolates for CNV"
+# python ${shap}/Sum_SHAP_interaction.py \
+# 	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_opt_rf/cnv/ \
+# 	-dtype cnv \
+# 	-save total_shap_interaction_scores_cnv_optimized_rf_benomyl_500ugml
+
+# conda deactivate
+
+# ####################### Benomyl Benchmark Gene RF Models #######################
+# module purge
+# conda activate ml-pipeline
+
+# cd /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf
+
+# # SNP
+# python ${pipe}/ML_regression.py -df ${data}/geno_corrected.csv \
+#    -df2 ${data}/pheno.csv -sep , \
+#    -y_name YPDBENOMYL500 \
+#    -test ${data}/Test.txt \
+#    -feat Features_one_variant_per_gene_benomyl_500ugml_snp.txt \
+#    -alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+#    -tag snp_one_variant_per_gene_benomyl_500ugml \
+#    -save snp_one_variant_per_gene_benomyl_500ugml
+
+# # PAV
+# python ${pipe}/ML_regression.py -df ${data}/ORFs_pres_abs.csv \
+#    -df2 ${data}/pheno.csv -sep , \
+#    -y_name YPDBENOMYL500 \
+#    -test ${data}/Test.txt \
+#    -feat Features_one_variant_per_gene_benomyl_500ugml_pav_fixed.txt \
+#    -alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+#    -tag pav_one_variant_per_gene_benomyl_500ugml \
+#    -save pav_one_variant_per_gene_benomyl_500ugml
+
+# # CNV
+# python ${pipe}/ML_regression.py -df ${data}/ORFs_no_NA.csv \
+#    -df2 ${data}/pheno.csv -sep , \
+#    -y_name YPDBENOMYL500 \
+#    -test ${data}/Test.txt \
+#    -feat Features_one_variant_per_gene_benomyl_500ugml_cnv_fixed.txt \
+#    -alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+#    -tag cnv_one_variant_per_gene_benomyl_500ugml \
+#    -save cnv_one_variant_per_gene_benomyl_500ugml
+
+# # SNP + PAV + CNV
+# python ${pipe}/ML_regression.py \
+# 	-df Features_one_variant_per_gene_benomyl_500ugml_snp_pav_cnv.txt \
+# 	-df2 ${data}/pheno.csv -sep , \
+# 	-y_name YPDBENOMYL500 \
+# 	-test ${data}/Test.txt \
+# 	-alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+# 	-tag integrated_one_variant_per_gene_benomyl_500ugml \
+# 	-save integrated_one_variant_per_gene_benomyl_500ugml
+
+# # SNP + PAV
+# python ${pipe}/ML_regression.py \
+# 	-df Features_one_variant_per_gene_benomyl_500ugml_snp_pav.txt \
+# 	-df2 ${data}/pheno.csv -sep , \
+# 	-y_name YPDBENOMYL500 \
+# 	-test ${data}/Test.txt \
+# 	-alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+# 	-tag integrated_snp_pav_one_variant_per_gene_benomyl_500ugml \
+# 	-save integrated_snp_pav_one_variant_per_gene_benomyl_500ugml
+
+# # SNP + CNV
+# python ${pipe}/ML_regression.py \
+# 	-df Features_one_variant_per_gene_benomyl_500ugml_snp_cnv.txt \
+# 	-df2 ${data}/pheno.csv -sep , \
+# 	-y_name YPDBENOMYL500 \
+# 	-test ${data}/Test.txt \
+# 	-alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+# 	-tag integrated_snp_cnv_one_variant_per_gene_benomyl_500ugml \
+# 	-save integrated_snp_cnv_one_variant_per_gene_benomyl_500ugml
+
+# # PAV + CNV
+# python ${pipe}/ML_regression.py \
+# 	-df Features_one_variant_per_gene_benomyl_500ugml_pav_cnv.txt \
+# 	-df2 ${data}/pheno.csv -sep , \
+# 	-y_name YPDBENOMYL500 \
+# 	-test ${data}/Test.txt \
+# 	-alg RF -n_jobs 12 -n 20 -cv_num 5 -plots f \
+# 	-tag integrated_pav_cnv_one_variant_per_gene_benomyl_500ugml \
+# 	-save integrated_pav_cnv_one_variant_per_gene_benomyl_500ugml
+
+# conda deactivate
+
+# ############################ Benomyl SHAP Interaction Scores ###########################
+# module purge
+# conda activate shap
+
+# cd /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf
+
+# mapfile -t models < best_benomyl_models.txt
+
+# # Calculate SHAP interaction scores
+# # SNP model
+# cd snp
+# python ${shap}/SHAP_training_saving_interaction.py \
+# 	-df ${data}/geno_corrected.csv \
+# 	-df2 ${data}/pheno.csv -sep , \
+# 	-y_name YPDBENOMYL500 \
+# 	-test ${data}/Test.txt \
+# 	-feat ../Features_one_variant_per_gene_benomyl_500ugml_snp.txt \
+# 	-model ../${models[0]} \
+# 	-top 20 -interaction n -interaction_score y \
+# 	-save snp_one_variant_per_gene_benomyl_500ugml
+
+# echo "Summing SHAP values across isolates for SNP"
+# python ${shap}/Sum_SHAP_interaction.py \
+# 	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/snp/ \
+# 	-dtype snp \
+# 	-save total_shap_interaction_scores_snp_one_variant_per_gene_benomyl_500ugml # summed scores on the off diagonals, according to Lundberg et al., 2020 Nature Machine Intelligence
+# 	# -save shap_interaction_scores_snp_one_variant_per_gene_benomyl_500ugml # only has upper diagonal interaction scores
+
+# ## PAV model
+# cd ../pav
+# python ${shap}/SHAP_training_saving_interaction.py \
+# 	-df ${data}/ORFs_pres_abs.csv \
+# 	-df2 ${data}/pheno.csv -sep , \
+# 	-y_name YPDBENOMYL500 \
+# 	-test ${data}/Test.txt \
+# 	-feat ../Features_one_variant_per_gene_benomyl_500ugml_pav_fixed.txt \
+# 	-model ../${models[1]} \
+# 	-top 20 -interaction n -interaction_score y \
+# 	-save pav_one_variant_per_gene_benomyl_500ugml
+
+# echo "Summing SHAP values across isolates for PAV"
+# python ${shap}/Sum_SHAP_interaction.py \
+# 	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/pav/ \
+# 	-dtype pav \
+# 	-save total_shap_interaction_scores_pav_one_variant_per_gene_benomyl_500ugml
+# 	# -save shap_interaction_scores_pav_one_variant_per_gene_benomyl_500ugml
+
+# ## CNV model
+# cd ../cnv
+# python ${shap}/SHAP_training_saving_interaction.py \
+# 	-df ${data}/ORFs_no_NA.csv \
+# 	-df2 ${data}/pheno.csv -sep , \
+# 	-y_name YPDBENOMYL500 \
+# 	-test ${data}/Test.txt \
+# 	-feat ../Features_one_variant_per_gene_benomyl_500ugml_cnv_fixed.txt \
+# 	-model ../${models[2]} \
+# 	-top 20 -interaction n -interaction_score y \
+# 	-save cnv_one_variant_per_gene_benomyl_500ugml
+
+# echo "Summing SHAP values across isolates for CNV"
+# python ${shap}/Sum_SHAP_interaction.py \
+# 	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/cnv/ \
+# 	-dtype cnv \
+# 	-save total_shap_interaction_scores_cnv_one_variant_per_gene_benomyl_500ugml
+# 	# -save shap_interaction_scores_cnv_one_variant_per_gene_benomyl_500ugml
+
+# ## Integrated models
+# cd ../snp_pav_cnv
+# python ${shap}/SHAP_training_saving_interaction.py \
+# 	-df ../Features_one_variant_per_gene_benomyl_500ugml_snp_pav_cnv.txt \
+# 	-df2 ${data}/pheno.csv -sep , \
+# 	-y_name YPDBENOMYL500 \
+# 	-test ${data}/Test.txt \
+# 	-model ../${models[3]} \
+# 	-top 20 -interaction n -interaction_score y \
+# 	-save integrated_snp_pav_cnv_one_variant_per_gene_benomyl_500ugml
+
+# echo "Summing SHAP values across isolates for integrated model"
+# python ${shap}/Sum_SHAP_interaction.py \
+# 	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/snp_pav_cnv/ \
+# 	-dtype integrated_snp_pav_cnv \
+# 	-save total_shap_interaction_scores_integrated_snp_pav_cnv_one_variant_per_gene_benomyl_500ugml
+# 	# -save shap_interaction_scores_integrated_snp_pav_cnv_one_variant_per_gene_benomyl_500ugml
+
+# cd ../snp_pav
+# python ${shap}/SHAP_training_saving_interaction.py \
+# 	-df ../Features_one_variant_per_gene_benomyl_500ugml_snp_pav.txt \
+# 	-df2 ${data}/pheno.csv -sep , \
+# 	-y_name YPDBENOMYL500 \
+# 	-test ${data}/Test.txt \
+# 	-model ../${models[4]} \
+# 	-top 20 -interaction n -interaction_score y \
+# 	-save integrated_snp_pav_one_variant_per_gene_benomyl_500ugml
+
+# echo "Summing SHAP values across isolates for integrated model"
+# python ${shap}/Sum_SHAP_interaction.py \
+# 	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/snp_pav/ \
+# 	-dtype integrated_snp_pav \
+# 	-save total_shap_interaction_scores_integrated_snp_pav_one_variant_per_gene_benomyl_500ugml
+# 	# -save shap_interaction_scores_integrated_snp_pav_one_variant_per_gene_benomyl_500ugml
+
+# cd ../snp_cnv
+# python ${shap}/SHAP_training_saving_interaction.py \
+# 	-df ../Features_one_variant_per_gene_benomyl_500ugml_snp_cnv.txt \
+# 	-df2 ${data}/pheno.csv -sep , \
+# 	-y_name YPDBENOMYL500 \
+# 	-test ${data}/Test.txt \
+# 	-model ../${models[5]} \
+# 	-top 20 -interaction n -interaction_score y \
+# 	-save integrated_snp_cnv_one_variant_per_gene_benomyl_500ugml
+
+# echo "Summing SHAP values across isolates for integrated model"
+# python ${shap}/Sum_SHAP_interaction.py \
+# 	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/snp_cnv/ \
+# 	-dtype integrated_snp_cnv \
+# 	-save total_shap_interaction_scores_integrated_snp_cnv_one_variant_per_gene_benomyl_500ugml
+# 	# -save shap_interaction_scores_integrated_snp_cnv_one_variant_per_gene_benomyl_500ugml
+
+# cd ../pav_cnv
+# python ${shap}/SHAP_training_saving_interaction.py \
+# 	-df ../Features_one_variant_per_gene_benomyl_500ugml_pav_cnv.txt \
+# 	-df2 ${data}/pheno.csv -sep , \
+# 	-y_name YPDBENOMYL500 \
+# 	-test ${data}/Test.txt \
+# 	-model ../${models[6]} \
+# 	-top 20 -interaction n -interaction_score y \
+# 	-save integrated_one_variant_per_gene_benomyl_500ugml # forgot to add pav_cnv
+
+# echo "Summing SHAP values across isolates for integrated model"
+# python ${shap}/Sum_SHAP_interaction.py \
+# 	-path /mnt/research/glbrc_group/shiulab/kenia/yeast_project/SHAP_Interaction/benomyl_shap_int_rf/pav_cnv/ \
+# 	-dtype integrated_one_ \
+# 	-save total_shap_interaction_scores_integrated_pav_cnv_one_variant_per_gene_benomyl_500ugml
+# 	# -save shap_interaction_scores_integrated_pav_cnv_one_variant_per_gene_benomyl_500ugml
+
+# conda deactivate
 
 scontrol show job $SLURM_JOB_ID

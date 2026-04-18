@@ -9,7 +9,7 @@ import seaborn as sns
 from matplotlib import cm
 from matplotlib.colors import Normalize
 from scipy.interpolate import interpn
-from scipy.stats import spearmanr, ttest_ind
+from scipy.stats import pearsonr
 
 # Read in isolate pair correlations
 clades = pd.read_excel("Data/Peter_2018/0_raw_data/Peter_2018_Supplementary_Tables.xls",
@@ -36,14 +36,10 @@ kin_melt = kin_melt.reset_index()
 pheno_melt = pheno_melt.reset_index()
 pavs_melt = pavs_melt.reset_index()
 cnvs_melt = cnvs_melt.reset_index()
-kin_melt["rank"] = kin_melt.rank(numeric_only=True, ascending=False)
-pheno_melt["rank"] = pheno_melt.rank(numeric_only=True, ascending=False)
-pavs_melt["rank"] = pavs_melt.rank(numeric_only=True, ascending=False)
-cnvs_melt["rank"] = cnvs_melt.rank(numeric_only=True, ascending=False)
-kin_melt.to_csv("Scripts/Data_Vis/kin_melt.csv")
-pheno_melt.to_csv("Scripts/Data_Vis/pheno_melt.csv")
-pavs_melt.to_csv("Scripts/Data_Vis/pavs_melt.csv")
-cnvs_melt.to_csv("Scripts/Data_Vis/cnvs_melt.csv")
+# kin_melt.to_csv("Scripts/Data_Vis/kin_melt.csv")
+# pheno_melt.to_csv("Scripts/Data_Vis/pheno_melt.csv")
+# pavs_melt.to_csv("Scripts/Data_Vis/pavs_melt.csv")
+# cnvs_melt.to_csv("Scripts/Data_Vis/cnvs_melt.csv")
 
 
 def normalized_cbar(z):
@@ -79,51 +75,41 @@ def density_scatter(x, y, ax=None, fig=None, sort=True, bins=20):
         return fig
 
 
-data_pair_corr = pd.DataFrame(columns=["comparison", "rho", "p-value", "note"])
+data_pair_corr = pd.DataFrame(columns=["comparison", "r", "p-value", "note"])
 # Plot
 fig, ax = plt.subplots(2, 3, figsize=(12, 6))
 ax[0][0] = density_scatter(kin_melt[0], pheno_melt[0], ax[0][0], fig, bins=50)
-# calculate spearman's rho
-rho, p = spearmanr(kin_melt['rank'], pheno_melt['rank'])
-ttest_ind(kin_melt[0], pheno_melt[0], equal_var=False,
-          alternative='two-sided')  # p-values are all 0
-# rho = .269, p-val = 0.000E+00 ; in R, cor.test p-values are all < 2.2e-16
-print('rho = {:.3f}\np-value = {:.3E}'.format(rho, p))
+# calculate pearson's r and p-value
+r, p = pearsonr(kin_melt[0], pheno_melt[0])
+print('r = {:.3f}, p-value = {:.3E}'.format(r, p))
+# r = 0.234, p-value = 0.000E+00 ; p-values are all < 2.2e-16
+import numpy as np
+np.finfo(np.float64).eps # 2.220446049250313e-16
 
 ax[0][1] = density_scatter(pavs_melt[0], pheno_melt[0], ax[0][1], fig, bins=50)
-rho, p = spearmanr(pavs_melt['rank'], pheno_melt['rank'])
-ttest_ind(pavs_melt[0], pheno_melt[0],
-          equal_var=False, alternative='two-sided')
-# rho = .299, p-val = 0.000E+00
-print('rho = {:.3f}\np-value = {:.3E}'.format(rho, p))
+r, p = pearsonr(pavs_melt[0], pheno_melt[0])
+print('r = {:.3f}, p-value = {:.3E}'.format(r, p))
+# r = 0.146, p-value = 0.000E+00
 
 ax[0][2] = density_scatter(cnvs_melt[0], pheno_melt[0], ax[0][2], fig, bins=50)
-rho, p = spearmanr(cnvs_melt['rank'], pheno_melt['rank'])
-ttest_ind(cnvs_melt[0], pheno_melt[0],
-          equal_var=False, alternative='two-sided')
-# rho = 0.138, p-val = 0.000E+00
-print('rho = {:.3f}\np-value = {:.3E}'.format(rho, p))
+r, p = pearsonr(cnvs_melt[0], pheno_melt[0])
+print('r = {:.3f}, p-value = {:.3E}'.format(r, p))
+# r = 0.125, p-value = 0.000E+00
 
 ax[1][0] = density_scatter(pavs_melt[0], kin_melt[0], ax[1][0], fig, bins=50)
-rho, p = spearmanr(pavs_melt['rank'], kin_melt['rank'])
-ttest_ind(pavs_melt[0], kin_melt[0],
-          equal_var=False, alternative='two-sided')
-# rho = 0.475, p-val = 0.000E+00
-print('rho = {:.3f}\np-value = {:.3E}'.format(rho, p))
+r, p = pearsonr(pavs_melt[0], kin_melt[0])
+print('r = {:.3f}, p-value = {:.3E}'.format(r, p))
+# r = 0.199, p-value = 0.000E+00
 
 ax[1][1] = density_scatter(cnvs_melt[0], kin_melt[0], ax[1][1], fig, bins=50)
-rho, p = spearmanr(cnvs_melt['rank'], kin_melt['rank'])
-ttest_ind(cnvs_melt[0], kin_melt[0],
-          equal_var=False, alternative='two-sided')
-# rho = 0.096, p-val = 0.000E+00
-print('rho = {:.3f}\np-value = {:.3E}'.format(rho, p))
+r, p = pearsonr(cnvs_melt[0], kin_melt[0])
+print('r = {:.3f}, p-value = {:.3E}'.format(r, p))
+# r = 0.088, p-value = 0.000E+00
 
 ax[1][2] = density_scatter(cnvs_melt[0], pavs_melt[0], ax[1][2], fig, bins=50)
-rho, p = spearmanr(cnvs_melt['rank'], pavs_melt['rank'])
-ttest_ind(cnvs_melt[0], pavs_melt[0],
-          equal_var=False, alternative='two-sided')
-# rho = 0.172, p-val = 0.000E+00
-print('rho = {:.3f}\np-value = {:.3E}'.format(rho, p))
+r, p = pearsonr(cnvs_melt[0], pavs_melt[0])
+print('r = {:.3f}, p-value = {:.3E}'.format(r, p))
+# r = 0.056, p-value = 5.498E-194
 fig.tight_layout()
 fig.savefig(
     "Scripts/Data_Vis/Section_1/Figure_S1_data_pair_correlations.png", dpi=300)

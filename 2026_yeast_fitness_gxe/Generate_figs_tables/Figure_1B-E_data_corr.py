@@ -114,6 +114,16 @@ sum(kinship.columns == pheno_corr.columns)
 sum(kinship.columns == pavs_corr.columns)
 sum(kinship.columns == cnvs_corr.columns)
 
+# Summary statistics of correlations
+pheno_corr_stack = pd.DataFrame(np.triu(pheno_corr, k=1)).stack()
+pheno_corr_stack.loc[pheno_corr_stack != 0].describe()  # mean: 0.59, std: 0.20, min:-0.43, 25%: 0.47, 50%: 0.61, 75%: 0.74, max: 0.9983
+pavs_corr_stack = pd.DataFrame(np.triu(pavs_corr, k=1)).stack()
+pavs_corr_stack.loc[pavs_corr_stack != 0].describe()  # mean: 0.94, std: 0.04, min: 0.60, 25%: 0.94, 50%: 0.95, 75%: 0.96, max: 0.9985
+cnvs_corr_stack = pd.DataFrame(np.triu(cnvs_corr, k=1)).stack()
+cnvs_corr_stack.loc[cnvs_corr_stack != 0].describe()  # mean: 0.89, std: 0.10, min: 0.23, 25%: 0.85, 50%: 0.92, 75%: 0.96, max: 0.9995
+kinship_stack = pd.DataFrame(np.triu(kinship, k=1)).stack()
+kinship_stack.loc[kinship_stack != 0].describe()  # mean: -0.002472, std: 0.79, min:1.40, 25%: -0.43, 50%: -0.02, 75%: 0.52, max: 4.20
+
 # Map clades to isolates and create a colormap
 clades = clades[["Standardized name", "Clades"]]  # subset relevant columns
 clades = clades.loc[clades["Standardized name"].isin(
@@ -136,36 +146,40 @@ with open("Scripts/Data_Vis/Section_1/clade_colors.json", "w") as f:
     json.dump(color_list, f, indent=4)  # save color dictionary
 
 # plot with clades (Figure 1C)
-fig, ax = plt.subplots(2, 2)
 kin_ordered = kinship.iloc[kin_row_order, kin_row_order]
-a = sns.heatmap(kin_ordered, cmap="RdBu_r", center=0, square=True, ax=ax[0][0],
+a = sns.heatmap(kin_ordered, cmap="RdBu_r", center=0, square=True,
                 xticklabels=False, yticklabels=False, vmin=kin_ordered.min().min(),
                 vmax=kin_ordered.max().max(), cbar_kws={'orientation': 'horizontal'})
-ax[0][0].tick_params(axis="y", which="major", pad=20,
-                     length=0)  # extra padding for row colors
+a.tick_params(axis="y", which="major", pad=20, length=0)  # extra padding for row colors
 for i, color in enumerate(row_colors):
-    ax[0][0].add_patch(plt.Rectangle(xy=(-0.05, i), width=0.05, height=1, color=color, lw=0,
-                                     transform=ax[0][0].get_yaxis_transform(), clip_on=False))
+    a.add_patch(plt.Rectangle(xy=(-0.05, i), width=0.05, height=1, color=color, lw=0,
+                               transform=a.get_yaxis_transform(), clip_on=False))
+plt.savefig("Scripts/Data_Vis/Section_1/Figure_1c_kinship_clades.pdf")
+plt.close()
 
 # Figure 1B,D,E
 pheno_corr_ordered = pheno_corr.iloc[kin_row_order, kin_row_order]
 b = sns.heatmap(pheno_corr_ordered, cmap="RdBu_r", center=pheno_corr_ordered.mean().mean(),
-                square=True, ax=ax[0][1], xticklabels=False, yticklabels=False,
+                square=True, xticklabels=False, yticklabels=False,
                 vmin=pheno_corr_ordered.min().min(), vmax=pheno_corr_ordered.max().max(),
                 cbar_kws={'orientation': 'horizontal'})
+plt.savefig("Scripts/Data_Vis/Section_1/Figure_1b_pheno_correlations.pdf")
+plt.close()
+
 pavs_corr[pavs_corr < 0.8] = 0.8  # set minimum value to 0.8
 pav_corr_ordered = pavs_corr.iloc[kin_row_order, kin_row_order]
 c = sns.heatmap(pav_corr_ordered, cmap="RdBu_r", center=0.9, square=True,
-                ax=ax[1][0], xticklabels=False, yticklabels=False,
+                xticklabels=False, yticklabels=False,
                 vmin=pav_corr_ordered.min().min(), vmax=pav_corr_ordered.max().max(),
                 cbar_kws={'orientation': 'horizontal'})
+plt.savefig("Scripts/Data_Vis/Section_1/Figure_1d_pavs_correlations.pdf")
+plt.close()
+
 cnvs_corr[cnvs_corr < 0.4] = 0.4
 cnv_corr_ordered = cnvs_corr.iloc[kin_row_order, kin_row_order]
 d = sns.heatmap(cnv_corr_ordered, cmap="RdBu_r", center=0.8, square=True,
-                ax=ax[1][1], xticklabels=False, yticklabels=False,
+                xticklabels=False, yticklabels=False,
                 vmin=cnv_corr_ordered.min().min(), vmax=cnv_corr_ordered.max().max(),
                 cbar_kws={'orientation': 'horizontal'})
-fig.tight_layout()
-fig.savefig(
-    "Scripts/Data_Vis/Section_1/Figure_1b-e_data_correlations5.pdf", dpi=300)
+plt.savefig("Scripts/Data_Vis/Section_1/Figure_1e_cnv_correlations.pdf")
 plt.close()

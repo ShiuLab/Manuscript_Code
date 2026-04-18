@@ -711,8 +711,12 @@ costanzo_ctrl_strict_gp = get_unique_gp(
     costanzo_ctrl_strict, "query_gene", "array_gene")
 len(costanzo_ben_strict_gp)  # 3472 unique interactions
 len(costanzo_ctrl_strict_gp)  # 3417
+len(costanzo_ctrl_strict_gp.union(costanzo_ben_strict_gp)) # 5,318 unique GIs
 len(biogrid_gp.union(costanzo_ctrl_strict_gp).union(
     costanzo_ben_strict_gp))  # 441,520 unique GIs
+costanzo_unique = costanzo_ctrl_strict_gp.union(costanzo_ben_strict_gp)
+all_unique = biogrid_gp.union(costanzo_ctrl_strict_gp).union(costanzo_ben_strict_gp)
+len(costanzo_unique.intersection(all_unique)) # 5,318 unique GIs in Costanzo et al. 2021
 
 ### Figure S11 Experimentally verified GI -------------------------------------#
 sets = {"Costanzo Control": costanzo_ctrl_strict_gp,
