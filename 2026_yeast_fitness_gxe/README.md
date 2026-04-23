@@ -54,6 +54,22 @@ These scripts follow a general naming convention {alg}\_{feature table type}\_{g
 ### Test set isolates
 The test set isolates which were used to evaluate the models are provided in the file `Test.txt`.
 
+### Input feature table example format for training models
+Phenotype matrix (S1_File.xlsx):
+<img width="410" height="136" alt="image" src="https://github.com/user-attachments/assets/4d1a9ef5-8d14-465c-8891-0b262cf52f03" />
+
+SNP matrix (S2_File.csv):
+<img width="482" height="141" alt="image" src="https://github.com/user-attachments/assets/2fa9aa8a-df4d-4e8d-89fc-6593df95f2bc" />
+
+Example .txt file containing a list of features (one feature per line) for subsetting the target features for model training:
+<img width="140" height="185" alt="image" src="https://github.com/user-attachments/assets/d78f9ac0-a227-4525-9449-001f232cbff5" />
+
+Example CVF file (`CVFs_20rep.csv`; cross-validation fold assignments file for running rrBLUP, BL, and BayesC models):
+
+This file was generated using the `07_make_CVs.py` script available at https://github.com/ShiuLab/Manuscript_Code/blob/master/2022_GP_in_Switchgrass/07_make_CVs.py
+<img width="673" height="110" alt="image" src="https://github.com/user-attachments/assets/d365862a-efaf-4bd4-8ee9-859f343a0dab" />
+
+
 ### Model interpretation
 | Script                                | Description                                                                                  |
 | ------------------------------------- | ---------------------------------------------------------------------------------------------|
